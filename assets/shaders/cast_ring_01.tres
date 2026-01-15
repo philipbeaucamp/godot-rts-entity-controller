@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://1q71uciq5t7h"]
+
+[ext_resource type="Shader" uid="uid://qu0hevmpfufs" path="res://core/shaders/ring.gdshader" id="1_otsvv"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_otsvv")
+shader_parameter/ring_color = Color(14.26527, 15.886242, 18.115078, 0.09803922)
+shader_parameter/radius_world = 3.0
+shader_parameter/width_world = 0.04
+shader_parameter/edge_softness = 0.01
+shader_parameter/edge_sharpness = 5.0
+shader_parameter/dotted = true
+shader_parameter/dot_length_deg = 9.37
+shader_parameter/gap_length_deg = 3.985
+shader_parameter/dot_roundness = 16.25
+shader_parameter/dot_sharpness = 0.105
+shader_parameter/rotation_speed_deg = 2.0
+shader_parameter/angle_offset_deg = 0.0

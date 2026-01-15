@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2gxlj25l1xqn"]
+
+[ext_resource type="Script" uid="uid://bej4ppglfam5d" path="res://addons/rts_entity_controller/scripts/SpatialHashArea.gd" id="1_g62b1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4wk1p"]
+resource_local_to_scene = true
+size = Vector3(20, 1, 20)
+
+[node name="SpatialHashArea" type="Area3D"]
+script = ExtResource("1_g62b1")
+auto_update_clients = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4wk1p")

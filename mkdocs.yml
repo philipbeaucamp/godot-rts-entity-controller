@@ -1,0 +1,7 @@
+site_name: Godot RTS Entity Controller Documentation
+nav:
+  - Home: index.md
+  - About: about.md
+theme: 
+  name: readthedocs
+color_mode : dark

@@ -1,0 +1,120 @@
+[gd_scene load_steps=16 format=3 uid="uid://clueh0xugrfl2"]
+
+[ext_resource type="Script" uid="uid://dcpjftre7xhqk" path="res://addons/rts_entity_controller/scripts/core/Controls.gd" id="1_lrepm"]
+[ext_resource type="Script" uid="uid://eybmoayhh3b3" path="res://addons/rts_entity_controller/scripts/selection/Selection.gd" id="2_udbl5"]
+[ext_resource type="Script" uid="uid://ddw8td10ki01v" path="res://addons/rts_entity_controller/scripts/selection/PhysicsSelection.gd" id="3_b201u"]
+[ext_resource type="Script" uid="uid://b18thi34ypfe3" path="res://addons/rts_entity_controller/scripts/movement/Movement.gd" id="4_virvx"]
+[ext_resource type="Script" uid="uid://m8wtjsgb6n4e" path="res://addons/rts_entity_controller/scripts/movement/MovementPaths.gd" id="5_qeqe1"]
+[ext_resource type="Script" uid="uid://cxpbqkefhwpmp" path="res://addons/rts_entity_controller/scripts/AbilityManager.gd" id="6_xbska"]
+[ext_resource type="Script" uid="uid://bitmjoeii7jjt" path="res://addons/rts_entity_controller/scripts/camera/RaycastRig.gd" id="7_kewdb"]
+[ext_resource type="Script" uid="uid://c5hxv73nj7s85" path="res://addons/rts_entity_controller/scripts/camera/RaycastCamera.gd" id="8_tylml"]
+[ext_resource type="Script" uid="uid://dmo11ww5ovjuq" path="res://addons/rts_entity_controller/scripts/debug/DebugBorderDraw.gd" id="12_o4j4x"]
+[ext_resource type="Script" uid="uid://8ta6cq7x6hvo" path="res://addons/rts_entity_controller/scripts/selection/BoxSelection.gd" id="13_mnjke"]
+[ext_resource type="PackedScene" uid="uid://b315hypbe26lm" path="res://addons/rts_entity_controller/ui/gameplay/scenes/UI.tscn" id="14_oaus4"]
+[ext_resource type="Script" uid="uid://bn88vmc8uxhid" path="res://addons/rts_entity_controller/scripts/pool/PoolManager.gd" id="15_cikww"]
+[ext_resource type="Script" uid="uid://cvxm7vcevkc60" path="res://addons/rts_entity_controller/scripts/pool/ObjectPool.gd" id="16_pnrsx"]
+[ext_resource type="PackedScene" uid="uid://bqfgp750nvy3a" path="res://addons/rts_entity_controller/paths/path.tscn" id="17_m1li2"]
+[ext_resource type="PackedScene" uid="uid://utsf55tmd15a" path="res://addons/rts_entity_controller/paths/waypoint.tscn" id="18_to668"]
+
+[node name="RTSController" type="Node3D" node_paths=PackedStringArray("raycast_rig", "camera", "selection", "box_selection", "movement", "pool_manager", "ability_manager", "canvas_layer", "canvas_layer_health_bar_control", "ui", "audio_listener")]
+script = ExtResource("1_lrepm")
+raycast_rig = NodePath("MainRig")
+camera = NodePath("MainRig/MainCamera")
+selection = NodePath("Selection")
+box_selection = NodePath("CanvasLayer/BoxSelection")
+movement = NodePath("Movement")
+pool_manager = NodePath("PoolManager")
+ability_manager = NodePath("AbilityManager")
+canvas_layer = NodePath("CanvasLayer")
+canvas_layer_health_bar_control = NodePath("CanvasLayer/Healthbars")
+ui = NodePath("CanvasLayer/UI")
+audio_listener = NodePath("MainRig/AudioListener3D")
+audio_listener_max_height = 15
+
+[node name="Selection" type="Node3D" parent="." node_paths=PackedStringArray("box_selection", "movement")]
+script = ExtResource("2_udbl5")
+box_selection = NodePath("../CanvasLayer/BoxSelection")
+movement = NodePath("../Movement")
+
+[node name="PhysicsSelection" type="Node3D" parent="Selection" node_paths=PackedStringArray("camera")]
+script = ExtResource("3_b201u")
+camera = NodePath("../../MainRig/MainCamera")
+collision_mask = 32
+
+[node name="Movement" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("4_virvx")
+collision_mask = 1
+camera = NodePath("../MainRig/MainCamera")
+
+[node name="Paths" type="Node3D" parent="Movement" node_paths=PackedStringArray("selection", "pm")]
+script = ExtResource("5_qeqe1")
+selection = NodePath("../../Selection")
+colors = Dictionary[int, Color]({
+1: Color(0.46666667, 0.79607844, 0.9098039, 1),
+2: Color(0.41960785, 0.85882354, 0.41960785, 1),
+3: Color(0.9647059, 0.30980393, 0.36078432, 1),
+4: Color(0.9647059, 0.30980393, 0.36078432, 1)
+})
+pm = NodePath("../../PoolManager")
+
+[node name="AbilityManager" type="Node" parent="." node_paths=PackedStringArray("movement", "selection")]
+script = ExtResource("6_xbska")
+movement = NodePath("../Movement")
+selection = NodePath("../Selection")
+
+[node name="MainRig" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+process_mode = 3
+script = ExtResource("7_kewdb")
+move_speed = 14.0
+edge_threshold = 20
+camera = NodePath("MainCamera")
+
+[node name="MainCamera" type="Camera3D" parent="MainRig"]
+transform = Transform3D(0.70710695, -0.5, 0.50000006, 0, 0.7071069, 0.70710677, -0.70710695, -0.5, 0.50000006, 7, 10, 7)
+cull_mask = 1
+projection = 1
+fov = 40.0
+size = 10.0
+near = 0.01
+far = 200.0
+script = ExtResource("8_tylml")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="MainRig"]
+transform = Transform3D(0.70710677, 1.1920929e-07, 0.7071067, 0, 1, -8.940697e-08, -0.70710677, 1.1920929e-07, 0.7071067, 0, 9.536743e-07, 0)
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BorderDraw" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("12_o4j4x")
+margin = 20
+
+[node name="BoxSelection" type="Node2D" parent="CanvasLayer" node_paths=PackedStringArray("rtsCamera", "selection")]
+script = ExtResource("13_mnjke")
+rtsCamera = NodePath("../../MainRig/MainCamera")
+selection = NodePath("../../Selection")
+
+[node name="Healthbars" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("14_oaus4")]
+unique_name_in_owner = true
+
+[node name="PoolManager" type="Node" parent="."]
+script = ExtResource("15_cikww")
+
+[node name="path" type="Node" parent="PoolManager"]
+script = ExtResource("16_pnrsx")
+prefab = ExtResource("17_m1li2")
+metadata/_custom_type_script = "uid://cvxm7vcevkc60"
+
+[node name="waypoint" type="Node" parent="PoolManager"]
+script = ExtResource("16_pnrsx")
+prefab = ExtResource("18_to668")
+metadata/_custom_type_script = "uid://cvxm7vcevkc60"

@@ -1,0 +1,159 @@
+[gd_scene load_steps=3 format=3 uid="uid://di085764lodbx"]
+
+[ext_resource type="Script" uid="uid://dfc872kbypaws" path="res://addons/rts_entity_controller/entity/scripts/EntityDebug.gd" id="1_dcn7r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r81k6"]
+bg_color = Color(0.427451, 0.4, 0.380392, 0.411765)
+
+[node name="Control" type="Control" node_paths=PackedStringArray("entityLabel", "faction", "mState", "mType", "nextTarget", "seek", "separation", "cohesion", "alignment", "phyVelocity", "aState", "aCooldown", "currentTarget", "assignedTarget", "scan", "weapon", "attack_masks", "health", "armor", "weapon_dmg", "anim_state")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dcn7r")
+entityLabel = NodePath("Panel/VBoxContainer/HBoxContainer/Entity")
+faction = NodePath("Panel/VBoxContainer/HBoxContainer/Faction")
+mState = NodePath("Panel/VBoxContainer/Movable/State")
+mType = NodePath("Panel/VBoxContainer/Movable/Type")
+nextTarget = NodePath("Panel/VBoxContainer/Movable/NextTarget")
+seek = NodePath("Panel/VBoxContainer/Movable/Seek")
+separation = NodePath("Panel/VBoxContainer/Movable/Separation")
+cohesion = NodePath("Panel/VBoxContainer/Movable/Cohesion")
+alignment = NodePath("Panel/VBoxContainer/Movable/Alignment")
+phyVelocity = NodePath("Panel/VBoxContainer/Movable/PhyVelocity")
+aState = NodePath("Panel/VBoxContainer/Attack/State")
+aCooldown = NodePath("Panel/VBoxContainer/Attack/Cooldown")
+currentTarget = NodePath("Panel/VBoxContainer/Attack/CurrentTarget")
+assignedTarget = NodePath("Panel/VBoxContainer/Attack/Assigned")
+scan = NodePath("Panel/VBoxContainer/Attack/Scan")
+weapon = NodePath("Panel/VBoxContainer/Attack/Weapon")
+attack_masks = NodePath("Panel/VBoxContainer/Attack/Masks")
+health = NodePath("Panel/VBoxContainer/Health&Defense/Health")
+armor = NodePath("Panel/VBoxContainer/Health&Defense/Armor")
+weapon_dmg = NodePath("Panel/VBoxContainer/Health&Defense/WeaponDmg")
+anim_state = NodePath("Panel/VBoxContainer/Anim/State")
+box_rect_color = Color(0, 0.976471, 0, 0.501961)
+scan_range_color = Color(0.827451, 0.811765, 0.141176, 0.694118)
+weapon_range_color = Color(1, 0, 0, 0.341176)
+steering_range_color = Color(1, 1, 1, 0.729412)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -250.0
+offset_top = -500.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_r81k6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 374.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Entity" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Stalker"
+
+[node name="Faction" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "(PLAYER)"
+
+[node name="Movable" type="VBoxContainer" parent="Panel/VBoxContainer"]
+modulate = Color(0, 0.948943, 0.949822, 1)
+layout_mode = 2
+
+[node name="State" type="Label" parent="Panel/VBoxContainer/Movable"]
+layout_mode = 2
+text = "Movable: IDLE"
+
+[node name="Type" type="Label" parent="Panel/VBoxContainer/Movable"]
+layout_mode = 2
+text = "Movable: IDLE"
+
+[node name="NextTarget" type="Label" parent="Panel/VBoxContainer/Movable"]
+layout_mode = 2
+text = "Next Target:"
+
+[node name="Seek" type="Label" parent="Panel/VBoxContainer/Movable"]
+visible = false
+layout_mode = 2
+text = "Seek:"
+
+[node name="Separation" type="Label" parent="Panel/VBoxContainer/Movable"]
+visible = false
+layout_mode = 2
+text = "Separation:"
+
+[node name="Cohesion" type="Label" parent="Panel/VBoxContainer/Movable"]
+visible = false
+layout_mode = 2
+text = "Cohesion:"
+
+[node name="Alignment" type="Label" parent="Panel/VBoxContainer/Movable"]
+visible = false
+layout_mode = 2
+text = "Alignment:"
+
+[node name="PhyVelocity" type="Label" parent="Panel/VBoxContainer/Movable"]
+visible = false
+layout_mode = 2
+text = "PhyVelocity:"
+
+[node name="Attack" type="VBoxContainer" parent="Panel/VBoxContainer"]
+modulate = Color(0.999728, 0.141581, 0.122655, 1)
+layout_mode = 2
+
+[node name="State" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "Attack: IDLE"
+
+[node name="Cooldown" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "Cooldown:  0"
+
+[node name="CurrentTarget" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "Current:"
+
+[node name="Assigned" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "Assigned:"
+
+[node name="Scan" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "In Scan:"
+
+[node name="Weapon" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "In Weapon:"
+
+[node name="Masks" type="Label" parent="Panel/VBoxContainer/Attack"]
+layout_mode = 2
+text = "Masks:"
+
+[node name="Anim" type="VBoxContainer" parent="Panel/VBoxContainer"]
+modulate = Color(0.900932, 0.753336, 0.231409, 1)
+layout_mode = 2
+
+[node name="State" type="Label" parent="Panel/VBoxContainer/Anim"]
+layout_mode = 2
+text = "Anim: -"
+
+[node name="Health&Defense" type="VBoxContainer" parent="Panel/VBoxContainer"]
+modulate = Color(0.262751, 1, 0.238381, 1)
+layout_mode = 2
+
+[node name="Health" type="Label" parent="Panel/VBoxContainer/Health&Defense"]
+layout_mode = 2
+text = "Health:"
+
+[node name="Armor" type="Label" parent="Panel/VBoxContainer/Health&Defense"]
+layout_mode = 2
+text = "Armor: "
+
+[node name="WeaponDmg" type="Label" parent="Panel/VBoxContainer/Health&Defense"]
+layout_mode = 2
+text = "Armor: "

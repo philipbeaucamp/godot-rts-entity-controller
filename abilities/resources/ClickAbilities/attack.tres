@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ClickAbilityResource" load_steps=4 format=3 uid="uid://c2gahhmj14fh3"]
+
+[ext_resource type="Texture2D" uid="uid://cu4lprfqyjbcc" path="res://addons/rts_entity_controller/assets/icons/keyboard_a_outline.png" id="1_hcxr6"]
+[ext_resource type="Texture2D" uid="uid://isg04u2clhy1" path="res://addons/rts_entity_controller/assets/icons/keyboard_a.png" id="2_hsmcv"]
+[ext_resource type="Script" uid="uid://bay4xcmux4i5l" path="res://addons/rts_entity_controller/abilities/scripts/ClickAbilityResource.gd" id="3_hcxr6"]
+
+[resource]
+script = ExtResource("3_hcxr6")
+id = &"attack"
+is_common = true
+allow_trigger_multiple = true
+activate_as_group = true
+is_chainable = false
+display_ap = false
+ap_cost = 0
+icon_normal = ExtResource("1_hcxr6")
+icon_hover = ExtResource("1_hcxr6")
+icon_pressed = ExtResource("2_hsmcv")
+description = "Attack (A)"
+metadata/_custom_type_script = "uid://bay4xcmux4i5l"

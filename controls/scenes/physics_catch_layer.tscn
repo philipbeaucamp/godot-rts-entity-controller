@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b308y2ko6ala4"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_brq56"]
+
+[node name="PhysicsCatchLayer" type="StaticBody3D"]
+collision_mask = 0
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("WorldBoundaryShape3D_brq56")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://yrritvh1e4db"]
+
+[ext_resource type="Script" uid="uid://b2p4r13yyfekm" path="res://addons/rts_entity_controller/components/scripts/NavigationObstacleComponent.gd" id="1_go2sb"]
+
+[node name="NavigationObstacleComponent" type="Node3D"]
+script = ExtResource("1_go2sb")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+transform = Transform3D(1.45, 0, 0, 0, 1.45, 0, 0, 0, 1.45, 0, -0.315, 0)
+vertices = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, 0.5, 0, -0.5)
+affect_navigation_mesh = true
+carve_navigation_mesh = true

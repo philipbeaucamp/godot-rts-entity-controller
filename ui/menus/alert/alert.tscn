@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuw4374pi87rg"]
+
+[ext_resource type="Script" uid="uid://bdgsroe6j1827" path="res://ui/menus/alert/Alert.gd" id="1_rwh8c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xi6vk"]
+
+[node name="Alert" type="PanelContainer" node_paths=PackedStringArray("label")]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.805
+offset_left = -105.0
+offset_top = -40.0
+offset_right = 105.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xi6vk")
+script = ExtResource("1_rwh8c")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.18431373, 0.24313726, 1)
+theme_override_font_sizes/font_size = 20
+text = "Not enough minerals!"
+horizontal_alignment = 1
+vertical_alignment = 1

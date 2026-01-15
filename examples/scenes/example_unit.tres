@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=2 format=3 uid="uid://cmv4ds38sj2rr"]
+
+[ext_resource type="Script" uid="uid://bifpcfuxjcw6y" path="res://addons/rts_entity_controller/entity/scripts/EntityResource.gd" id="1_lv0k2"]
+
+[resource]
+script = ExtResource("1_lv0k2")
+metadata/_custom_type_script = "uid://bifpcfuxjcw6y"

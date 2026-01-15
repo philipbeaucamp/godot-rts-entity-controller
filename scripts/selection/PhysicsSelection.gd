@@ -1,0 +1,40 @@
+extends Node3D
+
+class_name PhysicsSelection
+
+@export var camera: RaycastCamera
+@export var collision_mask: int
+
+var previous_pickable : PickablePhysics
+@onready var ui : UI = %UI
+
+func clear_previous_pickable():
+	if previous_pickable != null:
+		previous_pickable.on_raycast_exited()
+	previous_pickable = null
+
+func _physics_process(_delta):
+	if !Controls.is_enabled:
+		return
+	if !ui.blocks.is_empty():
+		if previous_pickable:
+			clear_previous_pickable()
+		return
+	var result = camera.get_mouse_position_raycast(collision_mask)
+	if result:
+		if result.collider is not ComponentStaticBody:
+			return
+		var pickable : PickablePhysics = result.collider.component
+		if pickable != null &&  pickable.component_is_active:
+			if pickable != previous_pickable:
+				if previous_pickable != null:
+					previous_pickable.on_raycast_exited()
+				previous_pickable = pickable
+				previous_pickable.on_raycast_entered()
+	else:
+		if previous_pickable != null:
+			previous_pickable.on_raycast_exited()
+			previous_pickable = null
+	
+	
+			

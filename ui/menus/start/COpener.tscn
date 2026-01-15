@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6180g2v8u362"]
+
+[ext_resource type="Script" uid="uid://bx2ovcuvrel8t" path="res://ui/menus/start/COpener.gd" id="1_wctsj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wctsj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wctsj"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0.3)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.32192, 0.86324, 0.465954, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxbuw"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0.3)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
+[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("title_label", "supply_label", "unit_label", "rp_label", "rp_rate_label", "button")]
+custom_minimum_size = Vector2(250, 300)
+tooltip_text = "Tooltip Test"
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wctsj")
+script = ExtResource("1_wctsj")
+title_label = NodePath("MarginContainer/VBoxContainer/Title")
+supply_label = NodePath("MarginContainer/VBoxContainer/Supply")
+unit_label = NodePath("MarginContainer/VBoxContainer/Units")
+rp_label = NodePath("MarginContainer/VBoxContainer/RP")
+rp_rate_label = NodePath("MarginContainer/VBoxContainer/Rp Rate")
+button = NodePath("Button")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Balance"
+horizontal_alignment = 1
+
+[node name="Supply" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Supply: 4/8"
+
+[node name="Units" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Units:
+Rusher"
+
+[node name="RP" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "RP"
+
+[node name="Rp Rate" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "RP Rate"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_wctsj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_mxbuw")

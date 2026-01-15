@@ -1,0 +1,92 @@
+class_name Weapon extends Component
+
+@export var attack: AttackBehaviour
+@export var is_melee: bool = false #in the future this could become a getter if multiple attack variants exist?
+@export var damage_dealers: Array[DamageDealer] = []
+
+
+## Duration timed from attack anim start, but only actually cooling down after weapon.use() has been called
+@export_group("Times")
+@export var cooldown_duration: float = 0.5
+# @export var attack_anim_duration: float #only hardcoded for now todo use tool script
+@export var attack_immobilize_duration : float = 0
+
+@export_group("Areas")
+@export var weapon_area: Area3D #used to be on attackbehaviour
+@export var scan_area: Area3D #used to be on attackbehaviour
+
+var scan_range: float #radius of scan_area
+var weapon_range: float #radius of weapon_area
+
+var modifiers : Array[WeaponModification] = []
+var last_weapon_target: Defense
+
+func set_component_active():
+	super.set_component_active()
+	var areas = [weapon_area,scan_area]
+	for area in areas:
+		area.set_deferred("monitoring", true)
+		# area.set_deferred("monitorable", true)
+
+func set_component_inactive():
+	super.set_component_inactive()
+	var areas = [weapon_area,scan_area]
+	for area in areas:
+		area.set_deferred("monitoring", false)
+		# area.set_deferred("monitorable", false)
+
+func fetch_entity() -> Entity:
+	return attack.fetch_entity()
+	
+func _ready():
+	super._ready()
+	var scan_shape = scan_area.get_child(0) as CollisionShape3D
+	scan_range = scan_shape.shape.radius
+	var weapon_shape = weapon_area.get_child(0) as CollisionShape3D
+	weapon_range = weapon_shape.shape.radius
+	
+	for dealer in damage_dealers:
+		if dealer.publisher == null:
+			dealer.publisher = entity
+			push_warning("Publisher was not set on Weapon")
+
+	#Set layers and masks based on faction
+	var areas = [weapon_area,scan_area]
+	if entity.faction == Entity.Faction.PLAYER:
+		for area in areas:
+			area.set_collision_layer_value(Controls.settings.collision_layer_player_attack,true) 
+			area.set_collision_mask_value(Controls.settings.collision_layer_enemy_defense,true) 
+	else:
+		for area in areas:
+			area.set_collision_layer_value(Controls.settings.collision_layer_enemy_attack,true) 
+			area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,true) 
+
+func allow_allies_to_be_targeted(activate: bool):
+	if entity.faction == Entity.Faction.PLAYER:
+		scan_area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,activate)
+		weapon_area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,activate) 
+	else:
+		scan_area.set_collision_mask_value(Controls.settings.collision_layer_enemy_defense,activate)
+		weapon_area.set_collision_mask_value(Controls.settings.collision_layer_enemy_defense,activate) 
+
+func make_active():
+	attack.set_active_weapon(self)
+
+func use():
+	if !component_is_active:
+		push_warning("Looks like this still gets triggered from dying units, which is not ideal")
+		return
+	# if !attack.weapon_target:
+	if !last_weapon_target:
+		printerr("Why is target null inWWepaon?")
+		return
+	for modifier in modifiers:
+		modifier.use(self)
+	attack.start_cooldown_timer(cooldown_duration)
+
+func add_weapon_modification(item: WeaponModification):
+	modifiers.append(item)
+
+func increase_damage_by_percent(percent: float):
+	for dmg in damage_dealers:
+		dmg.damage = dmg.damage * (1 + percent)

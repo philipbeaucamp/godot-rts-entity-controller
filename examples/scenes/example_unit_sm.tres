@@ -1,0 +1,27 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=6 format=3 uid="uid://cjmbpxskhn0xa"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fs07p"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6j86q"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8ajug"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a3hch"]
+advance_mode = 2
+advance_expression = "si[\"attack_state\"] == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ftrxj"]
+advance_mode = 2
+advance_expression = "si[\"attack_state\"] != 1"
+
+[resource]
+states/Start/position = Vector2(221.33333, 113.99999)
+states/attack/node = SubResource("AnimationNodeAnimation_fs07p")
+states/attack/position = Vector2(670, 126)
+states/idle/node = SubResource("AnimationNodeAnimation_6j86q")
+states/idle/position = Vector2(407.33334, 115.33333)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8ajug"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_a3hch"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ftrxj")]
+graph_offset = Vector2(-23, -27)

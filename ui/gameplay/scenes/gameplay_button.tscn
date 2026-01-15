@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvuj5mv3kl3fk"]
+
+[ext_resource type="Texture2D" uid="uid://dtqfetp7cqon8" path="res://assets/kenny/kenney_game-icons/PNG/White/1x/forward.png" id="1_hsssm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe37x"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 1
+
+[node name="GameplayButton" type="PanelContainer"]
+custom_minimum_size = Vector2(70, 70)
+offset_right = 70.0
+offset_bottom = 70.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qe37x")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_hsssm")

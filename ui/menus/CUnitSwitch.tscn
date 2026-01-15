@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmr0fxct4eu5m"]
+
+[ext_resource type="Script" uid="uid://brvpj7p7lns2" path="res://ui/menus/CUnitSwitch.gd" id="1_mh8nh"]
+
+[node name="CUnitSwitch" type="Control" node_paths=PackedStringArray("player_container", "other_container")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_mh8nh")
+player_container = NodePath("HBoxContainer/PanelContainer/VBoxContainer")
+other_container = NodePath("HBoxContainer/PanelContainer2/VBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 4.0
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Available Supply: X"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Required  Supply: X"
+horizontal_alignment = 1

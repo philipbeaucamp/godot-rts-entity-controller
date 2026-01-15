@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkrmqj004btav"]
+
+[ext_resource type="Material" uid="uid://1q71uciq5t7h" path="res://core/shaders/cast_ring_01.tres" id="1_ikyp6"]
+[ext_resource type="Script" uid="uid://cbkblk0i5xakq" path="res://core/shaders/RadiusRing.gd" id="2_213rm"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_vhail"]
+size = Vector2(20, 20)
+
+[node name="CastRing" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+material_override = ExtResource("1_ikyp6")
+mesh = SubResource("QuadMesh_vhail")
+script = ExtResource("2_213rm")

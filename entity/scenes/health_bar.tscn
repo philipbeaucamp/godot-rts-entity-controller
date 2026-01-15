@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1aul3fme2qpc"]
+
+[ext_resource type="Shader" uid="uid://ctqlfb6niqwwd" path="res://addons/rts_entity_controller/assets/shaders/health_bar.gdshader" id="1_31w4v"]
+[ext_resource type="Script" uid="uid://v24reh3ome0j" path="res://addons/rts_entity_controller/ui/gameplay/scripts/HealthBar.gd" id="1_b05m6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7iits"]
+resource_local_to_scene = true
+shader = ExtResource("1_31w4v")
+shader_parameter/health = 0.695
+shader_parameter/border_width_y = 0.15
+shader_parameter/border_width_x = 0.02
+shader_parameter/back_ground_color = Color(0.321728, 0.321728, 0.321728, 1)
+shader_parameter/border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_oo54l"]
+size = Vector2(120, 22)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_b05m6")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+material = SubResource("ShaderMaterial_7iits")
+mesh = SubResource("QuadMesh_oo54l")

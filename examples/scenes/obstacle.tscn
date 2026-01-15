@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtt361fqc7l83"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rpkdi"]
+
+[node name="Obstacle" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rpkdi")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+transform = Transform3D(1.45, 0, 0, 0, 1.45, 0, 0, 0, 1.45, 0, -0.75, 0)
+vertices = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, 0.5, 0, -0.5)
+affect_navigation_mesh = true
+carve_navigation_mesh = true

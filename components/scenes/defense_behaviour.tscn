@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqimhgni25vtk"]
+
+[ext_resource type="Script" uid="uid://j0yy0o0joqt0" path="res://addons/rts_entity_controller/components/scripts/Defense.gd" id="1_hmyqk"]
+
+[node name="DefenseBehaviour" type="Node"]
+script = ExtResource("1_hmyqk")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="VFXCenter" type="Node3D" parent="."]

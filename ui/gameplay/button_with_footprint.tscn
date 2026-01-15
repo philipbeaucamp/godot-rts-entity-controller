@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://j1fkfj4lijws"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06urt"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -139.0
+offset_top = 92.0
+offset_right = 139.0
+offset_bottom = 177.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_06urt")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Next Turn"
+
+[node name="FootprintLabel" type="Label" parent="Button"]
+layout_mode = 0
+offset_top = 61.0
+offset_right = 72.0
+offset_bottom = 84.0
+text = "[Space]"

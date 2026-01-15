@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cditepxxaud1s"]
+
+[ext_resource type="Script" uid="uid://cqplkp3v3xxwm" path="res://addons/rts_entity_controller/components/scripts/Stunnable.gd" id="1_ys4td"]
+[ext_resource type="Texture2D" uid="uid://bdruuibwo3nvy" path="res://addons/rts_entity_controller/components/assets/stoned-skull.png" id="2_63cow"]
+
+[node name="Stunnable" type="Node3D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_ys4td")
+sprite = NodePath("Sprite3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.174609, 0, 0, 0, 0.174609, 0, 0, 0, 0.174609, 0, 0, 0)
+modulate = Color(0.953336, 0.914181, 0, 1)
+billboard = 2
+double_sided = false
+texture = ExtResource("2_63cow")

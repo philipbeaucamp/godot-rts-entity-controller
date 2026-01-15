@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AbilityResource" load_steps=2 format=3 uid="uid://bo3522cdawfsf"]
+
+[ext_resource type="Script" uid="uid://nrte0np3cco0" path="res://addons/rts_entity_controller/abilities/scripts/AbilityResource.gd" id="1_6ltol"]
+
+[resource]
+script = ExtResource("1_6ltol")
+id = &"move"
+is_common = true
+allow_trigger_multiple = true
+activate_as_group = true
+is_chainable = false
+display = false
+display_ap = false
+ap_cost = 0
+description = "Move"
+metadata/_custom_type_script = "uid://nrte0np3cco0"

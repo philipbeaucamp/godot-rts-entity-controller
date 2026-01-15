@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AbilityResource" load_steps=4 format=3 uid="uid://cudlv0gnv2lh6"]
+
+[ext_resource type="Texture2D" uid="uid://7sa8r3cd0emx" path="res://addons/rts_entity_controller/assets/icons/keyboard_s_outline.png" id="1_4wdqb"]
+[ext_resource type="Texture2D" uid="uid://ymftmdcr57nq" path="res://addons/rts_entity_controller/assets/icons/keyboard_s.png" id="2_h5gad"]
+[ext_resource type="Script" uid="uid://nrte0np3cco0" path="res://addons/rts_entity_controller/abilities/scripts/AbilityResource.gd" id="3_05hmu"]
+
+[resource]
+script = ExtResource("3_05hmu")
+id = &"stop"
+is_common = true
+allow_trigger_multiple = true
+display_ap = false
+ap_cost = 0
+icon_normal = ExtResource("1_4wdqb")
+icon_hover = ExtResource("1_4wdqb")
+icon_pressed = ExtResource("2_h5gad")
+description = "Stop (S)"
+metadata/_custom_type_script = "uid://nrte0np3cco0"

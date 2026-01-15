@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx3i2u4w8w4ww"]
+
+[ext_resource type="Script" uid="uid://wg22evt68r30" path="res://entities/components/abilities/scripts/AbilityContainer.gd" id="1_kb308"]
+
+[node name="CAbilityContainer" type="HBoxContainer"]
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+mouse_filter = 2
+script = ExtResource("1_kb308")
