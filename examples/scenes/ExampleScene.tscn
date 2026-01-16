@@ -60,7 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7971425, 0)
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.10435696, 0, 0.10435696)
 
 [node name="CamerStartPosition" parent="CameraBoundaryAndPosition" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3941584, 0, 2.1425247)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14627242, 0, 2.5363145)
 
 [node name="ExampleUnit" parent="." instance=ExtResource("1_5vlr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)

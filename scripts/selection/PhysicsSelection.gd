@@ -2,7 +2,7 @@ extends Node3D
 
 class_name PhysicsSelection
 
-@export var camera: RaycastCamera
+@export var camera: RTS_RaycastCamera
 @export var collision_mask: int
 
 var previous_pickable : PickablePhysics

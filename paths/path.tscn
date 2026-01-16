@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ckusqwr6unxlu" path="res://addons/rts_entity_controller/scripts/movement/Path.gd" id="1_7x0ki"]
 [ext_resource type="Shader" uid="uid://b2wun8x5jlb5t" path="res://addons/rts_entity_controller/assets/shaders/scrolling_01.gdshader" id="1_bwa3k"]
-[ext_resource type="Texture2D" uid="uid://br1ruf46qbhy4" path="res://addons/rts_entity_controller/assets/gimp/path.png" id="2_p7nnb"]
+[ext_resource type="Texture2D" uid="uid://br1ruf46qbhy4" path="res://addons/rts_entity_controller/assets/icons/path.png" id="2_p7nnb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d4d2x"]
 resource_local_to_scene = true

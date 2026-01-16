@@ -1,7 +1,7 @@
 class_name Squad extends Node
 
-var entities: Array[Entity]
-var waiting_init: Array[Entity]
+var entities: Array[RTS_Entity]
+var waiting_init: Array[RTS_Entity]
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 
@@ -9,11 +9,11 @@ var init_behaviour: Behaviour
 var last_tree_exit_entity_position: Vector3
 
 enum Behaviour {
-	AGGRESSIVE,
-	DEFENSIVE
+	AGGRESSIVE, #Will automatically seek and attack enemies based on main grid
+	DEFENSIVE #Will only attack if attacked or given player orders
 }
 
-func _init(_init_entities: Array[Entity], _init_state: Behaviour):
+func _init(_init_entities: Array[RTS_Entity], _init_state: Behaviour):
 	init_behaviour = _init_state
 	for e in _init_entities:
 		if !e.is_ready:
@@ -28,9 +28,8 @@ func _init(_init_entities: Array[Entity], _init_state: Behaviour):
 
 	if !is_waiting:
 		ready_squad()
-	
 
-func on_entity_ready(entity: Entity):
+func on_entity_ready(entity: RTS_Entity):
 	if waiting_init.has(entity):
 		waiting_init.erase(entity)
 		add_to_squad(entity)
@@ -45,16 +44,15 @@ func ready_squad():
 	state_machine.set_initial_state(init_behaviour)
 	RTSEventBus.squad_is_ready.emit(self)
 
-func add_to_squad(entity: Entity):
+func add_to_squad(entity: RTS_Entity):
 	entities.append(entity)
 	if entity.attack != null:
 		entity.attack.target_became_not_null.connect(on_target_became_not_null)
 	if entity.ai != null:
 		entity.ai.set_squad(self)
 	entity.before_tree_exit.connect(on_before_tree_exit)
-	#RTSEventBus.entity_exiting_tree.connect(entity_exiting_tree)
 
-func remove_from_squad(entity: Entity):
+func remove_from_squad(entity: RTS_Entity):
 	entities.erase(entity)
 	if entity.ai != null:
 		entity.ai.remove_squad(self)
@@ -63,7 +61,6 @@ func remove_from_squad(entity: Entity):
 	if entities.is_empty():
 		RTSEventBus.squad_became_empty.emit(self)
 		self.queue_free()
-		# print("Squad is empty. Removing..")
 
 func free_all_entities():
 	for e in entities:
@@ -91,36 +88,32 @@ func state_engaging():
 			if d < closest_distance:
 				closest_cluster = c
 				closest_distance = d
-		#only attack move if we're not already close
-		
-		#if closest_distance > idling[0].entity.attack.active_weapon.scan_range:
 		set_context_and_attack(idling,closest_cluster,null)
 
 func state_defending():
-	pass
+	pass 
 
-func on_before_tree_exit(entity: Entity):
+func on_before_tree_exit(entity: RTS_Entity):
 	last_tree_exit_entity_position = entity.global_position
 	remove_from_squad(entity)
 
-func has_attack_target(entity: Entity) -> bool:
+func has_attack_target(entity: RTS_Entity) -> bool:
 	return entity.attack.current_target != null || entity.attack.player_assigned_target != null
 
-func on_target_became_not_null(_attack: AttackBehaviour, new_target: Defense):
+func on_target_became_not_null(_attack: RTS_AttackComponent, new_target: RTS_Defense):
 	var idling : Array[Ability] = []
 	for e in entities:
-		assert(e != null,"Squad Entity should not be null")
+		assert(e != null,"Squad RTS_Entity should not be null")
 		if e.ai != null && e.ai.can_engage():
 			idling.append(e.abilities["attack"])
 
-			
 	if !idling.is_empty():
-		#perhaps not force setting player assigned target to new_target.entity is better for ai handling
+		#Not force setting player assigned target to new_target.entity is better for ai handling
 		#if we do set it events such as threat_changed will update current_target,
 		#but not player_assigned target and we run into issues for enemies.
 		set_context_and_attack(idling,new_target.entity.global_position, null) 
 
-func set_context_and_attack(abilities: Array[Ability], target: Vector3, source: Entity):
+func set_context_and_attack(abilities: Array[Ability], target: Vector3, source: RTS_Entity):
 	print("Squad making attack move!")
 	var context : Dictionary = {
 		"click_target": target,

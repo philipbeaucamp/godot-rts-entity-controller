@@ -2,8 +2,8 @@ extends Component
 class_name PickablePhysics
 
 var raycast_in_body = false
-var selection : Selection
-@export var selectable: Selectable
+var selection : RTS_Selection
+@export var selectable: RTS_Selectable
 @export var static_body: StaticBody3D
 
 signal hovered(pickable: PickablePhysics)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://clueh0xugrfl2"]
+[gd_scene load_steps=19 format=3 uid="uid://clueh0xugrfl2"]
 
 [ext_resource type="Script" uid="uid://dcpjftre7xhqk" path="res://addons/rts_entity_controller/autoloads/scripts/Controller.gd" id="1_y8ybi"]
 [ext_resource type="Resource" uid="uid://bc0ov5h83k1a4" path="res://addons/rts_entity_controller/rts_settings.tres" id="2_50f00"]
@@ -16,11 +16,10 @@
 [ext_resource type="Script" uid="uid://cvxm7vcevkc60" path="res://addons/rts_entity_controller/scripts/pool/ObjectPool.gd" id="14_574yu"]
 [ext_resource type="PackedScene" uid="uid://bqfgp750nvy3a" path="res://addons/rts_entity_controller/paths/path.tscn" id="15_3c1nw"]
 [ext_resource type="PackedScene" uid="uid://utsf55tmd15a" path="res://addons/rts_entity_controller/paths/waypoint.tscn" id="16_vk50d"]
-[ext_resource type="Script" uid="uid://cqs207eft7t1i" path="res://addons/rts_entity_controller/entity/scripts/ai/TacticalAI.gd" id="17_afn6k"]
 [ext_resource type="Script" uid="uid://enuqdnlnm7t2" path="res://addons/rts_entity_controller/scripts/util/GeometryUtils.gd" id="18_4wg1y"]
 [ext_resource type="Script" uid="uid://du0efgbiswy6v" path="res://addons/rts_entity_controller/scripts/TimeUtil.gd" id="19_50f00"]
 
-[node name="RTSController" type="Node3D" node_paths=PackedStringArray("raycast_rig", "camera", "selection", "box_selection", "movement", "pool_manager", "ability_manager", "canvas_layer", "canvas_layer_health_bar_control", "ui", "audio_listener", "geometry_utils", "time_utility")]
+[node name="RTSController" type="Node3D" node_paths=PackedStringArray("raycast_rig", "camera", "selection", "box_selection", "movement", "pool_manager", "ability_manager", "canvas_layer", "canvas_layer_health_bar_control", "ui", "geometry_utils", "time_utility")]
 script = ExtResource("1_y8ybi")
 settings = ExtResource("2_50f00")
 raycast_rig = NodePath("MainRig")
@@ -33,8 +32,6 @@ ability_manager = NodePath("AbilityManager")
 canvas_layer = NodePath("CanvasLayer")
 canvas_layer_health_bar_control = NodePath("CanvasLayer/Healthbars")
 ui = NodePath("CanvasLayer/UI")
-audio_listener = NodePath("MainRig/AudioListener3D")
-audio_listener_max_height = 15
 geometry_utils = NodePath("Utility/Geometry")
 time_utility = NodePath("Utility/Time")
 
@@ -125,9 +122,6 @@ metadata/_custom_type_script = "uid://cvxm7vcevkc60"
 script = ExtResource("14_574yu")
 prefab = ExtResource("16_vk50d")
 metadata/_custom_type_script = "uid://cvxm7vcevkc60"
-
-[node name="AI" type="Node" parent="."]
-script = ExtResource("17_afn6k")
 
 [node name="Utility" type="Node" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cpyrlx8ci2v42"]
+[gd_scene load_steps=46 format=3 uid="uid://cpyrlx8ci2v42"]
 
 [ext_resource type="Script" uid="uid://durvbu6bay27r" path="res://addons/rts_entity_controller/scripts/Entity.gd" id="1_s4dnt"]
 [ext_resource type="Script" uid="uid://bj76leq863ep1" path="res://addons/rts_entity_controller/components/scripts/ComponentArea.gd" id="2_8goqi"]
@@ -9,25 +9,24 @@
 [ext_resource type="Script" uid="uid://b0rocwpysaqei" path="res://addons/rts_entity_controller/components/scripts/ComponentStaticBody.gd" id="4_42vdd"]
 [ext_resource type="PackedScene" uid="uid://capyeh88m207c" path="res://addons/rts_entity_controller/examples/scenes/vfx_gun_fire_01.tscn" id="8_5spvw"]
 [ext_resource type="Shader" uid="uid://cuh24sqqeu7aa" path="res://addons/rts_entity_controller/entity/assets/selection_cone_vshader.tres" id="10_1vllx"]
-[ext_resource type="ArrayMesh" uid="uid://b1ljhq2qvt17" path="res://addons/rts_entity_controller/assets/blender/unit_selection_cone.obj" id="11_kuvgq"]
+[ext_resource type="ArrayMesh" uid="uid://b1ljhq2qvt17" path="res://addons/rts_entity_controller/assets/meshes/unit_selection_cone.obj" id="11_kuvgq"]
 [ext_resource type="Shader" uid="uid://0odapityobaa" path="res://addons/rts_entity_controller/entity/assets/hover_rotation_shader.gdshader" id="12_dcs36"]
-[ext_resource type="Script" uid="uid://bc7mti26reh8r" path="res://addons/rts_entity_controller/components/scripts/AttackBehaviour.gd" id="12_hrewv"]
+[ext_resource type="Script" uid="uid://bc7mti26reh8r" path="res://addons/rts_entity_controller/components/scripts/AttackComponent.gd" id="12_hrewv"]
 [ext_resource type="PackedScene" uid="uid://7tbxyu3motsj" path="res://addons/rts_entity_controller/components/weapons/scenes/instant_damage_weapon.tscn" id="13_1nppr"]
-[ext_resource type="Texture2D" uid="uid://dy05g3u37828l" path="res://addons/rts_entity_controller/assets/gimp/selection_hover_short.png" id="13_wvkga"]
-[ext_resource type="Script" uid="uid://bkfgfsrbymqyo" path="res://addons/rts_entity_controller/entity/scripts/ai/AiComponent.gd" id="14_mtxfr"]
+[ext_resource type="Texture2D" uid="uid://dy05g3u37828l" path="res://addons/rts_entity_controller/assets/icons/selection_hover_short.png" id="13_wvkga"]
 [ext_resource type="Script" uid="uid://dngihb8stddw4" path="res://addons/rts_entity_controller/components/weapons/scripts/DamageDealer.gd" id="14_ut82w"]
 [ext_resource type="Script" uid="uid://ch5rpk3jj124l" path="res://addons/rts_entity_controller/components/scripts/DefaultAttackVariant.gd" id="15_42vdd"]
 [ext_resource type="Script" uid="uid://byslv15175k1n" path="res://addons/rts_entity_controller/components/scripts/Selectable.gd" id="15_qun33"]
 [ext_resource type="Script" uid="uid://5wom5o3rrufj" path="res://addons/rts_entity_controller/components/scripts/PickablePhysics.gd" id="16_of5sa"]
 [ext_resource type="Script" uid="uid://cpvy2dvm2ae5m" path="res://addons/rts_entity_controller/components/scripts/Boxable.gd" id="17_3w2ja"]
 [ext_resource type="Script" uid="uid://blguigg6ixn7h" path="res://addons/rts_entity_controller/components/scripts/Movable.gd" id="18_p8tjt"]
-[ext_resource type="PackedScene" uid="uid://b3sdib31lf077" path="res://addons/rts_entity_controller/abilities/scenes/AttackMoveAbility.tscn" id="22_1nppr"]
+[ext_resource type="PackedScene" uid="uid://b3sdib31lf077" path="res://addons/rts_entity_controller/abilities/scenes/ability_attack_move.tscn" id="22_1nppr"]
 [ext_resource type="Script" uid="uid://j0yy0o0joqt0" path="res://addons/rts_entity_controller/components/scripts/Defense.gd" id="23_lrmm7"]
-[ext_resource type="PackedScene" uid="uid://c77lv5twlj7jj" path="res://addons/rts_entity_controller/components/scenes/health_behaviour.tscn" id="24_kbpj3"]
-[ext_resource type="PackedScene" uid="uid://cxt0k1g0s32gb" path="res://addons/rts_entity_controller/abilities/scenes/PatrolAbility.tscn" id="25_rfinu"]
-[ext_resource type="PackedScene" uid="uid://cpn6048wr4bwe" path="res://addons/rts_entity_controller/abilities/scenes/MoveAbility.tscn" id="26_2whut"]
-[ext_resource type="PackedScene" uid="uid://r28b2m5njppl" path="res://addons/rts_entity_controller/abilities/scenes/stop_ability.tscn" id="27_dknti"]
-[ext_resource type="PackedScene" uid="uid://bg1ojflmo0kbr" path="res://addons/rts_entity_controller/abilities/scenes/hold_ability.tscn" id="28_0fjjt"]
+[ext_resource type="PackedScene" uid="uid://c77lv5twlj7jj" path="res://addons/rts_entity_controller/components/scenes/component_health.tscn" id="24_kbpj3"]
+[ext_resource type="PackedScene" uid="uid://cxt0k1g0s32gb" path="res://addons/rts_entity_controller/abilities/scenes/ability_patrol.tscn" id="25_rfinu"]
+[ext_resource type="PackedScene" uid="uid://cpn6048wr4bwe" path="res://addons/rts_entity_controller/abilities/scenes/ability_move.tscn" id="26_2whut"]
+[ext_resource type="PackedScene" uid="uid://r28b2m5njppl" path="res://addons/rts_entity_controller/abilities/scenes/ability_stop.tscn" id="27_dknti"]
+[ext_resource type="PackedScene" uid="uid://bg1ojflmo0kbr" path="res://addons/rts_entity_controller/abilities/scenes/ability_hold.tscn" id="28_0fjjt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8e8iq"]
 radius = 0.25
@@ -200,7 +199,7 @@ shader_parameter/speed = 0.2
 
 [sub_resource type="QuadMesh" id="QuadMesh_af7nn"]
 
-[node name="ExampleUnit" type="CharacterBody3D" node_paths=PackedStringArray("selectable", "movable", "defense", "attack", "health", "anim_tree", "visible_on_screen", "visuals", "ai", "entity_collider") groups=["entity", "snap"]]
+[node name="ExampleUnit" type="CharacterBody3D" node_paths=PackedStringArray("selectable", "movable", "defense", "attack", "health", "anim_tree", "visible_on_screen", "visuals", "entity_collider") groups=["entity", "snap"]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_s4dnt")
@@ -213,7 +212,6 @@ health = NodePath("Health")
 anim_tree = NodePath("AnimationTreeComponent")
 visible_on_screen = NodePath("VisibleOnScreenNotifier3D")
 visuals = NodePath("Pivot")
-ai = NodePath("AiComponent")
 entity_collider = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -387,7 +385,7 @@ script = ExtResource("23_lrmm7")
 area = NodePath("../Areas/Defense")
 
 [node name="Health" parent="." instance=ExtResource("24_kbpj3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1915491, 0)
 
 [node name="PatrolAbility" parent="." instance=ExtResource("25_rfinu")]
 
@@ -398,10 +396,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 [node name="HoldAbility" parent="." instance=ExtResource("28_0fjjt")]
 
 [node name="AttackMoveAbility" parent="." instance=ExtResource("22_1nppr")]
-
-[node name="AiComponent" type="Node" parent="."]
-script = ExtResource("14_mtxfr")
-metadata/_custom_type_script = "uid://bkfgfsrbymqyo"
 
 [editable path="Attack/InstantDamageWeapon"]
 [editable path="Health"]

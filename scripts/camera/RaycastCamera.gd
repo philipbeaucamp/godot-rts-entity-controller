@@ -1,7 +1,4 @@
-extends Camera3D
-
-#this camera does not render anything, only used for selection/projection etc
-class_name RaycastCamera
+class_name RTS_RaycastCamera extends Camera3D
 
 @export var default_position: Vector3 = Vector3(7.0,10.0,7.0)
 @export var default_rotation_in_degrees: Vector3 = Vector3(-45.0,45,0)

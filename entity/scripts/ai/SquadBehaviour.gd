@@ -4,51 +4,37 @@ class_name SquadBehaviour
 
 @export var init_behaviour : Squad.Behaviour = Squad.Behaviour.DEFENSIVE
 @export var init_move_target: Node3D
-@export var init_move_type: Movable.Type = Movable.Type.MOVE
-@export var init_move_timing: TIMING
+@export var init_move_type: RTS_Movable.Type = RTS_Movable.Type.MOVE
 @export var hold_on_init: bool = false
 
 var squad : Squad
 
-enum TIMING{
-	READY,
-	SCENARIO_START
-}
-
 func _ready():
 	var children = get_children()
-	var entities : Array[Entity] = []
+	var entities : Array[RTS_Entity] = []
 	for child in children:
-		if child is Entity:
+		if child is RTS_Entity:
 			entities.append(child)
 	if !entities.is_empty():
 		squad = Squad.new(entities,init_behaviour)
 		add_child(squad)
 	
-
 	if init_move_target:
-		if init_move_timing == TIMING.READY:
-			await get_tree().create_timer(1).timeout #todo...
-			call_deferred("move",init_move_target,entities)
-		elif init_move_timing == TIMING.SCENARIO_START:
-			NimbleEvents.subscribe("scenario_started",self,"on_scenario_started")
+		await get_tree().create_timer(1).timeout #todo...
+		call_deferred("move",init_move_target,entities)
 			
 	if hold_on_init:
 		for e in entities:
 			if e.abilities.has("hold"):
 				e.abilities["hold"].activate()
 
-func on_scenario_started(_event: Event):
-	await get_tree().create_timer(1).timeout
-	move(init_move_target,squad.entities)
-
-func move(target: Node3D,entities: Array[Entity]):
+func move(target: Node3D,entities: Array[RTS_Entity]):
 	var moving_abilities: Array[Ability] = []
 	var moving_id = ""
-	var source_target = target if target is Entity else null
+	var source_target = target if target is RTS_Entity else null
 	match init_move_type:
-		Movable.Type.MOVE:
-			var movables: Array[Movable] = []
+		RTS_Movable.Type.MOVE:
+			var movables: Array[RTS_Movable] = []
 			for e in entities:
 				if e.movable:
 					movables.append(e.movable)
@@ -57,12 +43,12 @@ func move(target: Node3D,entities: Array[Entity]):
 				source_target,
 				movables,
 				false,
-				Movable.Type.MOVE
+				RTS_Movable.Type.MOVE
 			)
 			return
-		Movable.Type.PATROL:
+		RTS_Movable.Type.PATROL:
 			moving_id = "patrol"
-		Movable.Type.ATTACK, Movable.Type.MOVEATTACK:
+		RTS_Movable.Type.ATTACK, RTS_Movable.Type.MOVEATTACK:
 			moving_id = "attack"
 
 	if target:

@@ -1,29 +1,36 @@
-extends Node3D
+class_name RTS_RaycastRig extends Node3D
 
-class_name RaycastRig
+#Handles movement of Camera, such as scrolling, panning etc
 
 @export var move_speed := 10.0
-@export var edge_threshold := 10 #could improve this by using a % of current window size
+@export var edge_threshold := 10 #could improve this by using a % of current window size, for now px
+@export var min_size : float = 7
+@export var max_size : float = 19
+@export var zoom_factor : float = 0.2
 @export var lock_mouse := true
 
 var screen_size = Vector2i.ZERO
 var boundaries : Array[Area3D] = []
-@export var camera : RaycastCamera
-@export var tilt_shift: MeshInstance3D
+@export var camera : RTS_RaycastCamera
+
+@export_group("Audio")
+@export var audio_listener: AudioListener3D
+@export var audio_listener_max_height = 10
 
 var tilt_shift_material: ShaderMaterial
 var tween: Tween
+var cam_size : float
 
 func _enter_tree():
 	RTSEventBus.set_camera_boundary.connect(on_set_camera_boundary)
 	RTSEventBus.set_camera_start_position.connect(on_camera_start_position)
 
 func _ready():
+	cam_size = camera.size
+	update_audio_listener_height()
 	var viewport = camera.get_viewport()
 	screen_size = viewport.get_visible_rect().size
 	set_mouse_confined(lock_mouse)
-	if tilt_shift:
-		tilt_shift_material = tilt_shift.mesh.surface_get_material(0)
 
 func set_mouse_confined(value: bool):
 	lock_mouse = value
@@ -46,6 +53,34 @@ func on_set_camera_boundary(area: Area3D, value: bool):
 func on_camera_start_position(start: Vector3):
 	global_position = start
 
+#---Cameras---
+func zoom_in():
+	var new_size = cam_size - zoom_factor
+	if new_size > min_size:
+		cam_size = new_size
+		camera.size = new_size
+		camera.rotation.x -= 0.003
+		update_audio_listener_height()
+
+func zoom_out():
+	var new_size = cam_size + zoom_factor
+	if new_size < max_size:
+		cam_size = new_size
+		camera.size = new_size
+		camera.rotation.x += 0.003
+		update_audio_listener_height()
+
+#---Audio---
+func update_audio_listener_height():
+	if audio_listener	== null:
+		return
+	#Audiolistener should be on floor (y == 0) when fully zoomed in:
+	var zoom_percentage : float = (camera.size - min_size) / (max_size - min_size)
+	var height = lerp(0,audio_listener_max_height,zoom_percentage)
+	var pos = audio_listener.global_position
+	audio_listener.global_position = Vector3(pos.x,height,pos.z)
+	assert(audio_listener.global_position.y >= 0,"Don't want listener to be underground")
+
 func tween_to(target: Node3D, duration: float) -> Tween:
 	if tween:
 		tween.stop()
@@ -57,15 +92,11 @@ func tween_to(target: Node3D, duration: float) -> Tween:
 	return tween
 
 func _process(delta):
-	
-	if tilt_shift:
-		tilt_shift_material.set_shader_parameter("focal_point",global_position)
-		
 	if !lock_mouse || !Controls.is_enabled:
 		return
 	if !DisplayServer.window_is_focused():
 		return
-	#Movement should happen at same scale, regardless of ingame time	
+	#RTS_Movement should happen at same scale, regardless of ingame time	
 	if Engine.time_scale != 0:
 		delta /= Engine.time_scale
 	else :

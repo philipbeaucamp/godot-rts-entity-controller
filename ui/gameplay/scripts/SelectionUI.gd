@@ -10,7 +10,7 @@ func _ready():
 	for box in boxes:
 		box.clean_up()
 
-func on_selection_changed(selection: Array[Selectable]):
+func on_selection_changed(selection: Array[RTS_Selectable]):
 	for box in boxes:
 		box.clean_up()
 	var _size = selection.size()

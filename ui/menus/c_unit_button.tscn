@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://bbf7o3sgs8tw4"]
-
-[node name="Button" type="Button"]
-custom_minimum_size = Vector2(0, 20)
-text = "Unit (Health: 45/45)"

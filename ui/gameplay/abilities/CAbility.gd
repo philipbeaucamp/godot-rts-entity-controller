@@ -60,9 +60,6 @@ func _ready():
 	if normal_stylebox is StyleBoxTexture:
 		normal_stylebox.texture = resource.icon_normal
 		
-	if resource.background:
-		texture_rect.texture = resource.background
-
 	Controls.ability_manager.abilities_activated.connect(on_abilities_activated)
 	RTSEventBus.click_ability_cast.connect(on_click_ability_cast)
 	if resource is ClickAbilityResource:

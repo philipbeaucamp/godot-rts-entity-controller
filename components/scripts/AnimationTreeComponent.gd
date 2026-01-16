@@ -1,6 +1,6 @@
 extends AnimationTree
 
-class_name AnimationTreeComponent
+class_name RTS_AnimationTreeComponent
 
 signal tree_node_entered(node: StringName)
 signal tree_node_exited(node: StringName)
@@ -18,7 +18,7 @@ var animation_player: AnimationPlayer
 
 func _ready():
 	if tree_root == null:
-		print("Warning: No tree_root set in AnimationTreeComponent on " + owner.name)
+		print("Warning: No tree_root set in RTS_AnimationTreeComponent on " + owner.name)
 		return
 		
 	sm = self.tree_root.get_node("StateMachine")

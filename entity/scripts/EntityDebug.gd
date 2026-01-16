@@ -1,12 +1,13 @@
-extends Control
-class_name EntityDebug
+class_name RTSEntityDebug extends Control
+
+#Class to visually debug entity stats and states in 2D overlay
+#Toggled via the "rts_debug" input action
 
 @export var entityLabel: Label
 @export var faction: Label
 @export var mState: Label
 @export var mType: Label
 @export var nextTarget: Label
-# @export var grid: Label
 @export var seek: Label
 @export var separation: Label
 @export var cohesion: Label
@@ -29,9 +30,8 @@ class_name EntityDebug
 @export var weapon_range_color : Color
 @export var steering_range_color : Color
 
-var _entity: Entity
+var _entity: RTS_Entity
 var _camera: Camera3D
-# var _grid: SpatialGrid
 var mLabels : Array[Label] = []
 var aLabels : Array[Label] = []
 var hLabels : Array[Label] = []
@@ -40,19 +40,18 @@ func _ready():
 	mLabels = [mState,nextTarget,seek,separation,cohesion,alignment,phyVelocity]
 	aLabels = [aState,currentTarget,assignedTarget,scan,weapon]
 	hLabels = [health]
-	##DebugDraw3D.scoped_config().set_no_depth_test(true).set_thickness(0.01)
 	_camera = Controls.camera
 
-func set_up_entity_debug(entity: Entity):
+func set_up_entity_debug(entity: RTS_Entity):
 	_entity = entity
 
 func _process(delta):
 		process_debug_input(delta)
 
 func process_debug_input(delta:float):
-	if Input.is_action_pressed("numpad_4"):
+	if Input.is_action_pressed("entity_debug_rotate_left") && _entity.movable:
 		_entity.movable.apply_smooth_rotation(-_entity.global_transform.basis.x,delta/3)
-	if Input.is_action_pressed("numpad_6"):
+	if Input.is_action_pressed("entity_debug_rotate_right") && _entity.movable:
 		_entity.movable.apply_smooth_rotation(_entity.global_transform.basis.x,delta/3)
 
 func _physics_process(_delta):
@@ -60,23 +59,23 @@ func _physics_process(_delta):
 	
 	#general
 	entityLabel.text = _entity.resource.display_name + "(" + str(_entity.get_instance_id()) + ")"
-	faction.text = "(" + Entity.Faction.keys()[_entity.faction] + ")"
+	faction.text = "(" + RTS_Entity.Faction.keys()[_entity.faction] + ")"
 
 	#Draw collision raidus
 	##DebugDraw3D.draw_cylinder_ab(_entity.global_position,_entity.global_position+ Vector3.UP*0.01,_entity.collision_radius,Color.BLUE)
 
-	var m :Movable = _entity.movable
-	var a :AttackBehaviour = _entity.attack
-	var h :Health= _entity.health
-	var d :Defense= _entity.defense
+	var m :RTS_Movable = _entity.movable
+	var a :RTS_AttackComponent = _entity.attack
+	var h :RTS_HealthComponent= _entity.health
+	var d :RTS_Defense= _entity.defense
 	var pos : Vector3 = _entity.global_position
 
 	#movable
 	if m != null:
-		mState.text = "State: " + Movable.State.keys()[m.sm.current_state]
+		mState.text = "State: " + RTS_Movable.State.keys()[m.sm.current_state]
 		var next: Target = m.next
 		if next:
-			mType.text = "Type: " + Movable.Type.keys()[next.type]
+			mType.text = "Type: " + RTS_Movable.Type.keys()[next.type]
 			var source_id = str(next.source.get_instance_id()) if next.source else "-"
 			nextTarget.text = "Next: " + source_id  + "@" + str(next.pos) + " (" + str(m.targets.size()) + ")"
 		else:
@@ -115,7 +114,7 @@ func _physics_process(_delta):
 
 	#Attackable
 	if a != null:
-		aState.text = "State: " + AttackBehaviour.State.keys()[a.state_machine.current_state]
+		aState.text = "State: " + RTS_AttackComponent.State.keys()[a.state_machine.current_state]
 		aCooldown.text = "Cooldown: " + str(a.remaining_cooldown_time)
 		currentTarget.text = "Current Target: " + (str(a.current_target.owner.name) if a.current_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.current_target)) + ")"
 		assignedTarget.text = "Assigned Target: " + (str(a.player_assigned_target.owner.name) if a.player_assigned_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.player_assigned_target)) + ")"
@@ -146,10 +145,10 @@ func _physics_process(_delta):
 	if _entity.anim_tree != null && _entity.anim_tree.playback:
 		anim_state.text = "Anim State: " + _entity.anim_tree.playback.get_current_node()
 
-	#Health&Defense
+	#RTS_HealthComponent&RTS_Defense
 	#Stats
 	if h != null:
-		health.text = "Health: " + str(h.health) + "/" + str(h.init_health)
+		health.text = "RTS_HealthComponent: " + str(h.health) + "/" + str(h.init_health)
 	if d != null:
 		armor.text = "Armor: " + str(d.armor)
 	if a != null:
@@ -162,7 +161,7 @@ func _physics_process(_delta):
 				dmg_text += str(dmg.damage) + ","
 			dmg_text += ")"
 		weapon_dmg.text = dmg_text
-	#for 2D debugging	
+
 	queue_redraw()
 
 func get_circle_points(center: Node3D, radius: float, num_points: int = 12) -> PackedVector3Array:
@@ -171,10 +170,6 @@ func get_circle_points(center: Node3D, radius: float, num_points: int = 12) -> P
 		var angle = i * 2 * PI / num_points  # Calculate the angle for this point
 		var world = center.to_global(Vector3(radius * cos(angle),0,radius*sin(angle)))
 		points.append(world)  # Store the point
-
-		# var x = center.global_position.x + radius * cos(angle)  # Calculate the x position
-		# var z = center.global_position.z + radius * sin(angle)  # Calculate the y position
-		# points.append(center.global_position + Vector3(x,0,z))  # Store the point
 	return PackedVector3Array(points)
 
 func _draw():
@@ -182,40 +177,3 @@ func _draw():
 	if selectable.boxable != null:
 		var screen_box = selectable.boxable.get_screen_box()
 		draw_rect(Rect2(screen_box.position - global_position, screen_box.size), box_rect_color,true)
-
-# func draw_paths(movable: Movable):
-# 	var points = Dictionary()
-# 	var points_array = []
-# 	var points_type_array = []
-
-# 	for target in movable.targets:
-# 		#draw line between movables and first target
-# 		if !target.previous && :
-# 			if target_type != Movable.Type.PATROL:
-# 				##DebugDraw3D.draw_line(movable.entity.global_position,target,get_type_color(target_type))
-# 		if !points.has(target):
-# 			points[target] = movable
-# 			points_array.append(target)
-# 			points_type_array.append(target_type)
-
-# 	#draw line between target points
-# 	for i in range(points_array.size()):
-# 		var color = get_type_color(points_type_array[i])
-# 		# ##DebugDraw3D.draw_sphere(points_array[i], 0.3, color)
-# 		if i < points_array.size() - 1:
-# 			color = get_type_color(points_type_array[i+1])
-# 			##DebugDraw3D.draw_line(points_array[i],points_array[i+1],color)
-
-static func get_type_color(type: Movable.Type):
-	if type == Movable.Type.MOVE:
-		return Color.GREEN
-	elif type == Movable.Type.PATROL:
-		return Color.BLUE
-	elif type == Movable.Type.ATTACK:
-		return Color.RED
-	elif type == Movable.Type.MOVEATTACK:
-		return Color.RED
-	# elif type == Movable.Type.AUTO_ATTACK:
-	# 	return Color.GRAY
-	elif type == Movable.Type.NULL:
-		return Color.BLACK

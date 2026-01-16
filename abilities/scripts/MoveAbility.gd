@@ -3,9 +3,9 @@ extends Ability
 
 class_name MoveAbility
 
-var last_move_target_source : Entity
+var last_move_target_source : RTS_Entity
 
-func is_valid_target(_target: Vector3, _source: Entity):
+func is_valid_target(_target: Vector3, _source: RTS_Entity):
 	return true
 
 func activate():
@@ -13,13 +13,13 @@ func activate():
 	activated.emit(self)
 
 func activate_group(abilities: Array):
-	var movables : Array[Movable] = []
+	var movables : Array[RTS_Movable] = []
 	for ability in abilities:
 		movables.append(ability.entity.movable)
 		ability.activated.emit(ability)
 	move(movables)
 
-func move(movables: Array[Movable]):
+func move(movables: Array[RTS_Movable]):
 	var world_pos = Controls.movement.get_current_mouse_world_pos()
 	last_move_target_source = null
 	if Controls.selection.hovered_pickable != null:
@@ -31,5 +31,5 @@ func move(movables: Array[Movable]):
 		last_move_target_source,
 		movables,
 		context["shift_is_pressed"],
-		Movable.Type.MOVE
+		RTS_Movable.Type.MOVE
 	)

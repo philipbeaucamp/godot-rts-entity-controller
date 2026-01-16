@@ -1,6 +1,6 @@
 extends Resource
 
-#Simple data holder class for Entity
+#Simple data holder class for RTS_Entity
 #Useful for accessing entity data without loading the entire entity scene
 class_name EntityResource
 

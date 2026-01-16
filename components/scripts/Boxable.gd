@@ -4,7 +4,7 @@ class_name Boxable
 
 @export var collision_shape : CollisionShape3D
 
-var selectable: Selectable
+var selectable: RTS_Selectable
 
 var camera : Camera3D
 var radius_in_screen: float
@@ -17,11 +17,11 @@ func fetch_entity():
 func _ready():
 	super._ready()
 	#only allow player units to be boxable:
-	if entity.faction != Entity.Faction.PLAYER:
+	if entity.faction != RTS_Entity.Faction.PLAYER:
 		self.queue_free()
 	else:
 		camera = Controls.camera
-		selectable = get_parent() as Selectable
+		selectable = get_parent() as RTS_Selectable
 		update_screen_lengths()
 
 func get_screen_box() -> Rect2:

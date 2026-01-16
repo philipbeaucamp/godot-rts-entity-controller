@@ -1,28 +1,28 @@
 extends Node3D
 
-class_name Selection
+class_name RTS_Selection
 
-@export var box_selection : BoxSelection
-@export var movement: Movement
+@export var box_selection : RTS_BoxSelection
+@export var movement: RTS_Movement
 @onready var physics_selection : PhysicsSelection = $PhysicsSelection
 
 var hovered_pickable: PickablePhysics
-var selection : Array[Selectable] = []
-var hovered : Dictionary[Selectable,bool] = {}
-var hotkey_groups : Dictionary #KEY (int) -> Array[Selectable]
-var selectables_on_screen : Dictionary[Selectable,bool] = {}
+var selection : Array[RTS_Selectable] = []
+var hovered : Dictionary[RTS_Selectable,bool] = {}
+var hotkey_groups : Dictionary #KEY (int) -> Array[RTS_Selectable]
+var selectables_on_screen : Dictionary[RTS_Selectable,bool] = {}
 
-var highest: Entity
+var highest: RTS_Entity
 
-var hotkeys : Array[StringName] = ["1","2","3","4","5","6","7","8","9"]
+# var hotkeys : Array[StringName] = ["1","2","3","4","5","6","7","8","9"]
 
-signal selection_changed(selection: Array[Selectable])
-signal added_to_selection(selection: Array[Selectable])
-signal removed_from_selection(selection: Array[Selectable])
+signal selection_changed(selection: Array[RTS_Selectable])
+signal added_to_selection(selection: Array[RTS_Selectable])
+signal removed_from_selection(selection: Array[RTS_Selectable])
 signal hovered_pickable_set(pickable: PickablePhysics)
 signal hovered_pickable_unset(pickable: PickablePhysics)
 signal hovered_pickable_empty()
-signal highest_selected_changed(entity: Entity)
+signal highest_selected_changed(entity: RTS_Entity)
 
 func _ready():
 	Controls.time_utility.paused.connect(on_paused)
@@ -65,25 +65,23 @@ func process_input(input: Dictionary):
 		if input[RTSPlayerInput.hotkeys_double[i]]:
 			jump_to_hotkey_group(hotkey.to_int())
 
-func add_to_selectables_on_screen(selectable: Selectable):
+func add_to_selectables_on_screen(selectable: RTS_Selectable):
 	if !selectables_on_screen.has(selectable):
 		selectables_on_screen[selectable] = true
 		if selectable.boxable != null:
 			box_selection.add_to_eligible_boxable(selectable.boxable)
 
-func remove_from_selectables_on_screen(selectable: Selectable):
+func remove_from_selectables_on_screen(selectable: RTS_Selectable):
 	if selectables_on_screen.has(selectable):
 		selectables_on_screen.erase(selectable)
 		if selectable.boxable != null:
 			box_selection.remove_from_eligible_boxable(selectable.boxable)
 
 func create_hotkey_group(key: int):
-	# print("Creating group " + str(key) + " " + str(selection.size()))
 	hotkey_groups[key] = selection.duplicate()
 	RTSEventBus.update_control_group.emit(key,hotkey_groups[key],self)
 
 func add_to_hotkey_group(key: int):
-	# print("Adding to group " + str(key))
 	if !hotkey_groups.has(key):
 		create_hotkey_group(key)
 		return
@@ -98,7 +96,7 @@ func select_hotkey_group(key:int):
 	if !hotkey_groups.has(key):
 		return
 
-	var group = hotkey_groups[key] # as Array[Selectable]
+	var group = hotkey_groups[key]
 	var old_selection = selection
 	var new_selection = group.duplicate()
 
@@ -111,16 +109,16 @@ func select_hotkey_group(key:int):
 		new_set[s] = true
 
 	#Units removed from selection
-	var removed : Array[Selectable] = []
+	var removed : Array[RTS_Selectable] = []
 	for s in old_selection:
-		if !new_set.has(s):# && is_instance_valid(s):
+		if !new_set.has(s):
 			s.on_deselected()
 			removed.append(s)
 	
 	#Units added to selection
-	var added : Array[Selectable] = []
+	var added : Array[RTS_Selectable] = []
 	for s in new_selection:
-		if !old_set.has(s):#: && is_instance_valid(s):
+		if !old_set.has(s):
 			s.on_selected()
 			added.append(s)
 
@@ -141,15 +139,15 @@ func select_hotkey_group(key:int):
 func jump_to_hotkey_group(key: int) -> void:
 	if !hotkey_groups.has(key):
 		return
-	var group = hotkey_groups[key] # as Array[Selectable]
+	var group = hotkey_groups[key]
 	var rig_position = Controls.raycast_rig.position
-	var highest_entities: Array[Entity] = []
+	var highest_entities: Array[RTS_Entity] = []
 	for selectable in group:
-		if selectable.entity.id != highest.id:
+		if selectable.entity.resource.id != highest.resource.id:
 			continue
 		highest_entities.append(selectable.entity)
 	var closest_distance_squared : float = INF
-	var closest_entity: Entity
+	var closest_entity: RTS_Entity
 	for entity in highest_entities:
 		var d = rig_position.distance_squared_to(entity.global_position)
 		if d < closest_distance_squared:
@@ -158,14 +156,14 @@ func jump_to_hotkey_group(key: int) -> void:
 	Controls.raycast_rig.teleport_to(closest_entity.global_position)
 	
 
-func add_to_selection_bulk(selectables: Array[Selectable]):
-	var added : Array[Selectable] = []
+func add_to_selection_bulk(selectables: Array[RTS_Selectable]):
+	var added : Array[RTS_Selectable] = []
 	var current_set := {}
 	for s in selection:
 		current_set[s] = true
 
 	for selectable in selectables:
-		if !current_set.has(selectable):# && is_instance_valid(selectable):
+		if !current_set.has(selectable):
 			selection.append(selectable)
 			selectable.on_selected()
 			added.append(selectable)
@@ -175,16 +173,16 @@ func add_to_selection_bulk(selectables: Array[Selectable]):
 		added_to_selection.emit(added)
 		selection_changed.emit(selection)
 
-func remove_from_selection(selectable: Selectable):
+func remove_from_selection(selectable: RTS_Selectable):
 	var index := selection.find(selectable)
 	if index != -1:
 		selection.remove_at(index)
 		selectable.on_deselected()
 		update_highest_selected()
-		removed_from_selection.emit([selectable] as Array[Selectable])
+		removed_from_selection.emit([selectable] as Array[RTS_Selectable])
 		selection_changed.emit(selection)
 
-func remove_from_selection_bulk(selectables: Array[Selectable]):
+func remove_from_selection_bulk(selectables: Array[RTS_Selectable]):
 	if selection.is_empty():
 		return
 
@@ -192,7 +190,7 @@ func remove_from_selection_bulk(selectables: Array[Selectable]):
 	for s in selection:
 		old_set[s] = true
 	
-	var removed : Array[Selectable] = []
+	var removed : Array[RTS_Selectable] = []
 	for s in selectables:
 		if old_set.has(s):
 			removed.append(s)
@@ -202,7 +200,7 @@ func remove_from_selection_bulk(selectables: Array[Selectable]):
 	if removed.is_empty():
 		return
 
-	var remaining: Array[Selectable] = []
+	var remaining: Array[RTS_Selectable] = []
 	for key in old_set.keys():
 		remaining.append(key)
 
@@ -210,7 +208,6 @@ func remove_from_selection_bulk(selectables: Array[Selectable]):
 	update_highest_selected()
 	removed_from_selection.emit(removed)
 	selection_changed.emit(selection)
-
 
 func remove_all_selection():
 	if selection.is_empty():
@@ -223,14 +220,14 @@ func remove_all_selection():
 	selection.clear()
 	update_highest_selected()
 	removed_from_selection.emit(removed)
-	selection_changed.emit([] as Array[Selectable])
+	selection_changed.emit([] as Array[RTS_Selectable])
 
-func add_to_hovered(selectable: Selectable):
+func add_to_hovered(selectable: RTS_Selectable):
 	if !hovered.has(selectable):
 		hovered[selectable] = true
 		selectable.on_hovered()
 
-func remove_from_hovered(selectable: Selectable):
+func remove_from_hovered(selectable: RTS_Selectable):
 	if hovered.has(selectable):
 		hovered.erase(selectable)
 		selectable.on_unhovered()
@@ -248,8 +245,6 @@ func set_hovered_pickable(pickable: PickablePhysics):
 		hovered_pickable.selectable.on_unhovered()
 		hovered_pickable_unset.emit(hovered_pickable)
 	hovered_pickable = pickable
-	# if movement.state != Movement.State.DEFAULT:
-	# 	hover_color = Movement.get_color(movement.state)
 	#only call hover when not already hovered
 	if !hovered.has(pickable.selectable):
 		pickable.selectable.on_hovered()
@@ -265,17 +260,17 @@ func unset_hovered_pickable(pickable: PickablePhysics):
 			hovered_pickable_unset.emit(pickable)
 			hovered_pickable_empty.emit()
 		else:
-			printerr("OUTCH")
+			printerr("RTS: Trying to unset hovered pickable that is not currently set!")
 
-func get_all_similar_from_current_selection(selectable: Selectable) -> Array[Selectable]:
-	var similar : Array[Selectable] = []
+func get_all_similar_from_current_selection(selectable: RTS_Selectable) -> Array[RTS_Selectable]:
+	var similar : Array[RTS_Selectable] = []
 	for s in selection:
 		if s.is_same_type_and_faction(selectable):
 			similar.append(s)
 	return similar
 
-func select_all_similar_on_screen(selectable: Selectable,clear_previous_selection = true):
-	var similar : Array[Selectable] = []
+func select_all_similar_on_screen(selectable: RTS_Selectable,clear_previous_selection = true):
+	var similar : Array[RTS_Selectable] = []
 	for s in selectables_on_screen:
 		if s.is_same_type_and_faction(selectable):
 			similar.append(s)
@@ -303,9 +298,9 @@ func update_highest_selected() -> void:
 		highest = null
 		return
 	var highest_priority = -INF
-	var highest_selectable : Selectable = null
+	var highest_selectable : RTS_Selectable = null
 	for s in selection:
-		if !Controls.settings.allow_enemy_entity_control && s.entity.faction != Entity.Faction.PLAYER:
+		if !Controls.settings.allow_enemy_entity_control && s.entity.faction != RTS_Entity.Faction.PLAYER:
 			continue
 		if s.priority > highest_priority:
 			highest_priority = s.priority
@@ -315,17 +310,16 @@ func update_highest_selected() -> void:
 
 	highest_selected_changed.emit(highest)
 
-
 func on_paused():
 	box_selection.finish_dragging()
 
 func on_unpaused():
 	pass
 
-#need to clean up due to hotkeys creating duplications of original selectables
+#todo: to clean up due to hotkeys creating duplications of original selectables
 #also need to emit selection changed if part of current selection, which will
 #refresh highest and ability manager etc
-func on_entity_exiting_tree(entity: Entity):
+func on_entity_exiting_tree(entity: RTS_Entity):
 	var selectable = entity.selectable
 	if selectable == null:
 		return
@@ -340,10 +334,10 @@ func on_entity_exiting_tree(entity: Entity):
 		if group.has(selectable):
 			group.erase(selectable)
 			RTSEventBus.update_control_group.emit(key,group,self)
-	#Selection
+	#RTS_Selection
 	remove_from_selection(selectable)
 
 #debugging
 func toggle_debug():
 	for s in selection:
-		(s.owner as Entity).toggle_entity_debug()
+		(s.owner as RTS_Entity).toggle_entity_debug()

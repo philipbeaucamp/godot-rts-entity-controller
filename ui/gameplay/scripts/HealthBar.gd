@@ -2,12 +2,12 @@ extends Node2D
 
 class_name HealthBar
 
-var _health : Health
+var _health : RTS_HealthComponent
 var _raycast_camera : Camera3D
 # var _render_cam : Camera3D
 var _mesh: MeshInstance2D
 
-func set_up(health: Health):
+func set_up(health: RTS_HealthComponent):
 	# print("Being setup!")
 	_health = health
 	_raycast_camera = Controls.camera
@@ -27,8 +27,8 @@ func _process(_delta):
 	else:
 		visible = false
 
-func on_health_changed(_h: Health):
+func on_health_changed(_h: RTS_HealthComponent):
 	_mesh.material.set_shader_parameter("health",_health.health/_health.init_health)
 
-func on_death(_entity: Entity):
+func on_death(_entity: RTS_Entity):
 	queue_free()

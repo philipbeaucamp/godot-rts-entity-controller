@@ -1,8 +1,7 @@
-extends Component
+class_name RTS_AiComponent extends Component
 
 #This component should only handle micro decisions like activating abilities etc
 #Position, and more tactical decisisions are computed in Squad
-class_name AiComponent
 
 @export var cast_lambda: float = 0.2 # 5 sec avg
 
@@ -20,7 +19,7 @@ var is_intense: bool =  false
 
 func _ready():
 	super._ready()
-	if entity.faction != Entity.Faction.ENEMY:
+	if entity.faction != RTS_Entity.Faction.ENEMY:
 		self.queue_free()
 	update_cast_threshold(TICK_TIME,cast_lambda)
 	await get_tree().create_timer(randf_range(0,TICK_TIME)).timeout
@@ -52,9 +51,8 @@ func _process(delta):
 		tick()
 
 func tick():
-	# var behavior: Squad.Behaviour = squad.state_machine.current_state
+	# You can run indiviual entity AI logic here if needed
 	pass
-
 
 # Return Array of following:
 # index 0 : bool -> valid or not
@@ -93,11 +91,11 @@ func can_engage() -> bool:
 	if entity.attack.current_target != null || entity.attack.player_assigned_target != null:
 		return false
 	if !entity.movable.targets.is_empty(): #todo update this with new defual attack behaviour
-	# if entity.movable.next && entity.movable.next.type != Movable.Type.PATROL:
+	# if entity.movable.next && entity.movable.next.type != RTS_Movable.Type.PATROL:
 		return false
 	return true
 
-func on_health_changed(_health: Health):
+func on_health_changed(_health: RTS_HealthComponent):
 	if is_intense:
 		return
 	var health = entity.health

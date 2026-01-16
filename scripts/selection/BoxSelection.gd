@@ -1,8 +1,9 @@
-extends Node2D
-class_name BoxSelection
+class_name RTS_BoxSelection extends Node2D
+
+#Class drawing a rect on screen for box selection
 
 @export var rtsCamera: Camera3D
-@export var selection: Selection
+@export var selection: RTS_Selection
 
 var start_pos : Vector2
 var dragging : bool

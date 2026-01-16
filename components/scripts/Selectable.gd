@@ -1,8 +1,8 @@
 extends Component
 
-class_name Selectable
+class_name RTS_Selectable
 
-var selection: Selection
+var selection: RTS_Selection
 
 signal on_stop()
 signal selected(value: bool)
@@ -22,7 +22,7 @@ func _ready():
 	selection = Controls.selection
 	super._ready()
 
-	color = Entity.get_color(entity.faction)
+	color = RTS_Entity.get_color(entity.faction)
 	
 	pref_selection = selection_cone
 	preferred_hover = hover_quad
@@ -62,7 +62,7 @@ func set_component_inactive():
 	if pickable && pickable.component_is_active:
 		pickable.set_component_inactive()
 
-func is_same_type_and_faction(other: Selectable) -> bool:
+func is_same_type_and_faction(other: RTS_Selectable) -> bool:
 	return entity.faction == other.entity.faction  && entity.id == other.entity.id
 
 func on_screen_entered():

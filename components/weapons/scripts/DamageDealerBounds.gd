@@ -10,7 +10,7 @@ func _ready():
 	var box_size : Vector3 = (box.shape as BoxShape3D).size
 	bounds = Vector2(box_size.x,box_size.z)
 
-func deal_damage(_target: Defense,pos: Vector3):
+func deal_damage(_target: RTS_Defense,pos: Vector3):
 
 #todo check chatgpt history: (https://chatgpt.com/c/6906fe73-cbbc-8323-be18-c72918a30948)
 	
@@ -24,13 +24,13 @@ func deal_damage(_target: Defense,pos: Vector3):
 	var aabb: AABB = get_aabb_from_rotated_box(box_center,box_half_extents,angle_y)
 	
 	#2. query entities using AABB
-	var group_id : int = -1 if publisher &&  publisher.attack.player_assigned_target_is_ally else Entity.Faction.ENEMY
-	var entities: Array[Entity] = Globals.main_grid.find_entities_using_aabb(aabb,true,group_id)
+	var group_id : int = -1 if publisher &&  publisher.attack.player_assigned_target_is_ally else RTS_Entity.Faction.ENEMY
+	var entities: Array[RTS_Entity] = SpatialHashArea.main_grid.find_entities_using_aabb(aabb,true,group_id)
 	
 	#3. do precise overlap checks for each candidate
 	var amount: int = entities.size()
 	for i in range(amount -1,-1,-1):
-		var entity: Entity = entities[i]
+		var entity: RTS_Entity = entities[i]
 		if !entity.defense || !circle_overlaps_rotated_box(
 			entity.global_position,
 			entity.defense.defense_range,
@@ -47,9 +47,9 @@ func deal_damage(_target: Defense,pos: Vector3):
 		RTSEventBus.heatmap_burn_shape.emit(box)
 
 	if (publisher && publisher.is_debugged) || debug:
-		pass
 		##DebugDraw3D.draw_aabb(aabb,Color.YELLOW,0.4)
 		##DebugDraw3D.draw_box(box.global_position,box.global_transform.basis,box.shape.size,Color.RED,true,1)
+		pass
 
 ## ignores Y, all XZ projected
 func get_aabb_from_rotated_box(center: Vector3,half_extents: Vector3, angle_rad):

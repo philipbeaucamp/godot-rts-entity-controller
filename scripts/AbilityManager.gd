@@ -1,16 +1,15 @@
 extends Node
 
-class_name AbilityManager
+class_name RTS_AbilityManager
 
-#todo:
-#c) refactor this class using typed variables
+#Future improvements:
+#c) Refactor this class using typed variables
 #d) 10/4/2025 : next should be calculated here, not in cAbility
-#e) 10/4/2025: this code will probably (very likely) bug if two different abilities use same ability resource, which ideally it shouldnt (#think produce for producers)
+#e) 10/4/2025: this code will probably bug if two different abilities use same ability resource, which ideally it shouldnt
 
-
-@export var movement: Movement
-@export var selection : Selection
-var highest_group: Array[Selectable] 
+@export var movement: RTS_Movement
+@export var selection : RTS_Selection
+var highest_group: Array[RTS_Selectable] 
 var selected_abilities : Dictionary[StringName,Array] = {} #Array[Ability]
 var sm: EnumStateMachine = EnumStateMachine.new()
 
@@ -144,7 +143,7 @@ func process_initiated_click_abilities(input: Dictionary) -> bool:
 		return consumed
 	
 	var world_pos : Vector3 = movement.get_current_mouse_world_pos()
-	var source : Entity = null
+	var source : RTS_Entity = null
 	if selection.hovered_pickable != null:
 		source = selection.hovered_pickable.entity
 		world_pos = source.global_position
@@ -165,9 +164,9 @@ func process_initiated_click_abilities(input: Dictionary) -> bool:
 		var to_activate_delayed : Array[Ability] = rst["to_activate_delayed"]
 		if !to_activate_delayed.is_empty():
 			#add an additional move target todo should be a new Move Type: ABILITY
-			var group_id = Movement.generate_session_uid()
+			var group_id = RTS_Movement.generate_session_uid()
 			for click_ability in to_activate_delayed:
-				click_ability.entity.movable.append_to_targets([Target.new(world_pos,Movable.Type.MOVE,source,group_id)])
+				click_ability.entity.movable.append_to_targets([Target.new(world_pos,RTS_Movable.Type.MOVE,source,group_id)])
 
 		if input["shift_is_pressed"]: #keep queue if shift pressed
 			is_shifting_click_ability = true
@@ -228,7 +227,6 @@ func consume_abilities_deferred():
 		coordinate_activation(abilities) #invoked together so abilties this frame can be activated as group
 	deferred_abilities.clear()
 
-
 func clear_queued_click_abilities(cancelled: bool):
 	for ability in initiated_abilities:
 		ability.terminated(cancelled)
@@ -237,47 +235,45 @@ func clear_queued_click_abilities(cancelled: bool):
 	initiated_abilities.clear()
 
 #build selected_abilities
-func on_selection_changed(selectables: Array[Selectable]):
+func on_selection_changed(selectables: Array[RTS_Selectable]):
 	selected_abilities.clear()
+	var settings = Controls.settings
 
-	for s in selectables:
-		var e : Entity = s.entity
-		if !Controls.settings.allow_enemy_entity_control && e.faction != Entity.Faction.PLAYER:
-			continue
-		var abilities: Array[Ability] = e.abilities_array
-		var id = s.entity.resource.id
-		for ability in abilities:
-			if !ability.component_is_active:
+	if !settings.use_highest_entity_for_ability_selection:
+		for s in selectables:
+			var e : RTS_Entity = s.entity
+			if !Controls.settings.allow_enemy_entity_control && e.faction != RTS_Entity.Faction.PLAYER:
 				continue
-			var ability_id : StringName = ability.resource.id
-			if !selected_abilities.has(ability_id):
-				selected_abilities[ability_id] = []
-			selected_abilities[ability_id].append(ability)
+			var abilities: Array[Ability] = e.abilities_array
+			var id = s.entity.resource.id
+			for ability in abilities:
+				if !ability.component_is_active:
+					continue
+				var ability_id : StringName = ability.resource.id
+				if !selected_abilities.has(ability_id):
+					selected_abilities[ability_id] = []
+				selected_abilities[ability_id].append(ability)
 			
-	# print("Selection changed" + str(selected_abilities))
-	# print_stack()
-
-	#OLD: ONLY USING HIGHEST SELECTABLES's ABILITIES (or commons ones)
-	
-	# var highest_entity = Controls.selection.highest
-	# if highest_entity != null: #can be null if no player selectables are selected
-	# 	var highest_id : StringName = highest_entity.id
-	# 	for s in selectables:
-	# 		var e : Entity = s.entity
-	# 		if !Globals.allow_enemy_entity_control && e.faction != Entity.Faction.PLAYER:
-	# 			continue
-	# 		# var keys = e.abilities
-	# 		var abilities: Array[Ability] = e.abilities_array
-	# 		var id = s.entity.resource.id
-	# 		for ability in abilities:
-	# 			# var ability : Ability = e.abilities[key]
-	# 			if !ability.component_is_active:
-	# 				continue
-	# 			if id == highest_id || ability.resource.is_common || ability.ability_container:
-	# 				var ability_id : StringName = ability.resource.id
-	# 				if !selected_abilities.has(ability_id):
-	# 					selected_abilities[ability_id] = []
-	# 				selected_abilities[ability_id].append(ability)
+	else:
+	#ALTERNATIVE: ONLY USING HIGHEST SELECTABLES's ABILITIES (or commons ones)
+	#This is similar to how SC2 Ability selection works
+		var highest_entity = Controls.selection.highest
+		if highest_entity != null: #can be null if no player selectables are selected
+			var highest_id : StringName = highest_entity.resource.id
+			for s in selectables:
+				var e : RTS_Entity = s.entity
+				if !settings.allow_enemy_entity_control && e.faction != RTS_Entity.Faction.PLAYER:
+					continue
+				var abilities: Array[Ability] = e.abilities_array
+				var id = s.entity.resource.id
+				for ability in abilities:
+					if !ability.component_is_active:
+						continue
+					if id == highest_id || ability.resource.is_common || ability.ability_container:
+						var ability_id : StringName = ability.resource.id
+						if !selected_abilities.has(ability_id):
+							selected_abilities[ability_id] = []
+						selected_abilities[ability_id].append(ability)
 
 	abilities_changed.emit()
 

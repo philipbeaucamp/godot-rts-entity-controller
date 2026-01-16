@@ -9,7 +9,7 @@ class_name InstantDamageWeapon
 
 var impact_vfx_pool : ObjectPool
 
-func fetch_entity() -> Entity:
+func fetch_entity() -> RTS_Entity:
 	return attack.fetch_entity()
 
 func _ready():
@@ -26,7 +26,7 @@ func use():
 	if use_impact_vfx:
 		play_impact_vfx(last_weapon_target)
 
-func play_impact_vfx(t: Defense):
+func play_impact_vfx(t: RTS_Defense):
 	var vfx = impact_vfx_pool.get_item(false) as VFXPoolItem
 	var collision_shape = t.area.get_node("CollisionShape3D") as CollisionShape3D
 	if vfx_is_melee:

@@ -1,8 +1,8 @@
-extends Node3D
+class_name RTS_Movement extends Node3D
 
-class_name Movement
+# Class which coordinates group movement of RTS_Movable Entities
 
-@export var camera : RaycastCamera
+@export var camera : RTS_RaycastCamera
 @export var collision_mask: int
 
 static var next_session_uid : int = 0
@@ -16,31 +16,24 @@ func get_current_mouse_world_pos() -> Vector3:
 	if !raycast.is_empty():
 		target_position = raycast.position
 	else:
-		printerr("Empty RayCast from MousePos in Movement!")	
+		printerr("Empty RayCast from MousePos in RTS_Movement!")	
 	return target_position
 
 #z can be ignored
-func get_polygon_from_selection(selection : Array[Movable]):
+func get_polygon_from_selection(selection : Array[RTS_Movable]):
 	var packed_array = PackedVector3Array()
 	for s in selection:
 		packed_array.append(s.entity.global_position)
 	return packed_array
 
-func group_move(target_position: Vector3, source: Node3D, movables: Array[Movable], append: bool, type: Movable.Type):
-	#var no_movable_has_source = true
+func group_move(target_position: Vector3, source: Node3D, movables: Array[RTS_Movable], append: bool, type: RTS_Movable.Type):
 	var group_positions : PackedVector3Array = []
-	var entities: Array[Entity] = []
+	var entities: Array[RTS_Entity] = []
 
 	for movable in movables:
 		var e = movable.entity
 		group_positions.append(e.global_position)
 		entities.append(e)
-
-	# 8/5/2025 I dont remember what this was doing
-	# for movable in group:
-	# 	if movable.target_source != null:
-	# 		no_movable_has_source = false
-	# 		break
 
 	var center : Vector3
 	var use_formation: bool = false
@@ -51,14 +44,14 @@ func group_move(target_position: Vector3, source: Node3D, movables: Array[Movabl
 			use_formation =  true
 
 	#change MOVE -> ATTACK if source is attackable
-	if source != null && type == Movable.Type.MOVE:
-		if source is Entity && source.faction == Entity.Faction.ENEMY:
-			type = Movable.Type.ATTACK
+	if source != null && type == RTS_Movable.Type.MOVE:
+		if source is RTS_Entity && source.faction == RTS_Entity.Faction.ENEMY:
+			type = RTS_Movable.Type.ATTACK
 
 	var group_id = generate_session_uid()
 	# for group in groups:
 	for m in movables:
-		var e : Entity = m.entity
+		var e : RTS_Entity = m.entity
 		if !append:
 			m._clear_targets()
 		if source == m.entity:
@@ -72,7 +65,7 @@ func group_move(target_position: Vector3, source: Node3D, movables: Array[Movabl
 		else:
 			m.append_to_targets([Target.new(target_position,type,source,group_id)])
 	
-func group_patrol(target_position: Vector3, source: Node3D, movables: Array[Movable], append: bool):
+func group_patrol(target_position: Vector3, source: Node3D, movables: Array[RTS_Movable], append: bool):
 	var group_positions : PackedVector3Array = []
 	for movable in movables:
 		group_positions.append(movable.entity.global_position)
@@ -91,17 +84,17 @@ func group_patrol(target_position: Vector3, source: Node3D, movables: Array[Mova
 			var id2 = generate_session_uid()
 			if source == null:
 				m.append_to_targets([
-					Target.new(e.global_position,Movable.Type.PATROL,null,id1),
-					Target.new(target_position + offset,Movable.Type.PATROL,null,id2)
+					Target.new(e.global_position,RTS_Movable.Type.PATROL,null,id1),
+					Target.new(target_position + offset,RTS_Movable.Type.PATROL,null,id2)
 				])
 			else :
 				m.append_to_targets([
-					Target.new(e.global_position,Movable.Type.PATROL,null,id1),
-					Target.new(target_position,Movable.Type.PATROL,source,id2)
+					Target.new(e.global_position,RTS_Movable.Type.PATROL,null,id1),
+					Target.new(target_position,RTS_Movable.Type.PATROL,source,id2)
 				])
 		else:
 			m.append_to_targets([
-				Target.new(target_position + offset,Movable.Type.PATROL,source,id1)
+				Target.new(target_position + offset,RTS_Movable.Type.PATROL,source,id1)
 			])
 
 static func is_target_close_to_center(polygon: PackedVector3Array, target: Vector3, _pre_comp_center: Vector3 = Vector3.INF) -> bool:
@@ -125,10 +118,9 @@ static func calc_avg_dist_to(target: Vector3, points: PackedVector3Array) -> flo
 		avg += point.distance_to(target)
 	return avg / points.size()
 
-
 ##If suitable (entities are all in one main_grid cluster and target is not in that center), returns center
 #to be used for offset calculation in formation move
-static func should_use_formation(target: Vector3,entities: Array[Entity],positions: PackedVector3Array, group_center: Vector3 = Vector3.INF) -> bool:
+static func should_use_formation(target: Vector3,entities: Array[RTS_Entity],positions: PackedVector3Array, group_center: Vector3 = Vector3.INF) -> bool:
 	var main_grid : SpatialHashArea = SpatialHashArea.main_grid
 	var clients: Dictionary[Client,bool] = {}
 	for e in entities:

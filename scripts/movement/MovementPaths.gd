@@ -2,13 +2,13 @@ extends Node3D
 
 class_name MovementPaths
 
-@export var selection: Selection
-@export var colors: Dictionary[Movable.Type,Color] = {}
-@export var pm: PoolManager
+@export var selection: RTS_Selection
+@export var colors: Dictionary[RTS_Movable.Type,Color] = {}
+@export var pm: RTS_PoolManager
 
 var paths: Dictionary[int,Path] = {} # target_group_id to  path
 var paths_claims: Dictionary[int,int] #target_group_id to number of movables
-var individual_paths: Dictionary[Entity,Path] # first path of unit
+var individual_paths: Dictionary[RTS_Entity,Path] # first path of unit
 
 var points: Dictionary[int,WaypointPoolItem] = {}
 var points_claims: Dictionary[int,int] = {} #target_group_id to number of targets
@@ -23,13 +23,13 @@ func _ready():
 	selection.added_to_selection.connect(on_added_to_selection)
 	RTSEventBus.entity_exiting_tree.connect(on_entity_exit_tree)
 
-func create_path(start: Vector3, end: Vector3, type: Movable.Type, start_source: Node3D, end_source: Node3D,alpha_factor:float) -> Path:
+func create_path(start: Vector3, end: Vector3, type: RTS_Movable.Type, start_source: Node3D, end_source: Node3D,alpha_factor:float) -> Path:
 	var path = path_pool.get_item(false) as Path
 	path.set_up(start,end,colors[type],start_source,end_source,alpha_factor)
 	path.set_active(true)
 	return path
 
-func create_point(pos: Vector3, type: Movable.Type, source: Node3D) -> WaypointPoolItem:
+func create_point(pos: Vector3, type: RTS_Movable.Type, source: Node3D) -> WaypointPoolItem:
 	var point = waypoint_pool.get_item(false) as WaypointPoolItem
 	point.global_position = pos + Vector3.UP * 0.025
 	point.set_color(colors[type])
@@ -37,7 +37,7 @@ func create_point(pos: Vector3, type: Movable.Type, source: Node3D) -> WaypointP
 	point.set_active(true)
 	return point
 
-func on_added_to_selection(selectables: Array[Selectable]):
+func on_added_to_selection(selectables: Array[RTS_Selectable]):
 	for s in selectables:
 		var movable = s.entity.movable
 		if movable != null:
@@ -46,10 +46,10 @@ func on_added_to_selection(selectables: Array[Selectable]):
 			movable.next_target_just_reached.connect(on_next_target_just_reached)
 			add_paths(movable.targets)
 			add_points(movable.targets)
-			if movable.targets.size() > 1 && movable.next.type != Movable.Type.PATROL:
+			if movable.targets.size() > 1 && movable.next.type != RTS_Movable.Type.PATROL:
 				add_individual_path(movable.entity,movable.next)
 
-func on_removed_from_selection(selectables: Array[Selectable]):
+func on_removed_from_selection(selectables: Array[RTS_Selectable]):
 	for s in selectables:
 		var movable = s.entity.movable
 		if movable != null:
@@ -150,9 +150,9 @@ func remove_points(targets: Array[Target]):
 			points.erase(id)
 
 
-func add_individual_path(entity: Entity,target:Target):
+func add_individual_path(entity: RTS_Entity,target:Target):
 	if !individual_paths.has(entity):
-		var target_source: Entity = target.source if target.source && is_instance_valid(target.source) else null 
+		var target_source: RTS_Entity = target.source if target.source && is_instance_valid(target.source) else null 
 		var path = create_path(
 			entity.global_position,
 			target.pos + target.offset,
@@ -163,48 +163,48 @@ func add_individual_path(entity: Entity,target:Target):
 		)					
 		individual_paths[entity] = path
 
-func remove_individual_path(entity: Entity):
+func remove_individual_path(entity: RTS_Entity):
 	if individual_paths.has(entity):
 		var path = individual_paths[entity]
 		path_pool.retire_item(path)
 		individual_paths.erase(entity)
 
-func on_after_targets_added(_movable: Movable,targets: Array[Target]):
+func on_after_targets_added(_movable: RTS_Movable,targets: Array[Target]):
 	add_paths(targets)
 	add_points(targets)
-	if _movable.targets.size() > 1 && _movable.next.type != Movable.Type.PATROL:
+	if _movable.targets.size() > 1 && _movable.next.type != RTS_Movable.Type.PATROL:
 		add_individual_path(_movable.entity,_movable.next)
 
-func on_before_all_targets_cleared(movable: Movable):
+func on_before_all_targets_cleared(movable: RTS_Movable):
 	#simply remove everything
 	remove_points(movable.targets)
 	remove_paths(movable.targets)
 	remove_individual_path(movable.entity)
 
-func on_next_target_just_reached(movable: Movable, target: Target):
-	if target.type != Movable.Type.PATROL:
+func on_next_target_just_reached(movable: RTS_Movable, target: Target):
+	if target.type != RTS_Movable.Type.PATROL:
 		remove_points([target])
 		handle_normal_next_target_just_reached(movable,target)	
 	# only remove all patrol paths next target is not patrol
-	elif target.next && target.next.type != Movable.Type.PATROL:
+	elif target.next && target.next.type != RTS_Movable.Type.PATROL:
 			#pop all patrol points and paths
 			var walk_back : Target = target
 			var to_erase: Array[Target] = []
 			while walk_back:
-				assert(walk_back.type == Movable.Type.PATROL,"Found non patrol target")
+				assert(walk_back.type == RTS_Movable.Type.PATROL,"Found non patrol target")
 				to_erase.append(walk_back)
 				walk_back = walk_back.previous
 			remove_points(to_erase)
 			remove_paths(to_erase)
 			handle_normal_next_target_just_reached(movable,target)
 
-func handle_normal_next_target_just_reached(movable: Movable, target: Target):
+func handle_normal_next_target_just_reached(movable: RTS_Movable, target: Target):
 	remove_individual_path(movable.entity) #remove old self path
-	if target.next && target.next.type != Movable.Type.PATROL:
+	if target.next && target.next.type != RTS_Movable.Type.PATROL:
 		if target.next:
 			remove_paths([target.next])
 		if movable.targets.size() > 2:
 			add_individual_path(movable.entity,target.next) #add new self path
 
-func on_entity_exit_tree(entity: Entity):
+func on_entity_exit_tree(entity: RTS_Entity):
 	remove_individual_path(entity)

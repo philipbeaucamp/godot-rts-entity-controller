@@ -3,7 +3,7 @@ extends Component
 class_name AttackVariant
 
 @export var can_attack_while_moving = false
-@export var behaviour: AttackBehaviour
+@export var behaviour: RTS_AttackComponent
 
 #A list of (priority, controller) tuples that can overwrite the statemachine
 # var sm_override: Array = []
@@ -19,7 +19,7 @@ func set_component_inactive():
 	behaviour.do_interrupt_attack = true
 	super.set_component_inactive()
 
-func can_attack(other: Defense) -> bool:
+func can_attack(other: RTS_Defense) -> bool:
 	return other.can_be_attacked_by(behaviour)
 
 #---UPGRADES---#

@@ -1,5 +1,5 @@
 @icon("res://addons/rts_entity_controller/assets/icons/keyboard_s_outline.png")
-extends CommonAbility
+extends Ability
 
 class_name StopAbility
 

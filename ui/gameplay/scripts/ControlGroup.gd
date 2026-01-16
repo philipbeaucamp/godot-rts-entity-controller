@@ -11,7 +11,7 @@ func _ready():
 	RTSEventBus.select_control_group.connect(on_select_control_group)
 	index_label.text = str(control_group_index)
 
-func on_control_group_updated(index: int, selectables: Array[Selectable], _selection: Selection):
+func on_control_group_updated(index: int, selectables: Array[RTS_Selectable], _selection: RTS_Selection):
 	if control_group_index == index:
 		visible = !selectables.is_empty()
 		label.text = str(selectables.size())

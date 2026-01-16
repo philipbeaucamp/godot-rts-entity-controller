@@ -2,8 +2,8 @@ extends AnimationTree
 
 class_name CommonAnimController
 
-@export var movable: Movable
-@export var attack: AttackBehaviour #optional
+@export var movable: RTS_Movable
+@export var attack: RTS_AttackComponent #optional
 @export var ability: Ability
 
 signal tree_node_entered(node: String)
@@ -38,36 +38,36 @@ func _process(delta):
 	var current_state = playback.get_current_node()
 	if current_state == "idle_default":
 		if attack != null:
-			if attack.state == AttackBehaviour.State.ATTACKING && movable.state == Movable.State.HOLD:
+			if attack.state == RTS_AttackComponent.State.ATTACKING && movable.state == RTS_Movable.State.HOLD:
 				#todo attacking while hold
 				playback.travel(attack_variant_name)
-			elif attack.state == AttackBehaviour.State.ATTACKING:
+			elif attack.state == RTS_AttackComponent.State.ATTACKING:
 				playback.travel(attack_variant_name)
-			elif movable.state == Movable.State.HOLD:
+			elif movable.state == RTS_Movable.State.HOLD:
 				playback.travel("hold")
 			elif !attack.defenses_in_weapon.is_empty():
 				playback.travel("enemy_in_range")
 		else:
-			if movable.state == Movable.State.HOLD:
+			if movable.state == RTS_Movable.State.HOLD:
 				playback.travel("hold")
 
 	elif current_state == "hold":
 		if attack != null:
-			if attack.state == AttackBehaviour.State.ATTACKING:
+			if attack.state == RTS_AttackComponent.State.ATTACKING:
 				playback.travel(attack_variant_name)
-			if movable.state != Movable.State.HOLD:
+			if movable.state != RTS_Movable.State.HOLD:
 				playback.travel("idle_default") #todo use offset seek ?
 		else:
-			if movable.state != Movable.State.HOLD:
+			if movable.state != RTS_Movable.State.HOLD:
 				playback.travel("idle_default") #todo use offset seek ?
 	elif current_state == "attack_default":
-		if attack.state != AttackBehaviour.State.ATTACKING:
+		if attack.state != RTS_AttackComponent.State.ATTACKING:
 			if attack.defenses_in_weapon.is_empty():
 				playback.travel("idle_default")
 			else:
 				playback.travel("enemy_in_range")
 	elif current_state == "enemy_in_range":
-		if attack.state == AttackBehaviour.State.ATTACKING:
+		if attack.state == RTS_AttackComponent.State.ATTACKING:
 			playback.travel(attack_variant_name)
 		elif attack.defenses_in_weapon.is_empty():
 			playback.travel("idle_default")
@@ -91,7 +91,7 @@ func on_tree_node_exited(node: StringName):
 
 #yeah yeah
 func on_attack_enter_state(_sm: Node, new_state:int):
-	if new_state == AttackBehaviour.State.ATTACKING:
+	if new_state == RTS_AttackComponent.State.ATTACKING:
 		playback.travel("attack_default")
 		
 #occasionally randomly selects a custom idle animation to play
@@ -99,7 +99,7 @@ var idle_timer : SceneTreeTimer
 func start_random_custom_idle_timer():
 	if custom_idle_amount < 1:
 		return
-	var wait_time = MathUtil.inverse_exponential(custom_idle_min_treshold,custom_idle_lambda)
+	var wait_time = RTS_MathUtil.inverse_exponential(custom_idle_min_treshold,custom_idle_lambda)
 	idle_timer = get_tree().create_timer(wait_time)
 	await idle_timer.timeout
 	if idle_timer != null:

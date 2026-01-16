@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxt0k1g0s32gb"]
-
-[ext_resource type="Script" uid="uid://1cbe66ly8ku5" path="res://addons/rts_entity_controller/abilities/scripts/PatrolAbility.gd" id="1_s36af"]
-[ext_resource type="Resource" uid="uid://cp6owe6ebfxug" path="res://addons/rts_entity_controller/abilities/resources/ClickAbilities/patrol.tres" id="2_j2y3s"]
-
-[node name="PatrolAbility" type="Node"]
-script = ExtResource("1_s36af")
-dont_clear_targets_on_activate = true
-resource = ExtResource("2_j2y3s")

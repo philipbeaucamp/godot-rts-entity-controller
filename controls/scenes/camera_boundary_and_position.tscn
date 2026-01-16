@@ -22,8 +22,5 @@ debug_color = Color(0.639216, 0.643137, 0.0509804, 0.0784314)
 
 [node name="CamerStartPosition" type="Node3D" parent="." node_paths=PackedStringArray("camera_menu_position")]
 script = ExtResource("2_8nh7e")
-camera_menu_position = NodePath("../CameraMenuPosition")
+camera_menu_position = NodePath("")
 metadata/_custom_type_script = "uid://ji12r2m2icqw"
-
-[node name="CameraMenuPosition" type="Node3D" parent="."]
-transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0, 0, 0)

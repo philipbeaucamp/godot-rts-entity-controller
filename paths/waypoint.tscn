@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://utsf55tmd15a"]
 
 [ext_resource type="Script" uid="uid://cn056cx8u26fp" path="res://addons/rts_entity_controller/scripts/movement/WaypointPoolItem.gd" id="1_s07hr"]
-[ext_resource type="Shader" path="res://addons/rts_entity_controller/assets/shaders/waypoint_column_vshader.tres" id="1_syptm"]
-[ext_resource type="ArrayMesh" uid="uid://bmxx4cwgtflcw" path="res://addons/rts_entity_controller/assets/blender/marker_column_short_uv.obj" id="2_syptm"]
-[ext_resource type="Texture2D" uid="uid://ywyxd8mebrwo" path="res://addons/rts_entity_controller/assets/aseprite/waypoint_marker.png" id="4_8nyay"]
+[ext_resource type="Shader" uid="uid://wb8rxfp08ssx" path="res://addons/rts_entity_controller/assets/shaders/waypoint_column_vshader.tres" id="1_syptm"]
+[ext_resource type="ArrayMesh" uid="uid://bmxx4cwgtflcw" path="res://addons/rts_entity_controller/assets/meshes/marker_column_short_uv.obj" id="2_syptm"]
+[ext_resource type="Texture2D" uid="uid://ywyxd8mebrwo" path="res://addons/rts_entity_controller/assets/icons/waypoint_marker.png" id="4_8nyay"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8nyay"]
 resource_local_to_scene = true

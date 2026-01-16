@@ -4,19 +4,19 @@ class_name SphereAreaProjectile extends Node3D
 @export var damage_dealer: DamageDealer
 @export var is_top_level: bool = true
 
-var entity: Entity
+var entity: RTS_Entity
 var is_shooting: bool
 var tween: Tween
-var player_assigned_target: Defense
+var player_assigned_target: RTS_Defense
 
 func _ready() -> void:
 	area.area_entered.connect(on_area_entered)
 	if is_top_level:
 		set_as_top_level(true)
 
-func activate(_publisher: Entity):
+func activate(_publisher: RTS_Entity):
 	entity = _publisher
-	var mask: int = Controls.settings.collision_layer_enemy_defense if _publisher.faction == Entity.Faction.PLAYER else Controls.settings.collision_layer_player_defense
+	var mask: int = Controls.settings.collision_layer_enemy_defense if _publisher.faction == RTS_Entity.Faction.PLAYER else Controls.settings.collision_layer_player_defense
 	if _publisher.attack.player_assigned_target_is_ally:
 		area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,true)	
 		player_assigned_target = _publisher.attack.player_assigned_target
@@ -30,7 +30,7 @@ func disactivate():
 	area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,false)
 	area.monitoring = false
 
-func shoot_sphere(_from: Entity, _to: Vector3, _duration: float):
+func shoot_sphere(_from: RTS_Entity, _to: Vector3, _duration: float):
 	if is_shooting:
 		printerr("Trying to shoot again while still shooting sphere")
 		return
@@ -56,12 +56,12 @@ func debug_sphere(pos: Vector3):
 		##DebugDraw3D.draw_sphere(pos,radius,Color.RED)
 
 func on_area_entered(other: Area3D):
-	var other_entity: Entity = other.component.entity
+	var other_entity: RTS_Entity = other.component.entity
 	#Always allow different faction damage. if same, only if player_assigned_target
 	if other_entity.faction == entity.faction && other_entity.defense != player_assigned_target:
 		return
 		
-	var other_defense: Defense = other.component.entity.defense
+	var other_defense: RTS_Defense = other.component.entity.defense
 	if other_defense:
 		damage_dealer.deal_damage(other_defense,global_position)
 		

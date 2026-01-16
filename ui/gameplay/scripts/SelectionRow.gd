@@ -9,7 +9,7 @@ class_name SelectionRow
 # 		box.label.text = ""
 # 		box.visible = false
 
-# func set_up(selectables: Array[Selectable]):
+# func set_up(selectables: Array[RTS_Selectable]):
 # 	if selectables.is_empty():
 # 		return
 # 	#tood fill up boxes

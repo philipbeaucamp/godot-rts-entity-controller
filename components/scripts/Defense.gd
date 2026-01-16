@@ -1,9 +1,9 @@
 extends Component
 
-class_name Defense
+class_name RTS_Defense
 
 @export var armor: int = 0
-@export var atp: int = 20 #AttackBehaviour-Target-Priority
+@export var atp: int = 20 #RTS_AttackComponent-Target-Priority
 @export var hit_animation = ""
 @export var vfxs: Array[Particles3DContainer]
 @export var area : Area3D
@@ -11,7 +11,7 @@ class_name Defense
 signal attacked_by(damage_dealer: DamageDealer)
 
 var incoming_projectiles: Dictionary[Node3D,bool]  #todo refactor, the key should be damagedealers. the damage dealer should exist in the projectile scene itself
-var health: Health
+var health: RTS_HealthComponent
 var attack_conditions: Array[Callable] = []
 var defense_range: float
 var defense_range_squared: float
@@ -24,11 +24,11 @@ func _ready():
 	var defense_shape = area.get_child(0) as CollisionShape3D
 	defense_range = defense_shape.shape.radius
 	defense_range_squared = defense_range * defense_range
-	# print("Defense range :" + str(defense_range))
+	# print("RTS_Defense range :" + str(defense_range))
 	set_faction(entity.faction)
 
-func set_faction(faction: Entity.Faction):
-	if faction == Entity.Faction.PLAYER:
+func set_faction(faction: RTS_Entity.Faction):
+	if faction == RTS_Entity.Faction.PLAYER:
 		area.set_collision_layer_value(Controls.settings.collision_layer_player_defense,true)
 		area.set_collision_mask_value(Controls.settings.collision_layer_enemy_attack,true) 
 	else:
@@ -91,7 +91,7 @@ func remove_from_incoming_projectiles(projectile: Node3D):
 		incoming_projectiles.erase(projectile)
 
 #who am I (this defense) a threat to (other is attackbehavior)
-func is_threat_to(other: AttackBehaviour) -> bool:
+func is_threat_to(other: RTS_AttackComponent) -> bool:
 	if other == null:
 		printerr("called is_threat_to with null attack")
 		return false
@@ -99,13 +99,13 @@ func is_threat_to(other: AttackBehaviour) -> bool:
 		return false
 	if entity.faction == other.entity.faction:# && self != other.player_assigned_target:
 		return false
-	if entity.faction == Entity.Faction.NEUTRAL:
+	if entity.faction == RTS_Entity.Faction.NEUTRAL:
 		#case: defender (this) is Neutral
-		if other.entity.faction == Entity.Faction.PLAYER:
+		if other.entity.faction == RTS_Entity.Faction.PLAYER:
 			return false
-	if other.entity.faction == Entity.Faction.NEUTRAL:
+	if other.entity.faction == RTS_Entity.Faction.NEUTRAL:
 		#case: attacker (other) is neutral:
-		if entity.faction == Entity.Faction.PLAYER:
+		if entity.faction == RTS_Entity.Faction.PLAYER:
 			return false
 	return true
 	# if attacks_in_range.has(other): #todo maybe this is not needed ?
@@ -120,7 +120,7 @@ func remove_attack_condition(callback: Callable) -> void:
 
 # Can be false while defense is still a threat. I.e. an unreachable defense
 # dont check factions here, rather reachable conditions/ melee vs air etc conditions
-func can_be_attacked_by(other: AttackBehaviour) -> bool:
+func can_be_attacked_by(other: RTS_AttackComponent) -> bool:
 	for condition in attack_conditions:
 		if condition.call(other) == false:
 			return false

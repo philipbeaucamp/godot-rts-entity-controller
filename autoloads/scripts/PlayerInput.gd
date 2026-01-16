@@ -93,7 +93,7 @@ func _process(_delta):
 			if Controls.ability_manager.process_input(input):
 				input["mouse_click_is_consumed"] = true
 
-		#Selection
+		#RTS_Selection
 		if Controls.selection:
 			Controls.selection.process_input(input)
 			if input.has("first_click_pickable"):

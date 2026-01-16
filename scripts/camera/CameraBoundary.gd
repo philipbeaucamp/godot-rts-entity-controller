@@ -1,7 +1,5 @@
 extends Area3D
 
-class_name CameraBoundary
-
 @export var is_enabled: bool = true
 
 func _ready():

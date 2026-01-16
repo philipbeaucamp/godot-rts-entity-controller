@@ -16,8 +16,8 @@ const AUTOLOADS := [
 	}
 ]
 
+# Add autoloads here.
 func _enable_plugin() -> void:
-	# Add autoloads here.
 	for entry in AUTOLOADS:
 		var name: String = entry["name"]
 		var path: String = entry["path"]
@@ -25,6 +25,7 @@ func _enable_plugin() -> void:
 			print("RTS: Adding autoload: " + name + " at path: " + path)
 			add_autoload_singleton(name,path)
 
+#Remove autoloads here.
 func _disable_plugin() -> void:
 	for entry in AUTOLOADS:
 		var name: String = entry["name"]
@@ -33,23 +34,22 @@ func _disable_plugin() -> void:
 		remove_autoload_singleton(name)
 
 
+# Initialization of the plugin goes here.
 func _enter_tree() -> void:
-	# Initialization of the plugin goes here.
 	create_doc_button()
 	install_inputmap_from_dict(INPUT_MAP, true)
 	ProjectSettings.save()
-	# InputMap.load_from_project_settings()
 
 
+# Clean-up of the plugin goes here.
 func _exit_tree() -> void:
-	# Clean-up of the plugin goes here.
 	destroy_doc_button()
 
 var docs_button: Button
 
 func create_doc_button():
 	docs_button = Button.new()
-	docs_button.text = "RTS Entity Controller Documentation"
+	docs_button.text = "RTS RTS_Entity Controller Documentation"
 	docs_button.icon = EditorInterface.get_base_control().get_theme_icon("Snap", "EditorIcons")
 	docs_button.pressed.connect(_on_pressed)
 	self.add_control_to_container(self.CONTAINER_TOOLBAR,docs_button)
@@ -75,7 +75,6 @@ func install_inputmap_from_dict(data: Dictionary, overwrite_deadzone: bool = fal
 			continue
 
 		if ProjectSettings.has_setting("input/rts_" + str(action_name)):
-			print("RTS Plugin: InputMap action already exists in ProjectSettings: " + str(action_name))
 			continue
 
 		var input_events: Array[InputEvent] = []
@@ -230,5 +229,17 @@ const INPUT_MAP := {
 	"events": [
 	  { "type": "key", "device": -1, "physical_keycode": 32 }
 	]
-  }
+  },
+	"entity_debug_rotate_right": {
+	"deadzone": 0.2,
+	"events": [
+	  { "type": "key", "device": -1, "physical_keycode": 4194442 }
+	]
+  },
+	"entity_debug_rotate_left": {
+	"deadzone": 0.2,
+	"events": [
+	  { "type": "key", "device": -1, "physical_keycode": 4194444 }
+	]
+  },
 }

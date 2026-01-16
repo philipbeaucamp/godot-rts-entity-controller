@@ -25,7 +25,7 @@ func _ready():
 	if entity.health != null:
 		entity.health.health_damaged.connect(on_health_damaged)
 
-func on_health_damaged(_health: Health):
+func on_health_damaged(_health: RTS_HealthComponent):
 	if mats.is_empty() || timer != null:
 		return
 

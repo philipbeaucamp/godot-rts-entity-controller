@@ -1,6 +1,6 @@
 class_name Weapon extends Component
 
-@export var attack: AttackBehaviour
+@export var attack: RTS_AttackComponent
 @export var is_melee: bool = false #in the future this could become a getter if multiple attack variants exist?
 @export var damage_dealers: Array[DamageDealer] = []
 
@@ -19,7 +19,7 @@ var scan_range: float #radius of scan_area
 var weapon_range: float #radius of weapon_area
 
 var modifiers : Array[WeaponModification] = []
-var last_weapon_target: Defense
+var last_weapon_target: RTS_Defense
 
 func set_component_active():
 	super.set_component_active()
@@ -35,7 +35,7 @@ func set_component_inactive():
 		area.set_deferred("monitoring", false)
 		# area.set_deferred("monitorable", false)
 
-func fetch_entity() -> Entity:
+func fetch_entity() -> RTS_Entity:
 	return attack.fetch_entity()
 	
 func _ready():
@@ -52,7 +52,7 @@ func _ready():
 
 	#Set layers and masks based on faction
 	var areas = [weapon_area,scan_area]
-	if entity.faction == Entity.Faction.PLAYER:
+	if entity.faction == RTS_Entity.Faction.PLAYER:
 		for area in areas:
 			area.set_collision_layer_value(Controls.settings.collision_layer_player_attack,true) 
 			area.set_collision_mask_value(Controls.settings.collision_layer_enemy_defense,true) 
@@ -62,7 +62,7 @@ func _ready():
 			area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,true) 
 
 func allow_allies_to_be_targeted(activate: bool):
-	if entity.faction == Entity.Faction.PLAYER:
+	if entity.faction == RTS_Entity.Faction.PLAYER:
 		scan_area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,activate)
 		weapon_area.set_collision_mask_value(Controls.settings.collision_layer_player_defense,activate) 
 	else:

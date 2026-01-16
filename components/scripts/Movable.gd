@@ -1,5 +1,5 @@
 extends Component
-class_name Movable
+class_name RTS_Movable
 
 # https://starcraft.fandom.com/wiki/Marine_(StarCraft_II)
 # todo: consider accelration, lateral accelration, deceleration
@@ -10,13 +10,13 @@ class_name Movable
 #GDC Steering
 #https://gdcvault.com/play/1018262/The-Next-Vector-Improvements-in
 
-# signal target_type_change(movable: Movable, old: Type, new: Type)
-signal after_targets_added(movable: Movable, targets: Array[Target])
-signal next_target_changed(movable: Movable) #onyl called for acute target change
-signal before_all_targets_cleared(movable: Movable)
-signal all_targets_cleared(movable: Movable)
-signal next_target_just_reached(movable: Movable, target: Target) # called just before removal of index
-signal final_target_reached(movable: Movable)
+# signal target_type_change(movable: RTS_Movable, old: Type, new: Type)
+signal after_targets_added(movable: RTS_Movable, targets: Array[Target])
+signal next_target_changed(movable: RTS_Movable) #onyl called for acute target change
+signal before_all_targets_cleared(movable: RTS_Movable)
+signal all_targets_cleared(movable: RTS_Movable)
+signal next_target_just_reached(movable: RTS_Movable, target: Target) # called just before removal of index
+signal final_target_reached(movable: RTS_Movable)
 
 enum State {
 	IDLE = 0, #no walk anim
@@ -67,7 +67,7 @@ var next: Target
 var last: Target
 
 #reached source
-var reached_source: Entity
+var reached_source: RTS_Entity
 var elapsed_since_reached_source_moved: float = 0 
 var min_reaction_time_source_moved : float = 0.1
 
@@ -88,7 +88,7 @@ var ignore_target_update_distance_squared = 0.0025 # 0.05^2
 var prev_target = Vector3.INF
 
 #steering
-var steering_neighbors: Dictionary[Node3D,Movable] = {} #note: Movable Value can be nullable
+var steering_neighbors: Dictionary[Node3D,RTS_Movable] = {} #note: RTS_Movable Value can be nullable
 
 #pushing
 # var physics_frame_since_last_push = INF #increases at end of every physics frame
@@ -316,7 +316,7 @@ func state_pushed(delta: float):
 #--------------------------------------------------
 
 # Decides whether this unit can be "pushed" by exernal forces
-func is_externally_immovable(_movable: Movable) -> bool:
+func is_externally_immovable(_movable: RTS_Movable) -> bool:
 	return sm.current_state == State.HOLD
 
 func set_next_target(new_next: Target):
@@ -585,9 +585,9 @@ func move(delta: float):
 	#Separate neighbors into movable ones and immovables ones (can contain
 	#movables that are "externally externally_immovable")
 	var immovable_neighbors : Array[Node3D] = []
-	var movable_neighbors: Array[Movable] = []
+	var movable_neighbors: Array[RTS_Movable] = []
 	for key in steering_neighbors:
-		var m_neighbor : Movable = steering_neighbors[key]
+		var m_neighbor : RTS_Movable = steering_neighbors[key]
 		if m_neighbor:
 			if m_neighbor.externally_immovable:
 				immovable_neighbors.append(key)
@@ -672,9 +672,9 @@ func solve_collision():
 	var collision_count = collision.get_collision_count()
 	for i in range(collision_count):
 		# Log.info_owner(self,"collision" + str(i) + "State: " + str(State.keys()[state]))
-		# Log.info_owner(self,"attack state " + str(AttackBehaviour.State.keys()[attack.state]))
+		# Log.info_owner(self,"attack state " + str(RTS_AttackComponent.State.keys()[attack.state]))
 		var other = collision.get_collider(i)
-		if other is Entity && other.movable:
+		if other is RTS_Entity && other.movable:
 			#only need to try relinquishing if we're actually moving
 			if (sm.current_state == State.IDLE 
 				|| sm.current_state == State.REACHED_SOURCE_TARGET 
@@ -683,7 +683,7 @@ func solve_collision():
 			):
 				other.movable.get_pushed_by(self)
 
-func dynamic_separation(movables: Array[Movable], next_nav_target: Vector3) -> Vector3:
+func dynamic_separation(movables: Array[RTS_Movable], next_nav_target: Vector3) -> Vector3:
 	var total_mind_read = Vector3.ZERO
 	var influences = 0
 	var pos = entity.global_position
@@ -739,8 +739,8 @@ func dynamic_separation(movables: Array[Movable], next_nav_target: Vector3) -> V
 		total_mind_read /= influences
 
 	if debug:
-		pass
 		##DebugDraw3D.draw_line(pos,pos + total_mind_read,Color.RED)
+		pass
 	return total_mind_read * separation_multiplier
 
 
@@ -752,7 +752,7 @@ func force_push(push: Vector3, _origin: Vector3 = Vector3.ZERO, _limit: float = 
 	accumulated_force += push
 	has_been_force_pushed_this_tick = true
 
-func get_pushed_instantly_by(other: Movable, push_strength: float = 1):
+func get_pushed_instantly_by(other: RTS_Movable, push_strength: float = 1):
 	var pos = entity.global_position
 	var o1 =  Vector3(-other.entity.velocity.z,0,other.entity.velocity.x).normalized()
 	var o2 =  -o1
@@ -761,19 +761,19 @@ func get_pushed_instantly_by(other: Movable, push_strength: float = 1):
 	var push_direction = o1 if p.dot(o1) < p.dot(o2) else o2
 	push_direction = (push_direction - p).normalized() #optional, applies extra direction
 	if  entity.entity_debug_instance:
-		pass
 		##DebugDraw3D.draw_cylinder_ab(pos,pos + 0.01 * Vector3.UP,0.25,Color.PINK)
 		##DebugDraw3D.draw_line(pos,pos + push_direction,Color.PINK)
+		pass
 	entity.velocity = push_direction * push_strength
 	if entity.move_and_slide():
 		var collision = entity.get_last_slide_collision()
 		var collision_count = collision.get_collision_count()
 		for i in range(collision_count):
 			var next_collision = collision.get_collider(i)
-			if next_collision is Entity && next_collision.movable != null:
+			if next_collision is RTS_Entity && next_collision.movable != null:
 				next_collision.movable.get_pushed_instantly_by(self,push_strength)
 	
-func get_pushed_by(other:Movable):
+func get_pushed_by(other:RTS_Movable):
 	if (
 		!allow_being_pushed 
 		|| externally_immovable 
@@ -883,8 +883,8 @@ func avoid(immovables: Array[Node3D], next_nav_target: Vector3) -> Vector3:
 		##DebugDraw3D.draw_line(entity.global_position,entity.global_position + total_avoidance,Color.RED)
 	return total_avoidance
 
-# called when collided with other Entity
-func try_relinquish_target(other: Entity) -> bool:
+# called when collided with other RTS_Entity
+func try_relinquish_target(other: RTS_Entity) -> bool:
 	if !next:
 		return true
 	if next.type == Type.ATTACK || next.type == Type.MOVEATTACK:
@@ -966,7 +966,7 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 			#next.previous = null #since last no longer exists
 			#in next target is PATROL, we need to insert patrol point at current position
 			if next.type == Type.PATROL && targets.size() == 1:
-				var target: Target = Target.new(last.pos,Type.PATROL,last.source,Movement.generate_session_uid(),last.offset)
+				var target: Target = Target.new(last.pos,Type.PATROL,last.source,RTS_Movement.generate_session_uid(),last.offset)
 				targets.insert(0,target) #todo ideally use insert function...
 				#link 
 				target.next = next
@@ -993,11 +993,11 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 #TODO
 #todo when adding targets, we need to listen for when the target source dies
 #then remove the target
-# func on_before_target_source_exit(_entity: Entity):
+# func on_before_target_source_exit(_entity: RTS_Entity):
 # 	pass
 
 #We remove the target completetly when its source dies/existing tree
-func on_target_source_eol(_entity: Entity,_target: Target):
+func on_target_source_eol(_entity: RTS_Entity,_target: Target):
 	if _target == next:
 		on_next_target_reached()
 		if sm.current_state == State.PATROL:
@@ -1027,8 +1027,8 @@ func on_steering_body_entered(body: Node3D):
 	if body == entity:
 		return
 	if !steering_neighbors.has(body):
-		if body is Entity:
-			var movable_neighbor : Movable = body.movable
+		if body is RTS_Entity:
+			var movable_neighbor : RTS_Movable = body.movable
 			steering_neighbors[body] = movable_neighbor #body can be entity, or force (staticbody3d/ForceBody3D) or building/rocks
 			body.before_tree_exit.connect(on_before_tree_exit)
 		else:
@@ -1039,8 +1039,8 @@ func on_steering_body_exited(body: Node3D):
 		return
 	if steering_neighbors.has(body):
 		steering_neighbors.erase(body)
-		if body is Entity:
+		if body is RTS_Entity:
 			body.before_tree_exit.disconnect(on_before_tree_exit)
 
-func on_before_tree_exit(_entity: Entity):
+func on_before_tree_exit(_entity: RTS_Entity):
 	on_steering_body_exited(_entity)

@@ -1,17 +1,13 @@
 extends Component
 class_name Ability
 
-@export var resource: AbilityResource
-
-@export_group("VFX")
-@export var recharge_particles_container: Particles3DContainer
-@export var recharge_anim_player: AnimationPlayer
-@export var recharge_anim_name: StringName
+@export var resource: AbilityResource #determins action id, cooldown, ap cost, etc
 
 signal activated(ability: Ability)
+signal recharged(ability: Ability)
 
 var state_machine: CallableStateMachine = CallableStateMachine.new()
-var context: Dictionary = {} #populated by ability manager or AiComponent before activation
+var context: Dictionary = {} #populated by ability manager or RTS_AiComponent before activation
 var cooldown_timer : SceneTreeTimer
 var _ap: int
 var ap_cost: int
@@ -35,13 +31,7 @@ func add_ap(amount: int):
 	var before: int = _ap
 	_ap = min(resource.max_ap, _ap + 1)
 	if before == 0 && _ap > 0:
-		play_recharge_vfx()
-
-func play_recharge_vfx():
-	if recharge_particles_container:
-		recharge_particles_container.restart_all()
-	if recharge_anim_player:
-		recharge_anim_player.play(recharge_anim_name)
+		recharged.emit(self)
 
 func set_up_statemachine():
 	pass
@@ -84,4 +74,4 @@ func start_cooldown(duration: float):
 func on_cooldown_timeout():
 	cooldown_timer = null
 	if _ap >= resource.ap_cost:
-		play_recharge_vfx()
+		recharged.emit(self)

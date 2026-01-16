@@ -1,9 +1,6 @@
-extends Component
+class_name RTS_StunnableComponent extends Component
 
-class_name Stunnable
-
-
-#todo build this out
+#Example component that "stuns" entity, essentially rendering attack/defense/movable inactive for a duration
 
 @export var sprite: Sprite3D
 
@@ -13,8 +10,7 @@ var stunned_position: Vector3
 var pos_tween: Tween
 var animation_player: AnimationPlayer
 
-signal stunned(entity: Entity,value: bool)
-
+signal stunned(entity: RTS_Entity,value: bool)
 
 func _ready():
 	super._ready()
@@ -32,7 +28,6 @@ func stun(duration: float, anim_and_tween_duration: float, stun_target: Vector3 
 	stun_timer = get_tree().create_timer(duration)
 	stun_timer.timeout.connect(on_stun_timeout)
 
-
 	entity.enable_unit_collisions(false)
 	#components
 	if entity.attack != null:
@@ -41,7 +36,6 @@ func stun(duration: float, anim_and_tween_duration: float, stun_target: Vector3 
 		entity.defense.set_component_inactive()
 	if entity.movable != null:
 		entity.movable.add_controller_override(self,5)
-
 
 	#tween position
 	stunned_position = entity.global_position
@@ -67,14 +61,11 @@ func on_tree_node_exited(node: StringName):
 		entity.anim_tree.set("parameters/TimeScale/scale", 1.0)
 
 func on_stun_anim_timeout():
-	print("Reverting back to scale 1asssssssdfdsds")
 	animation_player.speed_scale = 1
 func on_animation_finished(_anim_name: StringName):
-	print("Reverting back to scale 1sss")
 	animation_player.speed_scale = 1
 func on_animation_changed(old_name: StringName, _new_name: StringName):
 	if old_name == "stun":
-		print("Reverting back to scale 1")
 		animation_player.speed_scale = 1
 
 func on_stun_timeout():
@@ -93,8 +84,8 @@ func on_stun_timeout():
 
 	stunned.emit(entity,false)
 
-func override_movable_physics_process(_delta: float, _movable: Movable):
+func override_movable_physics_process(_delta: float, _movable: RTS_Movable):
 	entity.global_position = stunned_position
 
-func is_externally_immovable(_movable: Movable) -> bool:
+func is_externally_immovable(_movable: RTS_Movable) -> bool:
 	return true

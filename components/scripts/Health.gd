@@ -1,5 +1,5 @@
 extends Component
-class_name Health
+class_name RTS_HealthComponent
 
 @export var init_health : float = 100
 # @export var death_animation = ""
@@ -11,9 +11,9 @@ var health_bar_instance: HealthBar
 var health: float
 var is_dead = false
 
-signal death(entity: Entity)
-signal health_changed(health: Health)
-signal health_damaged(health: Health)
+signal death(entity: RTS_Entity)
+signal health_changed(health: RTS_HealthComponent)
+signal health_damaged(health: RTS_HealthComponent)
 
 # func apply_resource(resource: EntityResource):
 # 	if resource.health != 0.0 && resource.health != init_health:

@@ -1,34 +1,35 @@
 @tool
-class_name Entity extends CharacterBody3D
+class_name RTS_Entity extends CharacterBody3D
 
 enum Faction {PLAYER,ENEMY,NEUTRAL}
 
-@export var faction = Faction.PLAYER
+@export var faction = Faction.PLAYER #the faction this entity belongs to, will impact collision layers for child components
 @export var resource: EntityResource
 
-signal debug_entity(entity: Entity,value: bool)
-signal before_tree_exit(entity:Entity)
-signal end_of_life(entity: Entity) #guarnateed to be called exactly once, either when dying or if hasn't died, when removed
-signal spatial_hash_entity(entity: Entity, value: bool)
+signal debug_entity(entity: RTS_Entity,value: bool)
+signal before_tree_exit(entity:RTS_Entity)
+signal end_of_life(entity: RTS_Entity) #guarnateed to be called exactly once, either when dying or if hasn't died, when removed
+signal spatial_hash_entity(entity: RTS_Entity, value: bool)
 
-#DEBUG
+#DEBUG START----
 var is_debugged = false
 var entity_debug_scene = preload("res://addons/rts_entity_controller/entity/scenes/entity_debug.tscn")
 var entity_debug_instance
+#DEBUG END----
 
 # Components should automatically be fetched. It is less error prone to assign this way
 # instead of in _ready so that components can be accessed at any time, i.e. in children's _ready
-@export var selectable: Selectable
-@export var movable: Movable
-@export var defense: Defense
-@export var attack: AttackBehaviour
-@export var health: Health 
-@export var stunnable: Stunnable
-@export var anim_tree: AnimationTreeComponent
+@export var selectable: RTS_Selectable
+@export var movable: RTS_Movable
+@export var defense: RTS_Defense
+@export var attack: RTS_AttackComponent
+@export var health: RTS_HealthComponent 
+@export var stunnable: RTS_StunnableComponent
+@export var anim_tree: RTS_AnimationTreeComponent
 
 @export var visible_on_screen: VisibleOnScreenNotifier3D
 @export var visuals: VisualComponent
-@export var ai : AiComponent
+@export var ai : RTS_AiComponent
 @export var entity_collider : CollisionShape3D #can be nullable
 @export var obstacle: NavigationObstacleComponent
 
@@ -143,7 +144,7 @@ func on_attack_enter_state(new_state: int):
 	# 		print("YES")
 func on_active_weapon_changed(new_weapon: Weapon,weapon_index: int):
 	si["weapon_index"] = weapon_index
-func on_stunned(entering_entity: Entity,value: bool):
+func on_stunned(entering_entity: RTS_Entity,value: bool):
 	sb["is_stunned"] = value
 
 func enable_unit_collisions(value: bool):
@@ -154,22 +155,22 @@ func update_and_fetch_components():
 	abilities.clear()
 	abilities_array.clear()
 	for child in get_children():
-		if child is Selectable:
+		if child is RTS_Selectable:
 			selectable = child
-		if child is Movable:
+		if child is RTS_Movable:
 			movable = child
-		if child is Defense:
+		if child is RTS_Defense:
 			defense = child
-		if child is AttackBehaviour:
+		if child is RTS_AttackComponent:
 			attack = child
-		if child is Health:
+		if child is RTS_HealthComponent:
 			health = child
-		if child is AnimationTreeComponent:
+		if child is RTS_AnimationTreeComponent:
 			anim_tree = child
 		if child is Ability:
 			abilities_array.append(child)
 			if abilities.has(child.resource.id):
-				printerr("Multiple abilities using same resource is not supported. " + str(child.resource.id) + " Entity:  " + str(self.name))
+				printerr("Multiple abilities using same resource is not supported. " + str(child.resource.id) + " RTS_Entity:  " + str(self.name))
 			else:
 				abilities[child.resource.id] = child
 
@@ -181,7 +182,7 @@ static func get_color(_faction: Faction):
 	elif _faction == Faction.NEUTRAL:
 		return Color.YELLOW
 
-func on_death(_entity: Entity):
+func on_death(_entity: RTS_Entity):
 	self.collision_layer = 0
 	self.collision_mask = 0
 
@@ -222,8 +223,8 @@ func toggle_entity_debug():
 		entity_debug_instance.queue_free()
 	debug_entity.emit(self,is_debugged)
 		
-func on_removed_from_selection(selection: Array[Selectable]):
-	if selection.has(get_node("Selectable")):
+func on_removed_from_selection(selection: Array[RTS_Selectable]):
+	if selection.has(get_node("RTS_Selectable")):
 		toggle_entity_debug()
 
 func on_screen_entered():

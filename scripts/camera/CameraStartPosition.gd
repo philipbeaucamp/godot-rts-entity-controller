@@ -1,10 +1,9 @@
 extends Node3D
 
-class_name CamerStartPosition
+class_name RTS_CamerStartPosition
 
-@export var camera_menu_position: Node3D
 @export var is_enabled: bool = true
-static var current: CamerStartPosition
+static var current: RTS_CamerStartPosition
 
 func _ready():
 	if is_enabled:

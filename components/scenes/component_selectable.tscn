@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://hrcpd2cqplaf"]
+
+[ext_resource type="Script" uid="uid://byslv15175k1n" path="res://addons/rts_entity_controller/components/scripts/Selectable.gd" id="1_juhoo"]
+[ext_resource type="Shader" uid="uid://cuh24sqqeu7aa" path="res://addons/rts_entity_controller/entity/assets/selection_cone_vshader.tres" id="2_y03qj"]
+[ext_resource type="ArrayMesh" uid="uid://b1ljhq2qvt17" path="res://addons/rts_entity_controller/assets/meshes/unit_selection_cone.obj" id="3_kaxmp"]
+[ext_resource type="Shader" uid="uid://0odapityobaa" path="res://addons/rts_entity_controller/entity/assets/hover_rotation_shader.gdshader" id="4_3mm2q"]
+[ext_resource type="Texture2D" uid="uid://dy05g3u37828l" path="res://addons/rts_entity_controller/assets/icons/selection_hover_short.png" id="5_144lx"]
+[ext_resource type="Script" uid="uid://5wom5o3rrufj" path="res://addons/rts_entity_controller/components/scripts/PickablePhysics.gd" id="6_88teh"]
+[ext_resource type="Script" uid="uid://cpvy2dvm2ae5m" path="res://addons/rts_entity_controller/components/scripts/Boxable.gd" id="7_47ltl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0qff"]
+render_priority = 0
+shader = ExtResource("2_y03qj")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3yxw"]
+render_priority = 0
+shader = ExtResource("4_3mm2q")
+shader_parameter/spin_texture = ExtResource("5_144lx")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/clockwise = true
+shader_parameter/speed = 0.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_fx6i5"]
+
+[node name="SelectableBehaviour" type="Node3D" node_paths=PackedStringArray("pickable", "boxable", "selection_cone", "hover_quad")]
+script = ExtResource("1_juhoo")
+pickable = NodePath("Pickable")
+boxable = NodePath("Boxable")
+selection_cone = NodePath("Visuals/SelectionCone")
+hover_quad = NodePath("Visuals/HoverQuad")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="SelectionCone" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.02, 0)
+material_override = SubResource("ShaderMaterial_e0qff")
+mesh = ExtResource("3_kaxmp")
+skeleton = NodePath("../..")
+
+[node name="HoverQuad" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1.00325, 0, 0, 0, -4.38536e-08, 1.00325, 0, -1.00325, -4.38536e-08, 0, 0.0229545, 0)
+material_override = SubResource("ShaderMaterial_g3yxw")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_fx6i5")
+skeleton = NodePath("../..")
+
+[node name="Pickable" type="Node3D" parent="." node_paths=PackedStringArray("selectable")]
+script = ExtResource("6_88teh")
+selectable = NodePath("..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pickable"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="Boxable" type="Node3D" parent="."]
+script = ExtResource("7_47ltl")

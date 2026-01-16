@@ -41,10 +41,10 @@ func on_hovered_pickable_empty():
 	determine_active_marker()
 
 func on_abilities_state_changed(_previous_state: int, new_state:int):
-	if new_state == AbilityManager.State.QUEUED_CLICK_ABILITIES_VALID:
+	if new_state == RTS_AbilityManager.State.QUEUED_CLICK_ABILITIES_VALID:
 		markers["action"].requests_to_be_active["click-ability"] = true
 		markers["invalid"].requests_to_be_active.erase("click-ability")
-	elif new_state == AbilityManager.State.QUEUED_CLICK_ABILITIES_INVALID:
+	elif new_state == RTS_AbilityManager.State.QUEUED_CLICK_ABILITIES_INVALID:
 		markers["invalid"].requests_to_be_active["click-ability"] = true
 		markers["action"].requests_to_be_active.erase("click-ability")
 	else:

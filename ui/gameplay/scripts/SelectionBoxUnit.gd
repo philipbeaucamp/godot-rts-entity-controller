@@ -5,13 +5,13 @@ class_name SelectionBoxUnit
 @onready var label: Label = $Label
 @onready var texture_btn: TextureButton = $TextureButton
 
-var selectable: Selectable
+var selectable: RTS_Selectable
 
 func _ready():
 	super._ready()
 	texture_btn.pressed.connect(on_pressed)
 
-func set_up(_selectable: Selectable):
+func set_up(_selectable: RTS_Selectable):
 	selectable = _selectable
 	var resource = _selectable.entity.resource
 	label.text = resource.display_name
@@ -37,6 +37,6 @@ func on_pressed():
 		Controls.selection.remove_from_selection(selectable)
 	else:
 		Controls.selection.remove_all_selection()
-		var selectables : Array[Selectable] = [selectable]
+		var selectables : Array[RTS_Selectable] = [selectable]
 		Controls.selection.add_to_selection_bulk(selectables)
 	
