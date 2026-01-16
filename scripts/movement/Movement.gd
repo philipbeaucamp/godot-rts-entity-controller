@@ -121,7 +121,7 @@ static func calc_avg_dist_to(target: Vector3, points: PackedVector3Array) -> flo
 ##If suitable (entities are all in one main_grid cluster and target is not in that center), returns center
 #to be used for offset calculation in formation move
 static func should_use_formation(target: Vector3,entities: Array[RTS_Entity],positions: PackedVector3Array, group_center: Vector3 = Vector3.INF) -> bool:
-	var main_grid : SpatialHashArea = SpatialHashArea.main_grid
+	var main_grid : RTS_SpatialHashArea = RTS_SpatialHashArea.main_grid
 	var clients: Dictionary[Client,bool] = {}
 	for e in entities:
 		if main_grid.entities.has(e):

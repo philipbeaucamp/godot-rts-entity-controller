@@ -1,8 +1,7 @@
-extends Component
-class_name RTS_Movable
+class_name RTS_Movable extends RTS_Component
 
 # https://starcraft.fandom.com/wiki/Marine_(StarCraft_II)
-# todo: consider accelration, lateral accelration, deceleration
+# Todo: consider Acceleration, lateral acceleration, deceleration
 
 #GDC SC2 Pathing
 # https://www.gdcvault.com/play/1014514/AI-Navigation-It-s-Not
@@ -10,7 +9,6 @@ class_name RTS_Movable
 #GDC Steering
 #https://gdcvault.com/play/1018262/The-Next-Vector-Improvements-in
 
-# signal target_type_change(movable: RTS_Movable, old: Type, new: Type)
 signal after_targets_added(movable: RTS_Movable, targets: Array[Target])
 signal next_target_changed(movable: RTS_Movable) #onyl called for acute target change
 signal before_all_targets_cleared(movable: RTS_Movable)
@@ -19,15 +17,16 @@ signal next_target_just_reached(movable: RTS_Movable, target: Target) # called j
 signal final_target_reached(movable: RTS_Movable)
 
 enum State {
-	IDLE = 0, #no walk anim
-	REACHED_SOURCE_TARGET = 1, #no walk anim #currently not used (9/26/2025).
-	#if we don't need to follow targets, we probably don't need this state anymore
-	HOLD = 2, #no walk anim
+	IDLE = 0,
+	 #if we don't need to follow targets, we don't need this state. This makes things much simpler.
+	 #However, I'm keeping it in for now since it might be useful to readd "entity following" logic later
+	REACHED_SOURCE_TARGET = 1,
+	HOLD = 2,
 	PATROL = 3,
 	WALK = 4,
-	RETURN_TO_IDLE = 5,
-	PUSHED = 6
-	} # > 2 is moving, # > 3 is moving without patrol
+	RETURN_TO_IDLE = 5, #Unit automatically returns to idle position
+	PUSHED = 6 # Unit is pushed by external forces
+	} # <= 2 means unit is stationary, > 2 is moving, > 3 is moving without patrol
 
 enum Type {
 	NULL = 0,
@@ -39,9 +38,8 @@ enum Type {
 
 @export_group("General")
 @export var speed: float = 5
-@export var smooth_rotation_multiplier: float = 10
 @export var stop_distance : float = 0.25
-@export var pivot: Node3D
+@export var pivot: Node3D #Node which gets rotated. Note: RTS_Entity node is never rotated to keep things simple
 @export var steering : Area3D
 
 @export_group("Components")
@@ -80,7 +78,7 @@ var externally_immovable: bool = false
 var stop_distance_squared: float 
 
 #A list of (priority, controller) tuples that can overwrite this scripts physics process
-var active_controller: Object #Either this or a class that overrides movement, i.e. AttackVariant
+var active_controller: Object #Either this or a class that overrides movement, i.e. RTS_AttackVariant
 var controller_overrides: Array = []
 
 #nav_mesh
@@ -91,7 +89,6 @@ var prev_target = Vector3.INF
 var steering_neighbors: Dictionary[Node3D,RTS_Movable] = {} #note: RTS_Movable Value can be nullable
 
 #pushing
-# var physics_frame_since_last_push = INF #increases at end of every physics frame
 var accumulated_push = Vector3.ZERO
 var min_push_time : float = 0.1
 var elapsed_time_since_last_push: float = 0
@@ -168,6 +165,8 @@ func _physics_process(delta: float):
 		elif next.pos.distance_squared_to(next.source.global_position) > ignore_target_update_distance_squared:
 				next.pos = next.source.global_position		
 
+	#Only the active controller's logic is called.
+	#This is done so it is easy to override movement logic from other components, e.g. attack component
 	if active_controller:
 		externally_immovable = active_controller.is_externally_immovable(self)
 		if active_controller == self:
@@ -236,8 +235,7 @@ func state_reached_source_target(delta: float):
 			sm.change_state(determine_state(next))
 		elif steering_neighbors.has(next.source):
 			return
-		#if source target has moved, follow
-		#todo add delay!
+		#if source target has moved, follow (todo possible to add delay)
 		elif elapsed_since_reached_source_moved > 0 || (reached_source.movable != null && reached_source.movable.sm.current_state > State.HOLD):
 			elapsed_since_reached_source_moved += delta
 			if elapsed_since_reached_source_moved > min_reaction_time_source_moved:
@@ -263,6 +261,8 @@ func state_walk(delta: float):
 			#even though we are in "Walk" state, not patrol state
 		if steering_neighbors.has(next.source):
 			on_next_target_reached()
+
+			#Leaving this in so REACHED_SOURCE_TARGET can be used in future if needed
 			#if targets.size() > 1:
 				#on_next_target_reached()
 			#else:
@@ -324,14 +324,7 @@ func set_next_target(new_next: Target):
 		return
 
 	last = next
-	
-	# if last && last.source:
-	# 	last.source.end_of_life.disconnect(on_next_end_of_life)
-
 	next = new_next
-
-	# if next && next.source:
-	# 	next.source.end_of_life.connect(on_next_end_of_life)
 
 	next_target_has_just_been_set = true
 	next_target_changed.emit(self)
@@ -361,7 +354,6 @@ func insert_before_next_target(new_targets: Array[Target]):
 		current_next.previous = target
 		current_next = target
 
-	#could have not added any
 	if current_next == next:
 		return
 
@@ -501,9 +493,6 @@ func apply_accumulated_force(delta: float) -> bool:
 
 func apply_push(push: Vector3,delta: float) -> bool:
 
-	# entity.velocity = (entity.velocity + accumulated_push.normalized() * speed).limit_length(speed)
-	# entity.velocity = (accumulated_push * speed).limit_length(speed)
-
 	entity.velocity = (push.normalized() * (speed)) #slightly faster than normal speed
 	clamp_velocity_to_navmesh(delta)
 
@@ -514,14 +503,7 @@ func apply_push(push: Vector3,delta: float) -> bool:
 		solve_collision()
 		
 	apply_instant_rotation(entity.global_position + push)
-	# accumulated_push = Vector3.ZERO
 	return true
-
-# func apply_smooth_rotation(direction: Vector3, delta: float):
-# 	direction.y = 0
-# 	var target_rotation = atan2(-direction.x,-direction.z)
-# 	var current_rotation = pivot.rotation.y
-# 	pivot.rotation.y = lerp_angle(current_rotation,target_rotation,delta * smooth_rotation_multiplier)
 
 func apply_instant_rotation(look_at_target: Vector3):
 	#fast (yaw only using local axis), using look_at is more expensive
@@ -531,7 +513,6 @@ func apply_instant_rotation(look_at_target: Vector3):
 
 	var dir = from - to # why inversed ?
 	if dir.length_squared() < 0.001:
-		# printerr("Just curious if we're getting in here")
 		return # Avoid noise by dividing by small amounts
 	
 	var angle = atan2(dir.x,dir.z)
@@ -581,7 +562,6 @@ func move(delta: float):
 		on_next_target_reached()
 		return
 
-
 	#Separate neighbors into movable ones and immovables ones (can contain
 	#movables that are "externally externally_immovable")
 	var immovable_neighbors : Array[Node3D] = []
@@ -612,11 +592,6 @@ func move(delta: float):
 
 	steering_force += avoidance_and_separation
 
-	## get pushed (by others)
-	#assert(accumulated_push == Vector3.ZERO,"Why am I getting pushed when moving?")
-	# if accumulated_push != Vector3.ZERO:
-	# 	steering_force += accumulated_push.normalized() * speed
-
 	entity.velocity = (entity.velocity + steering_force).limit_length(speed)
 
 	## push others
@@ -643,14 +618,12 @@ func move(delta: float):
 	if entity.move_and_slide():
 		solve_collision()
 
-#reference, to remove
 #todo this needs to be optimized, kinda heavy function only really user avoidance?
 # return boolean indicating whether clamping has occured
 func clamp_velocity_to_navmesh(delta: float) -> bool:
 	var predicted_position = entity.global_position + entity.velocity * delta
 	var clamped = get_closest_point_on_nav_mesh(predicted_position)
 	if clamped == Vector3.ZERO:
-		#assert(false,"Investigate clamp")
 		printerr("Clamp failed. Investigate why map_get_closest_point is failing. Returning...")
 		return false
 	if predicted_position.distance_squared_to(clamped) > 0.25*0.25:
@@ -671,8 +644,6 @@ func solve_collision():
 	var collision = entity.get_last_slide_collision()
 	var collision_count = collision.get_collision_count()
 	for i in range(collision_count):
-		# Log.info_owner(self,"collision" + str(i) + "State: " + str(State.keys()[state]))
-		# Log.info_owner(self,"attack state " + str(RTS_AttackComponent.State.keys()[attack.state]))
 		var other = collision.get_collider(i)
 		if other is RTS_Entity && other.movable:
 			#only need to try relinquishing if we're actually moving
@@ -724,17 +695,6 @@ func dynamic_separation(movables: Array[RTS_Movable], next_nav_target: Vector3) 
 						continue
 				total_mind_read += Vector3(avoidance_direction.x,0,avoidance_direction.y)
 				influences += 1
-			#currently we are only using separation for dot < 0
-			# else:
-				#velocities are aligned. apply separation
-				# var diff = (movable.global_position - global_position)
-				# diff.y = 0
-				# var avoidance = -diff
-				# var avoidance = movable.entity.velocity.normalized()
-				# # var factor = ( 1 - avoidance.length()/steering_radius)
-				# var factor = 1
-				# total_mind_read += avoidance * factor
-				# influences += 1
 	if influences > 0:
 		total_mind_read /= influences
 
@@ -742,9 +702,6 @@ func dynamic_separation(movables: Array[RTS_Movable], next_nav_target: Vector3) 
 		##DebugDraw3D.draw_line(pos,pos + total_mind_read,Color.RED)
 		pass
 	return total_mind_read * separation_multiplier
-
-
-
 
 func force_push(push: Vector3, _origin: Vector3 = Vector3.ZERO, _limit: float = -1):
 	if has_been_force_pushed_this_tick:
@@ -760,7 +717,7 @@ func get_pushed_instantly_by(other: RTS_Movable, push_strength: float = 1):
 	p.y = 0
 	var push_direction = o1 if p.dot(o1) < p.dot(o2) else o2
 	push_direction = (push_direction - p).normalized() #optional, applies extra direction
-	if  entity.entity_debug_instance:
+	if entity.entity_debug_instance:
 		##DebugDraw3D.draw_cylinder_ab(pos,pos + 0.01 * Vector3.UP,0.25,Color.PINK)
 		##DebugDraw3D.draw_line(pos,pos + push_direction,Color.PINK)
 		pass
@@ -777,27 +734,13 @@ func get_pushed_by(other:RTS_Movable):
 	if (
 		!allow_being_pushed 
 		|| externally_immovable 
-		# || other.sm.current_state == State.RETURN_TO_IDLE
 		|| sm.current_state == State.WALK
 		|| sm.current_state == State.PATROL
 		|| sm.current_state == State.RETURN_TO_IDLE
 	):
 		return
 
-	#Dont allow pushing by followers
-	#if other.next && other.next.source == entity:
-		#return
-		
-	#I can be pushed, but not by fellow followers
-	#if sm.current_state == State.REACHED_SOURCE_TARGET:
-		#if other.next && next &&  other.next.source == next.source:
-			#return
-
-	# if other.sm.current_state == State.RETURN_TO_IDLE:
-	# 	if sm.current_state == State.REACHED_SOURCE_TARGET:
-	# 		return
-	
-	#dont allow being pushed from followers
+	#Dont allow being pushed from followers
 	if other.next && other.next.source == entity:
 		return
 	if other.last && other.last.source == entity:
@@ -839,8 +782,6 @@ func avoid(immovables: Array[Node3D], next_nav_target: Vector3) -> Vector3:
 	var debug: bool = entity.entity_debug_instance != null
 
 	for immovable in immovables:
-		# if externally_immovable.is_externally_immovable(): 
-		# var obstruction = Vector2(movable.global_position.x,movable.global_position.z)
 		#Calculate perpendicular vector to p
 		var diff = (immovable.global_position - pos)
 		diff.y = 0
@@ -883,7 +824,10 @@ func avoid(immovables: Array[Node3D], next_nav_target: Vector3) -> Vector3:
 		##DebugDraw3D.draw_line(entity.global_position,entity.global_position + total_avoidance,Color.RED)
 	return total_avoidance
 
-# called when collided with other RTS_Entity
+#Called when collided with other RTS_Entity
+#Tries to relinquish movement target if possible, returns true if successful
+#This essentially allows units to bump into other units with the same target
+#and stop moving if both are at/near the target
 func try_relinquish_target(other: RTS_Entity) -> bool:
 	if !next:
 		return true
@@ -896,7 +840,6 @@ func try_relinquish_target(other: RTS_Entity) -> bool:
 			on_next_target_reached()
 			return true
 		return false
-		
 	
 	if other.movable:
 		var other_current_or_last_target : Target = other.movable.next
@@ -907,7 +850,7 @@ func try_relinquish_target(other: RTS_Entity) -> bool:
 		if next.source:
 			if (other.movable.is_at_or_near_final_target()
 				&& next.source == other_current_or_last_target.source):
-					#sm.change_state(State.REACHED_SOURCE_TARGET)
+					#sm.change_state(State.REACHED_SOURCE_TARGET) #Only use if we want to follow source movement
 					on_next_target_reached()
 					return true
 		else:
@@ -918,9 +861,7 @@ func try_relinquish_target(other: RTS_Entity) -> bool:
 	return false
 
 func on_next_target_reached(use_current_position_as_last: bool = false):
-
-	#todo tomorrow:
-	#isnerting target just before next works nicely, but movementpaths gets confused, because we're
+	#Inserting target just before next works nicely, but movementpaths gets confused, because we're
 	#telling it about it here, but didn't properly insert it. maybe add a boolean to target idk.
 	next_target_just_reached.emit(self,next)
 	
@@ -928,7 +869,6 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 		next.pos = entity.global_position
 	var callbacks : Array = next.callbacks.values()
 
-	# if sm.current_state == State.PATROL:
 	if next.type == Type.PATROL:
 		if backwards:
 			if next.previous:
@@ -939,14 +879,12 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 				#reached first patrol point
 				set_next_target(next.next)
 				backwards = false
-				#assert(next)
 		else:
 			if next.next:
 				set_next_target(next.next)
 				if next.type != Type.PATROL:
 					#pop all patrol targets and move to next
 					assert(next)
-					# next.previous = null
 					var walk_back: Target = next.previous
 					while walk_back:
 						assert(walk_back.type == Type.PATROL,"Found non patrol target")
@@ -963,11 +901,10 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 		remove_from_targets(next)
 		set_next_target(next.next)
 		if next:
-			#next.previous = null #since last no longer exists
 			#in next target is PATROL, we need to insert patrol point at current position
 			if next.type == Type.PATROL && targets.size() == 1:
 				var target: Target = Target.new(last.pos,Type.PATROL,last.source,RTS_Movement.generate_session_uid(),last.offset)
-				targets.insert(0,target) #todo ideally use insert function...
+				targets.insert(0,target) #Ideally use insert function...
 				#link 
 				target.next = next
 				next.previous = target
@@ -988,13 +925,6 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 	if callbacks != null:
 		for c in callbacks:
 			c.fun.callv(c.args)
-
-
-#TODO
-#todo when adding targets, we need to listen for when the target source dies
-#then remove the target
-# func on_before_target_source_exit(_entity: RTS_Entity):
-# 	pass
 
 #We remove the target completetly when its source dies/existing tree
 func on_target_source_eol(_entity: RTS_Entity,_target: Target):

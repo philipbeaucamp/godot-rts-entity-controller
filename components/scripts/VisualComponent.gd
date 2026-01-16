@@ -1,6 +1,4 @@
-extends Component
-
-class_name VisualComponent
+class_name RTS_VisualComponent extends RTS_Component
 
 @export var meshes : Array[MeshInstance3D] = []
 @export var flash_time = 0.05

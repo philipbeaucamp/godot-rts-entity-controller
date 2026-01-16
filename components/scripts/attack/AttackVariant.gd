@@ -1,12 +1,10 @@
-extends Component
+class_name RTS_AttackVariant extends RTS_Component
 
-class_name AttackVariant
+#Base class for implementing unit specific attack variants.
+#For most units RTS_DefaultAttackVariant will be sufficient. (Think Sc2 Marine)
 
 @export var can_attack_while_moving = false
 @export var behaviour: RTS_AttackComponent
-
-#A list of (priority, controller) tuples that can overwrite the statemachine
-# var sm_override: Array = []
 
 func fetch_entity(): 
 	return behaviour.fetch_entity()
@@ -27,9 +25,8 @@ func increase_cooldown_duration_percent(percentage: float):
 	for weapon in behaviour.weapons:
 		weapon.cooldown_duration *= (1 + percentage)
 		if weapon.cooldown_duration < weapon.attack_anim_duration:
-			push_error("Cooldown smaller than atack_anim_duration")
-			#todo limit? or somehow increase anim speed ?
-			#todo what about the other (non active) attack variants ? 
+			weapon.cooldown_duration = weapon.attack_anim_duration
+			push_warning("RTS_Weapon cooldown duration cannot be less than attack animation duration.")
 
 #---STATES---
 func state_idle():

@@ -1,4 +1,4 @@
-extends Component
+extends RTS_Component
 class_name Ability
 
 @export var resource: AbilityResource #determins action id, cooldown, ap cost, etc

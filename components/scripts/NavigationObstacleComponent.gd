@@ -1,4 +1,4 @@
-class_name NavigationObstacleComponent extends Component
+class_name NavigationObstacleComponent extends RTS_Component
 
 ##If positive and this is a movable target, will translate the target position
 ##by below float range towards movable

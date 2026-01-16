@@ -33,11 +33,11 @@ func _process(delta):
 			active_squads[i].state_machine.update()
 
 func update_clusters():
-	if !SpatialHashArea.main_grid:
+	if !RTS_SpatialHashArea.main_grid:
 		return
 
 	#Ever tick we update the Spatial Hash grid. Don't do this every frame, since its relatively expensive
-	var grid : SpatialHashFast = SpatialHashArea.main_grid.grid
+	var grid : SpatialHashFast = RTS_SpatialHashArea.main_grid.grid
 	player_order_clusters_by_biggest = grid.flood_fill_clusters(1,RTS_Entity.Faction.PLAYER)
 	player_order_clusters_by_biggest.sort_custom(func(a: Array, b: Array) -> bool:
 		return a.size() > b.size()

@@ -1,6 +1,4 @@
-extends Component
-
-class_name Boxable
+class_name RTS_BoxableComponent extends RTS_Component
 
 @export var collision_shape : CollisionShape3D
 

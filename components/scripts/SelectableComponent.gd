@@ -1,6 +1,4 @@
-extends Component
-
-class_name RTS_Selectable
+class_name RTS_Selectable extends RTS_Component
 
 var selection: RTS_Selection
 
@@ -8,8 +6,8 @@ signal on_stop()
 signal selected(value: bool)
 
 @export var priority: int = 0 #determins which selectable has priority of its action being displayed, also determins camera hotkey jumping
-@export var pickable: PickablePhysics 
-@export var boxable: Boxable
+@export var pickable: RTS_PickablePhysicsComponent 
+@export var boxable: RTS_BoxableComponent
 
 @export var selection_cone: MeshInstance3D
 @export var hover_quad: MeshInstance3D

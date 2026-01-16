@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://hrcpd2cqplaf"]
 
-[ext_resource type="Script" uid="uid://byslv15175k1n" path="res://addons/rts_entity_controller/components/scripts/Selectable.gd" id="1_juhoo"]
+[ext_resource type="Script" uid="uid://byslv15175k1n" path="res://addons/rts_entity_controller/components/scripts/SelectableComponent.gd" id="1_juhoo"]
 [ext_resource type="Shader" uid="uid://cuh24sqqeu7aa" path="res://addons/rts_entity_controller/entity/assets/selection_cone_vshader.tres" id="2_y03qj"]
 [ext_resource type="ArrayMesh" uid="uid://b1ljhq2qvt17" path="res://addons/rts_entity_controller/assets/meshes/unit_selection_cone.obj" id="3_kaxmp"]
 [ext_resource type="Shader" uid="uid://0odapityobaa" path="res://addons/rts_entity_controller/entity/assets/hover_rotation_shader.gdshader" id="4_3mm2q"]
 [ext_resource type="Texture2D" uid="uid://dy05g3u37828l" path="res://addons/rts_entity_controller/assets/icons/selection_hover_short.png" id="5_144lx"]
 [ext_resource type="Script" uid="uid://5wom5o3rrufj" path="res://addons/rts_entity_controller/components/scripts/PickablePhysics.gd" id="6_88teh"]
-[ext_resource type="Script" uid="uid://cpvy2dvm2ae5m" path="res://addons/rts_entity_controller/components/scripts/Boxable.gd" id="7_47ltl"]
+[ext_resource type="Script" uid="uid://cpvy2dvm2ae5m" path="res://addons/rts_entity_controller/components/scripts/BoxableComponent.gd" id="7_47ltl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e0qff"]
 render_priority = 0

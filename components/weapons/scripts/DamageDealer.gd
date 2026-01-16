@@ -1,5 +1,4 @@
-extends Node
-class_name DamageDealer
+class_name RTS_DamageDealer extends Node
 
 @export var publisher: RTS_Entity #optional, who is dealing this damage
 @export var from: Node3D #optional, where is the damage dealt from. usually publisher.global_position, but can also be projetile position

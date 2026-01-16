@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://cvxm7vcevkc60" path="res://addons/rts_entity_controller/scripts/pool/ObjectPool.gd" id="14_574yu"]
 [ext_resource type="PackedScene" uid="uid://bqfgp750nvy3a" path="res://addons/rts_entity_controller/paths/path.tscn" id="15_3c1nw"]
 [ext_resource type="PackedScene" uid="uid://utsf55tmd15a" path="res://addons/rts_entity_controller/paths/waypoint.tscn" id="16_vk50d"]
-[ext_resource type="Script" uid="uid://enuqdnlnm7t2" path="res://addons/rts_entity_controller/scripts/util/GeometryUtils.gd" id="18_4wg1y"]
+[ext_resource type="Script" uid="uid://enuqdnlnm7t2" path="res://addons/rts_entity_controller/utility/scripts/GeometryUtils.gd" id="18_4wg1y"]
 [ext_resource type="Script" uid="uid://du0efgbiswy6v" path="res://addons/rts_entity_controller/scripts/TimeUtil.gd" id="19_50f00"]
 
 [node name="RTSController" type="Node3D" node_paths=PackedStringArray("raycast_rig", "camera", "selection", "box_selection", "movement", "pool_manager", "ability_manager", "canvas_layer", "canvas_layer_health_bar_control", "ui", "geometry_utils", "time_utility")]

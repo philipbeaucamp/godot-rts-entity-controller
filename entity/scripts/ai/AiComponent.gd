@@ -1,4 +1,4 @@
-class_name RTS_AiComponent extends Component
+class_name RTS_AiComponent extends RTS_Component
 
 #This component should only handle micro decisions like activating abilities etc
 #Position, and more tactical decisisions are computed in Squad

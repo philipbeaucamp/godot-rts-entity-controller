@@ -1,19 +1,19 @@
-class_name RTS_AttackComponent extends Component
+class_name RTS_AttackComponent extends RTS_Component
 
-#Handles logic for automatic targeting and attack states, using Scan and Weapon Area
-#a)Requires an AttackVariant to implement explicit state logic (like DefaultAttackVariant)
+#Handles logic for automatic targeting and attack states, using Scan and RTS_Weapon Area
+#a)Requires an RTS_AttackVariant to implement explicit state logic (like RTS_DefaultAttackVariant)
 #This is done so that AttackVariants can easily be swapped out to create different attack behaviours,
 #while keeping the core attack component logic (such as keeping track of targets within scan/weapon range)
 #and handling changing of targets etc, the same.
-#b)Requires a Weapon to handle damage dealing
+#b)Requires a RTS_Weapon to handle damage dealing
 
 
 #reference https://liquipedia.net/starcraft2/Automatic_Targeting
 #reference https://liquipedia.net/starcraft2/Category:Game_Mechanic
 
 @export var always_threat_to_attacker : bool = false
-@export var variant_to_activate_on_ready: AttackVariant
-@export var weapon_to_activate_on_ready: Weapon
+@export var variant_to_activate_on_ready: RTS_AttackVariant
+@export var weapon_to_activate_on_ready: RTS_Weapon
 @export var use_overlay_anim_for_attack_duration: bool = false
 
 ## Required to find out when anim has entered attacking
@@ -22,7 +22,7 @@ class_name RTS_AttackComponent extends Component
 }
 
 @export_group("VFX")
-@export var vfx_on_take_damage: Array[Particles3DContainer]
+@export var vfx_on_take_damage: Array[RTS_Particles3DContainer]
 
 @export_group("Debug")
 @export var inactive_on_ready = false
@@ -32,7 +32,7 @@ signal target_became_not_null(attack: RTS_AttackComponent, new_target: RTS_Defen
 signal target_became_null(attack: RTS_AttackComponent, old_target: RTS_Defense)
 signal player_assigned_target_death(attack: RTS_AttackComponent, player_assigned_target: RTS_Defense)
 signal current_target_death(attack: RTS_AttackComponent, target: RTS_Defense)
-signal active_weapon_changed(new_weapon: Weapon,weapon_index: int)
+signal active_weapon_changed(new_weapon: RTS_Weapon,weapon_index: int)
 
 enum State {
 	IDLE =0,
@@ -62,20 +62,20 @@ var defenses_in_scan: Array[RTS_Defense]
 var state_machine: CallableStateMachine = CallableStateMachine.new()
 
 #--- VARIANTS ---
-var variants: Array[AttackVariant] = []
-var active_variant: AttackVariant
-var prev_variant: AttackVariant = null
+var variants: Array[RTS_AttackVariant] = []
+var active_variant: RTS_AttackVariant
+var prev_variant: RTS_AttackVariant = null
 
 #--- WEAPONS ---
-var weapons: Array[Weapon] = []
-var active_weapon: Weapon
+var weapons: Array[RTS_Weapon] = []
+var active_weapon: RTS_Weapon
 
 #TIMERS
 var cooldown_timer : SceneTreeTimer
 var immobilize_timer: SceneTreeTimer
 var attack_anim_has_finished: bool = false
 
-func set_active_weapon(weapon: Weapon):
+func set_active_weapon(weapon: RTS_Weapon):
 	if active_weapon == weapon:
 		return
 
@@ -97,7 +97,7 @@ func set_active_weapon(weapon: Weapon):
 	active_weapon = weapon
 
 	if active_weapon:
-		assert(!active_weapon.component_is_active, "Weapon already active when setting active weapon in RTS_AttackComponent")
+		assert(!active_weapon.component_is_active, "RTS_Weapon already active when setting active weapon in RTS_AttackComponent")
 		active_weapon.weapon_area.area_entered.connect(on_weapon_area_entered)
 		active_weapon.weapon_area.area_exited.connect(on_weapon_area_exited)
 		active_weapon.scan_area.area_entered.connect(on_scan_area_entered)
@@ -107,7 +107,7 @@ func set_active_weapon(weapon: Weapon):
 	var index :int = weapons.find(active_weapon) #Index or -1
 	active_weapon_changed.emit(active_weapon,index)
 
-func set_active_variant(variant: AttackVariant):
+func set_active_variant(variant: RTS_AttackVariant):
 	if active_variant == variant:
 		return
 	active_variant = variant
@@ -142,9 +142,9 @@ func _ready():
 
 	variants.clear()
 	for child in children:
-		if child is Weapon:
+		if child is RTS_Weapon:
 			weapons.append(child)
-		if child is AttackVariant:
+		if child is RTS_AttackVariant:
 			variants.append(child)
 
 	state_machine.add_states(State.IDLE,state_idle,Callable(),Callable())
@@ -318,7 +318,7 @@ func try_auto_assign_target() -> RTS_Defense:
 			highest_threats.append(threat)
 			highest_atp = threat.atp
 
-	#3 Primary Weapon?
+	#3 Primary RTS_Weapon?
 	#todo for now there is only one weapon, so skip
 	
 	#4. Distance. First prioritize any in weapon range, then scan range
@@ -387,7 +387,7 @@ func on_current_target_death(_entity: RTS_Entity):
 func on_all_targets_cleared(_movable: RTS_Movable):
 	stop()
 	
-func on_attacked_by(damage_dealer: DamageDealer):
+func on_attacked_by(damage_dealer: RTS_DamageDealer):
 	#not 100% sure if this movable logic should be done here...
 	#if entity.movable != null:
 		#var type = entity.movable.get_active_target_type()

@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=2 format=3 uid="uid://cmv4ds38sj2rr"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://cmv4ds38sj2rr"]
 
 [ext_resource type="Script" uid="uid://bifpcfuxjcw6y" path="res://addons/rts_entity_controller/entity/scripts/EntityResource.gd" id="1_lv0k2"]
+[ext_resource type="Texture2D" uid="uid://btqssevghx5vm" path="res://icon.svg" id="2_b1kse"]
 
 [resource]
 script = ExtResource("1_lv0k2")
+display_name = &"ExampleUnit"
+id = &"example_unit"
+short_id = &"eu"
+thumbnail = ExtResource("2_b1kse")
 metadata/_custom_type_script = "uid://bifpcfuxjcw6y"

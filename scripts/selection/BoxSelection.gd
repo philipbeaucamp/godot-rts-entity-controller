@@ -4,22 +4,23 @@ class_name RTS_BoxSelection extends Node2D
 
 @export var rtsCamera: Camera3D
 @export var selection: RTS_Selection
+@export var boxable_class: Script
 
 var start_pos : Vector2
 var dragging : bool
 var selection_rect: Rect2
 
-var eligible_boxables: Array[Boxable] = []
+var eligible_boxables: Array[RTS_BoxableComponent] = []
 
 var ui : UI
 func _ready():
 	ui = Controls.ui
 
-func add_to_eligible_boxable(boxable: Boxable):
+func add_to_eligible_boxable(boxable: RTS_BoxableComponent):
 	if !eligible_boxables.has(boxable):
 		eligible_boxables.append(boxable)
 
-func remove_from_eligible_boxable(boxable: Boxable):
+func remove_from_eligible_boxable(boxable: RTS_BoxableComponent):
 	if eligible_boxables.has(boxable):
 		eligible_boxables.erase(boxable)
 

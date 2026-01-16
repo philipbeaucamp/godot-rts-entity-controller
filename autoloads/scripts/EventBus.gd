@@ -6,7 +6,7 @@ signal debug_console_opened(value: bool)
 signal debug_draw(value: bool)
 
 #Nav
-signal grid_ready(grid: SpatialHashArea)
+signal grid_ready(grid: RTS_SpatialHashArea)
 signal navigation_obstacle_tree_exit(obstacle: NavigationObstacleComponent)
 
 #RTS_Selection

@@ -5,7 +5,7 @@ class_name PhysicsSelection
 @export var camera: RTS_RaycastCamera
 @export var collision_mask: int
 
-var previous_pickable : PickablePhysics
+var previous_pickable : RTS_PickablePhysicsComponent
 @onready var ui : UI = %UI
 
 func clear_previous_pickable():
@@ -22,9 +22,9 @@ func _physics_process(_delta):
 		return
 	var result = camera.get_mouse_position_raycast(collision_mask)
 	if result:
-		if result.collider is not ComponentStaticBody:
+		if result.collider is not RTS_ComponentStaticBody:
 			return
-		var pickable : PickablePhysics = result.collider.component
+		var pickable : RTS_PickablePhysicsComponent = result.collider.component
 		if pickable != null &&  pickable.component_is_active:
 			if pickable != previous_pickable:
 				if previous_pickable != null:

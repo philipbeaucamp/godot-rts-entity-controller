@@ -28,7 +28,7 @@ var entity_debug_instance
 @export var anim_tree: RTS_AnimationTreeComponent
 
 @export var visible_on_screen: VisibleOnScreenNotifier3D
-@export var visuals: VisualComponent
+@export var visuals: RTS_VisualComponent
 @export var ai : RTS_AiComponent
 @export var entity_collider : CollisionShape3D #can be nullable
 @export var obstacle: NavigationObstacleComponent
@@ -38,7 +38,7 @@ var entity_debug_instance
 		space_hash = value
 		spatial_hash_entity.emit(self,space_hash)
 
-var passive_components: Array[Component] = []
+var passive_components: Array[RTS_Component] = []
 
 var abilities: Dictionary[String,Ability] = {}
 var abilities_array: Array[Ability] = []
@@ -142,7 +142,7 @@ func on_attack_enter_state(new_state: int):
 	# if id == "striker":
 	# 	if si["attack_state"] != 1 && si.has("move_staet") && si["move_state"] <= 2:
 	# 		print("YES")
-func on_active_weapon_changed(new_weapon: Weapon,weapon_index: int):
+func on_active_weapon_changed(new_weapon: RTS_Weapon,weapon_index: int):
 	si["weapon_index"] = weapon_index
 func on_stunned(entering_entity: RTS_Entity,value: bool):
 	sb["is_stunned"] = value

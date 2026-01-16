@@ -1,6 +1,9 @@
-extends Node
+class_name RTS_Component extends Node
 
-class_name Component
+# Base class for all RTS RTS_Entity Components.
+# Holds a reference to entity (usually the parent) manages activating/deactivating components.
+# Usually for example when wanting to disable certain component logic, such as 
+# Movement, or Attack etc.
 
 @export var set_component_active_on_ready: bool = true
 
@@ -22,7 +25,7 @@ func set_component_inactive():
 	component_is_active = false
 
 func set_component_active():
-	assert(!component_is_active,"Component set active twice. You're game logic is probably flawed.")
+	assert(!component_is_active,"RTS_Component set active twice. You're game logic is probably flawed.")
 	component_is_active = true
 
 func on_end_of_life(_entity: RTS_Entity):

@@ -1,12 +1,9 @@
-extends Component
-class_name RTS_HealthComponent
+class_name RTS_HealthComponent extends RTS_Component
 
 @export var init_health : float = 100
-# @export var death_animation = ""
 
 var health_bar_scene = preload("res://addons/rts_entity_controller/entity/scenes/health_bar.tscn")
 var health_bar_instance: HealthBar
-
 
 var health: float
 var is_dead = false
@@ -15,17 +12,13 @@ signal death(entity: RTS_Entity)
 signal health_changed(health: RTS_HealthComponent)
 signal health_damaged(health: RTS_HealthComponent)
 
-# func apply_resource(resource: EntityResource):
-# 	if resource.health != 0.0 && resource.health != init_health:
-# 		init_health = resource.health
-
 func _ready():
 	super._ready()
 	health = init_health
 	instanitate_health_bar()
 		
 func _exit_tree():
-	#need to clean up after itself
+	#Clean up after itself
 	if health_bar_instance != null && !health_bar_instance.is_queued_for_deletion():
 		health_bar_instance.queue_free()
 

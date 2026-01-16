@@ -1,10 +1,8 @@
-extends Area3D
-
-class_name SpatialHashArea
+class_name RTS_SpatialHashArea extends Area3D
 
 @export var id: String = "1"
 @export var INIT_CELL_SIZE = 1.0
-@export var visual_debug: bool = false
+@export var visual_debug: bool = false #Requires DebugDraw3D addon or other debugging tool
 @export var auto_update_clients : bool = false
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
@@ -17,7 +15,7 @@ var debug_color: Color
 
 #Easy way to retrieve a main grid, set in _ready. Can be overwritten to achieve
 #more complex behaviour
-static var main_grid : SpatialHashArea 
+static var main_grid : RTS_SpatialHashArea 
 
 func _ready():
 	initialize_spatial_grid(INIT_CELL_SIZE)
@@ -94,7 +92,6 @@ func update_clients():
 	for c in _clients:
 		var pos = clients[c].global_position
 		c.position = Vector2(pos.x,pos.z)
-		#grid.update_client(client)
 	grid.update_clients(_clients)
 
 func find_entities_using_aabb(aabb: AABB, exact: bool, group: int = -1) -> Array[RTS_Entity]:
@@ -137,7 +134,6 @@ func debug():
 			if grid.cells[x][y] != null:
 				aabb = AABB(grid.get_cell_start_position(x,y),Vector3(grid.cell_size.x,1,grid.cell_size.y))
 				##DebugDraw3D.draw_aabb(aabb,debug_color)
-	#var _clients : Array[Client] = clients.keys()
 
 func on_entity_entered_tree(entity: RTS_Entity):
 	try_add_client(entity)

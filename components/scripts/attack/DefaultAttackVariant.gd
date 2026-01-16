@@ -1,9 +1,11 @@
-extends AttackVariant
+class_name RTS_DefaultAttackVariant extends RTS_AttackVariant
 
-class_name DefaultAttackVariant
+# Default attack variant implementation.
+# Suitable for most basic units (eg. SC2 Marine)
+# Notice how it overrides movement logic by implementing physics_process_override_movable
+# which is called from RTS_MovableComponent.gd
 
 @export_group("RTS_Movement")
-
 @export var attack_overrides_rotation = true
 @export var cooldown_overrides_rotation = true
 
@@ -72,7 +74,6 @@ func is_externally_immovable(movable: RTS_Movable) -> bool:
 	var state = behaviour.state_machine.current_state
 	return movable.sm.current_state == RTS_Movable.State.HOLD || state == RTS_AttackComponent.State.ATTACKING
 
-
 func try_move_attack_chased_target(movable: RTS_Movable) -> bool:
 	var target_to_chase : RTS_Defense
 	if behaviour.player_assigned_target != null:
@@ -98,28 +99,12 @@ func try_move_attack_chased_target(movable: RTS_Movable) -> bool:
 		movable.nav_agent.target_position = target_to_chase.entity.global_position
 		var can_reach = movable.nav_agent.is_target_reachable()
 		movable.nav_agent.target_position = previous_nav_target
-		if !can_reach:
-			# print("cant reach!")
-		# if false:
-			pass
-			#unreachable, try moving to closest point if far away
-			# var closest_point = NavigationServer3D.map_get_closest_point(rid,to)
-			# if from.distance_squared_to(closest_point) > movable.stop_distance_squared:
-			# 	movable.insert_before_next_target([
-			# 		Target.new(
-			# 		closest_point,
-			# 		RTS_Movable.Type.MOVEATTACK,
-			# 		null,
-			# 		-1,
-			# 		Vector3.ZERO,
-			# 		{},
-			# 		behaviour)
-			# 		]
-			# 	)
-			# 	return true
-		else:
+		if can_reach:
 			var target = Target.new(target_to_chase.entity.global_position,RTS_Movable.Type.MOVEATTACK,target_to_chase.entity,-1,Vector3.ZERO,{},behaviour)
 			target.display = false
 			movable.insert_before_next_target([target])
 			return true
+		else:
+			# You could add extra logic to handle non reachable targets, i.e. move to closest point
+			pass
 	return false

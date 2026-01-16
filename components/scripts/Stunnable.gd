@@ -1,4 +1,4 @@
-class_name RTS_StunnableComponent extends Component
+class_name RTS_StunnableComponent extends RTS_Component
 
 #Example component that "stuns" entity, essentially rendering attack/defense/movable inactive for a duration
 

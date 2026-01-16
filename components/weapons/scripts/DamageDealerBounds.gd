@@ -1,4 +1,4 @@
-class_name DamageDealerBounds extends DamageDealer
+class_name DamageDealerBounds extends RTS_DamageDealer
 
 @export var box: CollisionShape3D
 @export var debug: bool = false
@@ -25,7 +25,7 @@ func deal_damage(_target: RTS_Defense,pos: Vector3):
 	
 	#2. query entities using AABB
 	var group_id : int = -1 if publisher &&  publisher.attack.player_assigned_target_is_ally else RTS_Entity.Faction.ENEMY
-	var entities: Array[RTS_Entity] = SpatialHashArea.main_grid.find_entities_using_aabb(aabb,true,group_id)
+	var entities: Array[RTS_Entity] = RTS_SpatialHashArea.main_grid.find_entities_using_aabb(aabb,true,group_id)
 	
 	#3. do precise overlap checks for each candidate
 	var amount: int = entities.size()

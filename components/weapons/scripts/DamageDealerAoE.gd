@@ -1,12 +1,10 @@
-extends DamageDealer
-
-class_name DamageDealerAoE
+class_name RTS_DamageDealerAoE extends RTS_DamageDealer
 
 @export var radius : float = 0.6
 
 func deal_damage(_target: RTS_Defense,pos: Vector3, override_radius: float = -1):
 	var _radius : float = override_radius if override_radius > 0 else radius
-	var entities : Array[RTS_Entity] = SpatialHashArea.main_grid.find_entities(pos,_radius,true)
+	var entities : Array[RTS_Entity] = RTS_SpatialHashArea.main_grid.find_entities(pos,_radius,true)
 	for e in entities:
 		if e.defense != null:
 			e.defense.get_attacked_by(self)

@@ -1,13 +1,12 @@
-extends Component
-class_name PickablePhysics
+class_name RTS_PickablePhysicsComponent extends RTS_Component
 
 var raycast_in_body = false
 var selection : RTS_Selection
 @export var selectable: RTS_Selectable
 @export var static_body: StaticBody3D
 
-signal hovered(pickable: PickablePhysics)
-signal unhovered(pickable: PickablePhysics)
+signal hovered(pickable: RTS_PickablePhysicsComponent)
+signal unhovered(pickable: RTS_PickablePhysicsComponent)
 
 func fetch_entity():
 	return selectable.fetch_entity()

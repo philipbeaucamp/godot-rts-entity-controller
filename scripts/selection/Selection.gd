@@ -6,7 +6,7 @@ class_name RTS_Selection
 @export var movement: RTS_Movement
 @onready var physics_selection : PhysicsSelection = $PhysicsSelection
 
-var hovered_pickable: PickablePhysics
+var hovered_pickable: RTS_PickablePhysicsComponent
 var selection : Array[RTS_Selectable] = []
 var hovered : Dictionary[RTS_Selectable,bool] = {}
 var hotkey_groups : Dictionary #KEY (int) -> Array[RTS_Selectable]
@@ -19,8 +19,8 @@ var highest: RTS_Entity
 signal selection_changed(selection: Array[RTS_Selectable])
 signal added_to_selection(selection: Array[RTS_Selectable])
 signal removed_from_selection(selection: Array[RTS_Selectable])
-signal hovered_pickable_set(pickable: PickablePhysics)
-signal hovered_pickable_unset(pickable: PickablePhysics)
+signal hovered_pickable_set(pickable: RTS_PickablePhysicsComponent)
+signal hovered_pickable_unset(pickable: RTS_PickablePhysicsComponent)
 signal hovered_pickable_empty()
 signal highest_selected_changed(entity: RTS_Entity)
 
@@ -238,7 +238,7 @@ func remove_all_hovered():
 	hovered.clear()
 
 # only allow one hovered pickable
-func set_hovered_pickable(pickable: PickablePhysics):
+func set_hovered_pickable(pickable: RTS_PickablePhysicsComponent):
 	if hovered_pickable == pickable:
 		return
 	if hovered_pickable != null:
@@ -250,7 +250,7 @@ func set_hovered_pickable(pickable: PickablePhysics):
 		pickable.selectable.on_hovered()
 	hovered_pickable_set.emit(pickable)
 
-func unset_hovered_pickable(pickable: PickablePhysics):
+func unset_hovered_pickable(pickable: RTS_PickablePhysicsComponent):
 	if hovered_pickable != null :
 		if hovered_pickable == pickable:
 			hovered_pickable = null

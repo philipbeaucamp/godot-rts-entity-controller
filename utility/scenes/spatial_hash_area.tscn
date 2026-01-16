@@ -8,6 +8,7 @@ size = Vector3(20, 1, 20)
 
 [node name="SpatialHashArea" type="Area3D"]
 script = ExtResource("1_g62b1")
+id = "main"
 auto_update_clients = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

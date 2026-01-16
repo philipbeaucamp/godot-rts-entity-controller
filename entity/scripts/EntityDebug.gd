@@ -119,7 +119,7 @@ func _physics_process(_delta):
 		currentTarget.text = "Current Target: " + (str(a.current_target.owner.name) if a.current_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.current_target)) + ")"
 		assignedTarget.text = "Assigned Target: " + (str(a.player_assigned_target.owner.name) if a.player_assigned_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.player_assigned_target)) + ")"
 		scan.text = "In Scan: " + str(a.defenses_in_scan.size())
-		weapon.text = "In Weapon: " + str(a.defenses_in_weapon.size())
+		weapon.text = "In RTS_Weapon: " + str(a.defenses_in_weapon.size())
 		weapon.text += "Aggresor: " + str(a.aggressor.entity.resource.id if (a.aggressor != null) else &"-")
 		attack_masks.text = "Masks: " + str(a.active_weapon.scan_area.collision_mask)
 
@@ -152,10 +152,10 @@ func _physics_process(_delta):
 	if d != null:
 		armor.text = "Armor: " + str(d.armor)
 	if a != null:
-		var weapons : Array[Weapon]= a.weapons
+		var weapons : Array[RTS_Weapon]= a.weapons
 		var dmg_text = ""
 		for w in weapons:
-			var dmgs : Array[DamageDealer]= w.damage_dealers
+			var dmgs : Array[RTS_DamageDealer]= w.damage_dealers
 			dmg_text += "W1("
 			for dmg in dmgs:
 				dmg_text += str(dmg.damage) + ","

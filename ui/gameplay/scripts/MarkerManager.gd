@@ -32,7 +32,7 @@ func _process(_delta):
 # 		markers["action"].requests_to_be_active.erase("movement")
 # 	determine_active_marker()
 
-func on_hovered_pickable_set(_pickable: PickablePhysics):
+func on_hovered_pickable_set(_pickable: RTS_PickablePhysicsComponent):
 	markers["hover"].requests_to_be_active["pickable"] = true
 	determine_active_marker()
 

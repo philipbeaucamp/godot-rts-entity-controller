@@ -3,7 +3,7 @@ extends Node
 var double_click_timer : SceneTreeTimer = null
 var double_click_count := 0
 var double_click_key : Dictionary[String,SceneTreeTimer] = {}
-var first_click_pickable: PickablePhysics
+var first_click_pickable: RTS_PickablePhysicsComponent
 var last_press_was_double_click = false
 var last_pressed_hotkey: String
 

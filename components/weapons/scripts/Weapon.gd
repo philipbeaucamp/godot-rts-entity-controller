@@ -1,24 +1,28 @@
-class_name Weapon extends Component
+class_name RTS_Weapon extends RTS_Component
+
+# Base class for all RTS Weapons.
+# Uses damage dealers to deal damage to targets.
+# Behaviour (i.e. instant damage, or using projectiles etc) should be implemented in subclasses.
 
 @export var attack: RTS_AttackComponent
 @export var is_melee: bool = false #in the future this could become a getter if multiple attack variants exist?
-@export var damage_dealers: Array[DamageDealer] = []
+@export var damage_dealers: Array[RTS_DamageDealer] = []
 
 
-## Duration timed from attack anim start, but only actually cooling down after weapon.use() has been called
 @export_group("Times")
+# Note: Cooldown duration is timed from attack anim start, 
+# but only actually cooling down after weapon.use() has been called. This means if attack anim
+# gets interrupted before use(), cooldown won't start.
 @export var cooldown_duration: float = 0.5
-# @export var attack_anim_duration: float #only hardcoded for now todo use tool script
-@export var attack_immobilize_duration : float = 0
+@export var attack_immobilize_duration : float = 0 
 
 @export_group("Areas")
-@export var weapon_area: Area3D #used to be on attackbehaviour
-@export var scan_area: Area3D #used to be on attackbehaviour
+@export var weapon_area: Area3D 
+@export var scan_area: Area3D
 
 var scan_range: float #radius of scan_area
 var weapon_range: float #radius of weapon_area
-
-var modifiers : Array[WeaponModification] = []
+var modifiers : Array[RTS_WeaponModification] = []
 var last_weapon_target: RTS_Defense
 
 func set_component_active():
@@ -26,14 +30,12 @@ func set_component_active():
 	var areas = [weapon_area,scan_area]
 	for area in areas:
 		area.set_deferred("monitoring", true)
-		# area.set_deferred("monitorable", true)
 
 func set_component_inactive():
 	super.set_component_inactive()
 	var areas = [weapon_area,scan_area]
 	for area in areas:
 		area.set_deferred("monitoring", false)
-		# area.set_deferred("monitorable", false)
 
 func fetch_entity() -> RTS_Entity:
 	return attack.fetch_entity()
@@ -48,7 +50,7 @@ func _ready():
 	for dealer in damage_dealers:
 		if dealer.publisher == null:
 			dealer.publisher = entity
-			push_warning("Publisher was not set on Weapon")
+			push_warning("Publisher was not set on RTS_Weapon")
 
 	#Set layers and masks based on faction
 	var areas = [weapon_area,scan_area]
@@ -76,7 +78,6 @@ func use():
 	if !component_is_active:
 		push_warning("Looks like this still gets triggered from dying units, which is not ideal")
 		return
-	# if !attack.weapon_target:
 	if !last_weapon_target:
 		printerr("Why is target null inWWepaon?")
 		return
@@ -84,7 +85,7 @@ func use():
 		modifier.use(self)
 	attack.start_cooldown_timer(cooldown_duration)
 
-func add_weapon_modification(item: WeaponModification):
+func add_weapon_modification(item: RTS_WeaponModification):
 	modifiers.append(item)
 
 func increase_damage_by_percent(percent: float):

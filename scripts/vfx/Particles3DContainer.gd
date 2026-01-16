@@ -1,7 +1,5 @@
 @tool
-extends Node3D
-
-class_name Particles3DContainer
+class_name RTS_Particles3DContainer extends Node3D
 
 @export var particles: Array[GPUParticles3D]
 

@@ -1,14 +1,12 @@
-extends Component
-
-class_name RTS_Defense
+class_name RTS_Defense extends RTS_Component
 
 @export var armor: int = 0
-@export var atp: int = 20 #RTS_AttackComponent-Target-Priority
+@export var atp: int = 20 #RTS_AttackComponent-Target-Priority. Higher values are considered higher threats. This is different from selection priority.
 @export var hit_animation = ""
-@export var vfxs: Array[Particles3DContainer]
+@export var vfxs: Array[RTS_Particles3DContainer]
 @export var area : Area3D
 
-signal attacked_by(damage_dealer: DamageDealer)
+signal attacked_by(damage_dealer: RTS_DamageDealer)
 
 var incoming_projectiles: Dictionary[Node3D,bool]  #todo refactor, the key should be damagedealers. the damage dealer should exist in the projectile scene itself
 var health: RTS_HealthComponent
@@ -24,7 +22,6 @@ func _ready():
 	var defense_shape = area.get_child(0) as CollisionShape3D
 	defense_range = defense_shape.shape.radius
 	defense_range_squared = defense_range * defense_range
-	# print("RTS_Defense range :" + str(defense_range))
 	set_faction(entity.faction)
 
 func set_faction(faction: RTS_Entity.Faction):
@@ -34,7 +31,7 @@ func set_faction(faction: RTS_Entity.Faction):
 	else:
 		area.set_collision_layer_value(Controls.settings.collision_layer_enemy_defense,true) 
 		area.set_collision_mask_value(Controls.settings.collision_layer_player_attack,true)
-	#todo have to set neutral layers
+	#Todo Set neutral layers
 
 func add_get_attacked_modifier(modifier: Object):
 	if !modifiers.has(modifier):
@@ -47,8 +44,7 @@ func remove_get_attacked_modifier(modifier: Object):
 func increase_armor(delta: int):
 	armor += delta
 
-func get_attacked_by(damage_dealer: DamageDealer):
-	
+func get_attacked_by(damage_dealer: RTS_DamageDealer):
 	attacked_by.emit(damage_dealer) #to be called even when receiving no dmg, for example to pull aggro
 
 	#Calc Damage
@@ -61,26 +57,16 @@ func get_attacked_by(damage_dealer: DamageDealer):
 	assert(dmg >= 0)
 	entity.health.take_damage(dmg)
 
-	#todo think about hit animations
-	# if anim_player != null && !hit_animation.is_empty():
-	# 	anim_player.play(hit_animation)
 	for vfx in vfxs:
 		vfx.restart_all()
-
-	#todo use pool to instantiate vfx damage particles, based on attackers vfx
-	# for vfx in attack.vfx_on_take_damage:
-	# 	vfx.glob
 
 func set_component_active():
 	super.set_component_active()
 	area.set_deferred("monitorable",true)
-	# area.set_deferred("monitoring",true)
 
 func set_component_inactive():
 	super.set_component_inactive()
-	# print("Setting defense of " + owner.name + " inactive")
 	area.set_deferred("monitorable",false)
-	# area.set_deferred("monitoring",false)
 
 func add_to_incoming_projectiles(projectile: Node3D):
 	if !incoming_projectiles.has(projectile):
@@ -90,10 +76,11 @@ func remove_from_incoming_projectiles(projectile: Node3D):
 	if incoming_projectiles.has(projectile):
 		incoming_projectiles.erase(projectile)
 
-#who am I (this defense) a threat to (other is attackbehavior)
+#Who am I (this defense) a threat to (other is attackbehavior)
+#Override this function for more advanced threat logic, i.e. Air vs Ground units etc
 func is_threat_to(other: RTS_AttackComponent) -> bool:
 	if other == null:
-		printerr("called is_threat_to with null attack")
+		printerr("RTS: Called is_threat_to with null attack")
 		return false
 	if health.is_dead:
 		return false
@@ -108,9 +95,6 @@ func is_threat_to(other: RTS_AttackComponent) -> bool:
 		if entity.faction == RTS_Entity.Faction.PLAYER:
 			return false
 	return true
-	# if attacks_in_range.has(other): #todo maybe this is not needed ?
-	# 	return true
-	# return other.always_threat_to_attacker
 
 func add_attack_condition(callback: Callable) -> void:
 	attack_conditions.append(callback)
@@ -120,6 +104,7 @@ func remove_attack_condition(callback: Callable) -> void:
 
 # Can be false while defense is still a threat. I.e. an unreachable defense
 # dont check factions here, rather reachable conditions/ melee vs air etc conditions
+# This is different from is_threat_to, i.e. this checks the actual possibility to attack
 func can_be_attacked_by(other: RTS_AttackComponent) -> bool:
 	for condition in attack_conditions:
 		if condition.call(other) == false:
