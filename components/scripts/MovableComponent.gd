@@ -9,11 +9,11 @@ class_name RTS_Movable extends RTS_Component
 #GDC Steering
 #https://gdcvault.com/play/1018262/The-Next-Vector-Improvements-in
 
-signal after_targets_added(movable: RTS_Movable, targets: Array[Target])
+signal after_targets_added(movable: RTS_Movable, targets: Array[RTS_Target])
 signal next_target_changed(movable: RTS_Movable) #onyl called for acute target change
 signal before_all_targets_cleared(movable: RTS_Movable)
 signal all_targets_cleared(movable: RTS_Movable)
-signal next_target_just_reached(movable: RTS_Movable, target: Target) # called just before removal of index
+signal next_target_just_reached(movable: RTS_Movable, target: RTS_Target) # called just before removal of index
 signal final_target_reached(movable: RTS_Movable)
 
 enum State {
@@ -56,13 +56,13 @@ enum Type {
 @export var allow_being_pushed : bool = true
 
 
-var sm: CallableStateMachine = CallableStateMachine.new()
+var sm: RTS_CallableStateMachine = RTS_CallableStateMachine.new()
 
 const VEL_Y_CAP = 2
 
-var targets : Array[Target]
-var next: Target
-var last: Target
+var targets : Array[RTS_Target]
+var next: RTS_Target
+var last: RTS_Target
 
 #reached source
 var reached_source: RTS_Entity
@@ -221,7 +221,7 @@ func state_idle(delta: float):
 			return_to_idle_time += delta
 			if return_to_idle_time > seconds_until_start_return_to_idle:
 				sm.change_state(State.RETURN_TO_IDLE)
-				append_to_targets([Target.new(idle_position,Type.MOVEATTACK,null,-1)])
+				append_to_targets([RTS_Target.new(idle_position,Type.MOVEATTACK,null,-1)])
 
 func state_reached_source_target(delta: float):
 	if accumulated_push != Vector3.ZERO:
@@ -319,7 +319,7 @@ func state_pushed(delta: float):
 func is_externally_immovable(_movable: RTS_Movable) -> bool:
 	return sm.current_state == State.HOLD
 
-func set_next_target(new_next: Target):
+func set_next_target(new_next: RTS_Target):
 	if next == new_next:
 		return
 
@@ -329,17 +329,17 @@ func set_next_target(new_next: Target):
 	next_target_has_just_been_set = true
 	next_target_changed.emit(self)
 
-func insert_before_next_target(new_targets: Array[Target]):
+func insert_before_next_target(new_targets: Array[RTS_Target]):
 	if !next:
 		append_to_targets(new_targets)
 		return
 	
 	var index = targets.find(next)
-	var before : Target
+	var before : RTS_Target
 	if index > 0:
 		before = targets[index-1]
 		
-	var current_next: Target = next
+	var current_next: RTS_Target = next
 
 	for i in range(new_targets.size()-1,-1,-1):
 		var target = new_targets[i]
@@ -365,7 +365,7 @@ func insert_before_next_target(new_targets: Array[Target]):
 	after_targets_added.emit(self,new_targets)
 	set_next_target(current_next)
 
-func append_to_targets(new_targets: Array[Target]):
+func append_to_targets(new_targets: Array[RTS_Target]):
 	for t in new_targets:
 		if t.source:
 			#ignore moving to self
@@ -375,7 +375,7 @@ func append_to_targets(new_targets: Array[Target]):
 		targets.append(t)
 		#link
 		if targets.size() > 1:
-			var previous : Target = targets[targets.size()-2]
+			var previous : RTS_Target = targets[targets.size()-2]
 			t.previous = previous
 			previous.next = t
 
@@ -394,7 +394,7 @@ func append_to_targets(new_targets: Array[Target]):
 
 
 #removes and disconnected eol signal, but DOES NOT LINK UP remaning targets
-func remove_from_targets(target: Target):
+func remove_from_targets(target: RTS_Target):
 	if targets.has(target):
 		targets.erase(target)
 		if target.source:
@@ -435,7 +435,7 @@ func add_callable_to_last_target(callable: Callable, id: String, args: Array):
 	else:
 		add_callable_to_target(targets.size()-1,callable,id,args)
 
-func determine_state(next_target: Target) -> State:
+func determine_state(next_target: RTS_Target) -> State:
 	if next_target:
 		if next_target.type > Type.PATROL:
 			return State.WALK
@@ -529,7 +529,7 @@ func get_closest_point_on_nav_mesh(target: Vector3) -> Vector3:
 var combined_steering_force : Vector3
 
 func move(delta: float):
-	assert(next,"Target missing")
+	assert(next,"RTS_Target missing")
 	if !next:
 		push_error("Missing next target")
 		return
@@ -842,7 +842,7 @@ func try_relinquish_target(other: RTS_Entity) -> bool:
 		return false
 	
 	if other.movable:
-		var other_current_or_last_target : Target = other.movable.next
+		var other_current_or_last_target : RTS_Target = other.movable.next
 		if !other_current_or_last_target:
 			other_current_or_last_target = other.movable.last
 		if !other_current_or_last_target:
@@ -885,10 +885,10 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 				if next.type != Type.PATROL:
 					#pop all patrol targets and move to next
 					assert(next)
-					var walk_back: Target = next.previous
+					var walk_back: RTS_Target = next.previous
 					while walk_back:
 						assert(walk_back.type == Type.PATROL,"Found non patrol target")
-						var previous: Target = walk_back.previous
+						var previous: RTS_Target = walk_back.previous
 						remove_from_targets(walk_back)
 						walk_back = previous
 					assert(!targets.is_empty())
@@ -903,13 +903,13 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 		if next:
 			#in next target is PATROL, we need to insert patrol point at current position
 			if next.type == Type.PATROL && targets.size() == 1:
-				var target: Target = Target.new(last.pos,Type.PATROL,last.source,RTS_Movement.generate_session_uid(),last.offset)
+				var target: RTS_Target = RTS_Target.new(last.pos,Type.PATROL,last.source,RTS_Movement.generate_session_uid(),last.offset)
 				targets.insert(0,target) #Ideally use insert function...
 				#link 
 				target.next = next
 				next.previous = target
 				#emit
-				var new_targets : Array[Target]
+				var new_targets : Array[RTS_Target]
 				new_targets.append(target)
 				after_targets_added.emit(self,new_targets)
 		else:
@@ -927,7 +927,7 @@ func on_next_target_reached(use_current_position_as_last: bool = false):
 			c.fun.callv(c.args)
 
 #We remove the target completetly when its source dies/existing tree
-func on_target_source_eol(_entity: RTS_Entity,_target: Target):
+func on_target_source_eol(_entity: RTS_Entity,_target: RTS_Target):
 	if _target == next:
 		on_next_target_reached()
 		if sm.current_state == State.PATROL:

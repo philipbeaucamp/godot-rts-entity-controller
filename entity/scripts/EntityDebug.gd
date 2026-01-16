@@ -73,7 +73,7 @@ func _physics_process(_delta):
 	#movable
 	if m != null:
 		mState.text = "State: " + RTS_Movable.State.keys()[m.sm.current_state]
-		var next: Target = m.next
+		var next: RTS_Target = m.next
 		if next:
 			mType.text = "Type: " + RTS_Movable.Type.keys()[next.type]
 			var source_id = str(next.source.get_instance_id()) if next.source else "-"
@@ -116,8 +116,8 @@ func _physics_process(_delta):
 	if a != null:
 		aState.text = "State: " + RTS_AttackComponent.State.keys()[a.state_machine.current_state]
 		aCooldown.text = "Cooldown: " + str(a.remaining_cooldown_time)
-		currentTarget.text = "Current Target: " + (str(a.current_target.owner.name) if a.current_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.current_target)) + ")"
-		assignedTarget.text = "Assigned Target: " + (str(a.player_assigned_target.owner.name) if a.player_assigned_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.player_assigned_target)) + ")"
+		currentTarget.text = "Current RTS_Target: " + (str(a.current_target.owner.name) if a.current_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.current_target)) + ")"
+		assignedTarget.text = "Assigned RTS_Target: " + (str(a.player_assigned_target.owner.name) if a.player_assigned_target != null else "NULL") + "(In WRange: " + str(a.defenses_in_weapon.has(a.player_assigned_target)) + ")"
 		scan.text = "In Scan: " + str(a.defenses_in_scan.size())
 		weapon.text = "In RTS_Weapon: " + str(a.defenses_in_weapon.size())
 		weapon.text += "Aggresor: " + str(a.aggressor.entity.resource.id if (a.aggressor != null) else &"-")

@@ -100,7 +100,7 @@ func try_move_attack_chased_target(movable: RTS_Movable) -> bool:
 		var can_reach = movable.nav_agent.is_target_reachable()
 		movable.nav_agent.target_position = previous_nav_target
 		if can_reach:
-			var target = Target.new(target_to_chase.entity.global_position,RTS_Movable.Type.MOVEATTACK,target_to_chase.entity,-1,Vector3.ZERO,{},behaviour)
+			var target = RTS_Target.new(target_to_chase.entity.global_position,RTS_Movable.Type.MOVEATTACK,target_to_chase.entity,-1,Vector3.ZERO,{},behaviour)
 			target.display = false
 			movable.insert_before_next_target([target])
 			return true

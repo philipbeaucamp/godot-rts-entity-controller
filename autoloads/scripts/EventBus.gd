@@ -9,11 +9,11 @@ signal debug_draw(value: bool)
 signal grid_ready(grid: RTS_SpatialHashArea)
 signal navigation_obstacle_tree_exit(obstacle: NavigationObstacleComponent)
 
-#RTS_Selection
+#Selection
 signal select_control_group(index: int, selectables: Array[RTS_Selectable])
 signal update_control_group(index: int, selectables : Array[RTS_Selectable], selection: RTS_Selection)
 
-#camera
+#Camera
 signal set_camera_boundary(area: Area3D, value: bool)
 signal set_camera_start_position(start: Vector3)
 signal pixel_resolution_changed(res: Vector2i)
@@ -25,10 +25,7 @@ signal entity_exiting_tree(entity: RTS_Entity)
 signal entity_screen_visible(entity: RTS_Entity, is_visible: bool)
 signal entity_reparented(entity: RTS_Entity)
 
-#Enemy/AI
-signal squad_created(squad: Squad, is_waiting: bool)
-signal squad_is_ready(squad: Squad)
-signal squad_became_empty(squad: Squad)
+#Components
 signal threat_changed(defense: RTS_Defense)
 
 #Abilities

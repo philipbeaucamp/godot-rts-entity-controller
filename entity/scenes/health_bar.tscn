@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1aul3fme2qpc"]
 
 [ext_resource type="Shader" uid="uid://ctqlfb6niqwwd" path="res://addons/rts_entity_controller/assets/shaders/health_bar.gdshader" id="1_31w4v"]
-[ext_resource type="Script" uid="uid://v24reh3ome0j" path="res://addons/rts_entity_controller/ui/gameplay/scripts/HealthBar.gd" id="1_b05m6"]
+[ext_resource type="Script" uid="uid://v24reh3ome0j" path="res://addons/rts_entity_controller/ui/scripts/HealthBar.gd" id="1_b05m6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7iits"]
 resource_local_to_scene = true

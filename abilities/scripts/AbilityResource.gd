@@ -9,7 +9,7 @@ class_name AbilityResource
 @export var activate_as_group = false # calls activate_group once instead of activate individually for reach ability
 @export var cooldown_duration : float = 0.0 #cooldown in seconds
 @export var is_chainable: bool = true #if false, ability will immediately be activated, even when shift pressed
-@export var display: bool =  true #if false, ui will not display this icon (remove UI scene if unwanted)
+@export var display: bool =  true #if false, ui will not display this icon (remove RTS_SImpleUI scene if unwanted)
 
 @export var display_ap: bool = true 
 @export var init_ap: int = 1

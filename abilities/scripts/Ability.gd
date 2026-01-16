@@ -6,7 +6,7 @@ class_name Ability
 signal activated(ability: Ability)
 signal recharged(ability: Ability)
 
-var state_machine: CallableStateMachine = CallableStateMachine.new()
+var state_machine: RTS_CallableStateMachine = RTS_CallableStateMachine.new()
 var context: Dictionary = {} #populated by ability manager or RTS_AiComponent before activation
 var cooldown_timer : SceneTreeTimer
 var _ap: int

@@ -13,13 +13,10 @@ extends Node3D
 @export var pool_manager: RTS_PoolManager
 @export var ability_manager: RTS_AbilityManager
 
-@export_group("UI")
+@export_group("RTS_SImpleUI")
 @export var canvas_layer: CanvasLayer
 @export var canvas_layer_health_bar_control: Control
-@export var ui: UI
-
-@export_group("AI")
-var tactical_ai: RTS_SimpleAIController
+@export var ui: RTS_SImpleUI
 
 @export_group("Utility")
 @export var geometry_utils: RTS_GeometryUtils
@@ -29,7 +26,7 @@ var cam_tween: Tween
 var is_enabled: bool
 
 func _ready():
-	is_enabled = !DisableQueue.has_disable_requests(self)
+	is_enabled = !RTS_DisableQueue.has_disable_requests(self)
 
 #---Disable Queue---
 func enable():
@@ -98,7 +95,7 @@ func tween_rotation(angle: float):
 #---Events---
 func on_main_menu_opening():
 	pass
-	#DisableQueue.add_disable_request(MainMenu,self)
+	#RTS_DisableQueue.add_disable_request(MainMenu,self)
 func on_main_menu_closed():
 	pass
-	#DisableQueue.remove_disable_request(MainMenu,self)
+	#RTS_DisableQueue.remove_disable_request(MainMenu,self)

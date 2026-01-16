@@ -13,7 +13,7 @@ var click_target: Vector3 #in world space
 var click_target_source: RTS_Entity #optional/alternative click_target source
 var click_resource: ClickAbilityResource
 var is_soft_activated : bool = false #when moving to cast
-var soft_target: Target #not null when soft activated and moving towards this target
+var soft_target: RTS_Target #not null when soft activated and moving towards this target
 var is_initiated: bool = false
 
 # Emitted when click ability is "initiated" but not yet cast
@@ -85,7 +85,7 @@ func soft_activate(value: bool):
 	is_soft_activated = value
 	if entity.movable != null:
 		if value:
-			soft_target = Target.new(click_target,RTS_Movable.Type.MOVE,click_target_source,RTS_Movement.generate_session_uid())
+			soft_target = RTS_Target.new(click_target,RTS_Movable.Type.MOVE,click_target_source,RTS_Movement.generate_session_uid())
 			entity.movable.append_to_targets([soft_target])
 			entity.movable.all_targets_cleared.connect(on_all_targets_cleared)
 			entity.movable.next_target_just_reached.connect(on_next_target_just_reached)
@@ -102,7 +102,7 @@ func on_all_targets_cleared(_movable: RTS_Movable):
 	
 #We have reached the soft_target but were unable to cast (for instance because out of range, i.e.
 #outside of nav mesh, in this case we terminate)
-func on_next_target_just_reached(_movable: RTS_Movable, _target: Target):
+func on_next_target_just_reached(_movable: RTS_Movable, _target: RTS_Target):
 	if _target == soft_target:
 		soft_activate(false)
 		terminated(true)

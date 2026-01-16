@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkpsa6sv7tr0i"]
+
+[ext_resource type="Script" uid="uid://heibqnq46qqp" path="res://addons/rts_entity_controller/ui/scripts/ControlGroups.gd" id="1_sj7o6"]
+[ext_resource type="PackedScene" uid="uid://ddrfhp5q6qthd" path="res://addons/rts_entity_controller/ui/scenes/control_group.tscn" id="2_8vfwj"]
+[ext_resource type="Texture2D" uid="uid://dag0ka3wkwoxn" path="res://addons/rts_entity_controller/assets/icons/keyboard_ctrl_outline.png" id="3_xe5tk"]
+
+[node name="ControlGroups" type="Control" node_paths=PackedStringArray("control_groups", "ctrlnum")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_sj7o6")
+control_groups = [NodePath("HBoxContainer/ControlGroup"), NodePath("HBoxContainer/ControlGroup2"), NodePath("HBoxContainer/ControlGroup3"), NodePath("HBoxContainer/ControlGroup4"), NodePath("HBoxContainer/ControlGroup5"), NodePath("HBoxContainer/ControlGroup6"), NodePath("HBoxContainer/ControlGroup7"), NodePath("HBoxContainer/ControlGroup8"), NodePath("HBoxContainer/ControlGroup9")]
+ctrlnum = NodePath("HBoxContainer/Ctrl+[Num]")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_right = 40.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ControlGroup" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 1
+
+[node name="ControlGroup2" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 2
+
+[node name="ControlGroup3" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 3
+
+[node name="ControlGroup4" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 4
+
+[node name="ControlGroup5" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 5
+
+[node name="ControlGroup6" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 6
+
+[node name="ControlGroup7" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 7
+
+[node name="ControlGroup8" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 8
+
+[node name="ControlGroup9" parent="HBoxContainer" instance=ExtResource("2_8vfwj")]
+visible = false
+layout_mode = 2
+control_group_index = 9
+
+[node name="Ctrl+[Num]" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Ctrl+[Num]"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -385.5
+offset_right = 385.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.37, 0.37)
+pivot_offset = Vector2(385.5, 0)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Ctrl+[Num]/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_xe5tk")
+
+[node name="Label" type="Label" parent="HBoxContainer/Ctrl+[Num]/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "+ [Num] to create Control Group"

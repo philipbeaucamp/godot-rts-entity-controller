@@ -59,7 +59,7 @@ var aggressor: RTS_Defense #attacked by other defense
 var defenses_in_weapon: Dictionary[RTS_Defense,bool] = {}
 var defenses_in_scan: Array[RTS_Defense]
 
-var state_machine: CallableStateMachine = CallableStateMachine.new()
+var state_machine: RTS_CallableStateMachine = RTS_CallableStateMachine.new()
 
 #--- VARIANTS ---
 var variants: Array[RTS_AttackVariant] = []
@@ -279,12 +279,12 @@ func set_player_assigned_target(defense: RTS_Defense):
 # 5. Follow Ally
 # and NOT for
 # 1. Move
-# 2. RTS_AttackComponent Target
+# 2. RTS_AttackComponent RTS_Target
 # 3. Any spell or ability
 
 #The criteria for target selection are, from most to least important:
 # 1. Which targets are threats to me? (Update August 2025: Of which, which can be attacked)
-# 2. Which targets have the highest RTS_AttackComponent Target Priority (ATP) values?
+# 2. Which targets have the highest RTS_AttackComponent RTS_Target Priority (ATP) values?
 # 3. Which targets allow me to use my primary weapon?
 # 4. Only if I lost my previous target: Which target is the closest?
 func try_auto_assign_target() -> RTS_Defense:
@@ -418,7 +418,7 @@ func update_weapon_target():
 
 #only handles player_assigned_target changes, not state or current target (one exception) changes
 func on_movable_next_target_changed(movable: RTS_Movable):
-	var next: Target = movable.next
+	var next: RTS_Target = movable.next
 	var next_type :int = next.type if next else -1
 	var previous_pat: RTS_Defense = player_assigned_target
 

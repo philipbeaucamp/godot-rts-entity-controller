@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddrfhp5q6qthd"]
+
+[ext_resource type="Script" uid="uid://6hpfcessi2no" path="res://addons/rts_entity_controller/ui/scripts/ControlGroup.gd" id="1_conlh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq64t"]
+resource_local_to_scene = true
+bg_color = Color(0.529, 0.529, 0.529, 0.5)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.348, 0.92, 0.69, 0)
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 90.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bq64t")
+script = ExtResource("1_conlh")
+
+[node name="Index" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+text = "1"
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

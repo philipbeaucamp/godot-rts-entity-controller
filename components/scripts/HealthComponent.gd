@@ -3,7 +3,7 @@ class_name RTS_HealthComponent extends RTS_Component
 @export var init_health : float = 100
 
 var health_bar_scene = preload("res://addons/rts_entity_controller/entity/scenes/health_bar.tscn")
-var health_bar_instance: HealthBar
+var health_bar_instance: RTS_HealthBar
 
 var health: float
 var is_dead = false
