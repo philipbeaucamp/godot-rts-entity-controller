@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="AbilityResource" load_steps=4 format=3 uid="uid://cudlv0gnv2lh6"]
 
-[ext_resource type="Texture2D" uid="uid://7sa8r3cd0emx" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_s_outline.png" id="1_4wdqb"]
-[ext_resource type="Texture2D" uid="uid://ymftmdcr57nq" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_s.png" id="2_h5gad"]
+[ext_resource type="Texture2D" uid="uid://1cdp0kdd7f86" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_s_outline.png" id="1_4wdqb"]
+[ext_resource type="Texture2D" uid="uid://cjv6diho2x4ki" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_s.png" id="2_h5gad"]
 [ext_resource type="Script" uid="uid://nrte0np3cco0" path="res://addons/godot-rts-entity-controller/abilities/scripts/AbilityResource.gd" id="3_05hmu"]
 
 [resource]
 script = ExtResource("3_05hmu")
-id = &"stop"
+id = &"rts_stop"
 is_common = true
 allow_trigger_multiple = true
 display_ap = false

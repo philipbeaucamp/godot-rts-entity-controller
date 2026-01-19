@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_6ltol")
-id = &"move"
+id = &"rts_move"
 is_common = true
 allow_trigger_multiple = true
 activate_as_group = true
