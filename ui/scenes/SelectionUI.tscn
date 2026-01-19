@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2jekoxcbur01"]
+[gd_scene load_steps=3 format=3 uid="uid://d2jekoxcbur01"]
 
 [ext_resource type="Script" uid="uid://cm2u3ugmfueqn" path="res://addons/rts_entity_controller/ui/scripts/SelectionUI.gd" id="1_bofke"]
-[ext_resource type="Script" uid="uid://d4j6ywi7438ng" path="res://addons/rts_entity_controller/ui/scripts/SelectionRow.gd" id="2_aao3d"]
 [ext_resource type="PackedScene" uid="uid://dholkrql1qwfk" path="res://addons/rts_entity_controller/ui/scenes/SelectionBoxUnit.tscn" id="3_p3ee4"]
 
 [node name="Selection" type="Control"]
@@ -24,7 +23,6 @@ anchor_bottom = 0.95
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 5
-script = ExtResource("2_aao3d")
 
 [node name="Panel" parent="HBoxContainer" instance=ExtResource("3_p3ee4")]
 layout_mode = 2
@@ -64,7 +62,6 @@ offset_bottom = -150.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 5
-script = ExtResource("2_aao3d")
 
 [node name="Panel" parent="HBoxContainer2" instance=ExtResource("3_p3ee4")]
 layout_mode = 2

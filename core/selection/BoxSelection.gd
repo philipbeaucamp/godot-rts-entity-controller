@@ -12,7 +12,7 @@ var selection_rect: Rect2
 
 var eligible_boxables: Array[RTS_BoxableComponent] = []
 
-var ui : RTS_SImpleUI
+var ui : RTS_SimpleUI
 func _ready():
 	ui = Controls.ui
 

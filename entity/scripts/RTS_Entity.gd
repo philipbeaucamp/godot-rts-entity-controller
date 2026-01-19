@@ -98,7 +98,6 @@ func _ready():
 		movable.sm.enter_state.connect(on_movable_enter_state)
 		on_movable_enter_state(movable.sm.current_state)
 	if attack:
-		print("TODO CLEAN THIS CRAP UP AND DO PROPER INITIALIZATION OF STATES")
 		attack.state_machine.enter_state.connect(on_attack_enter_state)
 		on_attack_enter_state(attack.state_machine.current_state)
 		attack.active_weapon_changed.connect(on_active_weapon_changed)

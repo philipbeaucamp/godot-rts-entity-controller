@@ -4,7 +4,7 @@ class_name RTS_PhysicsSelection extends Node3D
 @export var collision_mask: int
 
 var previous_pickable : RTS_PickablePhysicsComponent
-@onready var ui : RTS_SImpleUI = %RTS_SImpleUI
+@onready var ui : RTS_SimpleUI = %UI
 
 func clear_previous_pickable():
 	if previous_pickable != null:

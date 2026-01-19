@@ -13,10 +13,10 @@ extends Node3D
 @export var pool_manager: RTS_PoolManager
 @export var ability_manager: RTS_AbilityManager
 
-@export_group("RTS_SImpleUI")
+@export_group("RTS_SimpleUI")
 @export var canvas_layer: CanvasLayer
 @export var canvas_layer_health_bar_control: Control
-@export var ui: RTS_SImpleUI
+@export var ui: RTS_SimpleUI
 
 @export_group("Utility")
 @export var geometry_utils: RTS_GeometryUtils

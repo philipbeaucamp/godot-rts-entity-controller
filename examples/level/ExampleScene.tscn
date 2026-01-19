@@ -21,7 +21,7 @@ agent_radius = 0.25
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ory0"]
 albedo_texture = ExtResource("4_n86od")
 
-[node name="ExampleScene2" type="Node3D"]
+[node name="ExampleScene" type="Node3D"]
 
 [node name="Lights" type="Node3D" parent="."]
 
@@ -61,13 +61,15 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="CamerStartPosition" parent="CameraBoundaryAndPosition" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14627242, 0, 2.5363145)
 
-[node name="ExampleUnit" parent="." instance=ExtResource("7_hkiat")]
+[node name="Units" type="Node3D" parent="."]
+
+[node name="ExampleUnit" parent="Units" instance=ExtResource("7_hkiat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 
-[node name="ExampleUnit2" parent="." instance=ExtResource("7_hkiat")]
+[node name="ExampleUnit2" parent="Units" instance=ExtResource("7_hkiat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.2786286)
 
-[node name="ExampleUnit3" parent="." instance=ExtResource("7_hkiat")]
+[node name="ExampleUnit3" parent="Units" instance=ExtResource("7_hkiat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1699142, 0, 0.04595256)
 faction = 1
 
