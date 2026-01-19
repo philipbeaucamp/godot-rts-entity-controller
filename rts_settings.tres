@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RTSSettings" load_steps=2 format=3 uid="uid://bc0ov5h83k1a4"]
 
-[ext_resource type="Script" uid="uid://cwyuqebkpa1qg" path="res://addons/rts_entity_controller/core/settings/RTSSettings.gd" id="1_kfs03"]
+[ext_resource type="Script" uid="uid://cwyuqebkpa1qg" path="res://addons/godot-rts-entity-controller/core/settings/RTSSettings.gd" id="1_kfs03"]
 
 [resource]
 script = ExtResource("1_kfs03")

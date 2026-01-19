@@ -6,8 +6,8 @@ class_name CDisplayAbilities
 @export var unique_container: HBoxContainer
 
 var c_abilities: Array[CAbility] = []
-var c_ability : PackedScene = preload("res://addons/rts_entity_controller/abilities/scenes/ui/c_ability.tscn")
-var c_ability_container : PackedScene = preload("res://addons/rts_entity_controller/abilities/scenes/ui/c_ability_container.tscn")
+var c_ability : PackedScene = preload("res://addons/godot-rts-entity-controller/abilities/scenes/ui/c_ability.tscn")
+var c_ability_container : PackedScene = preload("res://addons/godot-rts-entity-controller/abilities/scenes/ui/c_ability_container.tscn")
 
 func _ready():
 	Controls.ability_manager.abilities_changed.connect(on_abilities_changed)

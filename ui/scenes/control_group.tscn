@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddrfhp5q6qthd"]
 
-[ext_resource type="Script" uid="uid://6hpfcessi2no" path="res://addons/rts_entity_controller/ui/scripts/ControlGroup.gd" id="1_conlh"]
+[ext_resource type="Script" uid="uid://6hpfcessi2no" path="res://addons/godot-rts-entity-controller/ui/scripts/ControlGroup.gd" id="1_conlh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq64t"]
 resource_local_to_scene = true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://blxsvb7lwets2"]
 
-[ext_resource type="Script" uid="uid://qly6vyrds8wx" path="res://addons/rts_entity_controller/core/navigation/NavigationHandler.gd" id="1_5y6w5"]
+[ext_resource type="Script" uid="uid://qly6vyrds8wx" path="res://addons/godot-rts-entity-controller/core/navigation/NavigationHandler.gd" id="1_5y6w5"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mqmrr"]
 resource_local_to_scene = true

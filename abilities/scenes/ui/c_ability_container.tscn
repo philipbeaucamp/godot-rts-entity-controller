@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bx3i2u4w8w4ww"]
 
-[ext_resource type="Script" uid="uid://bkwfrsjsuwoa6" path="res://addons/rts_entity_controller/abilities/scripts/ui/AbilityContainer.gd" id="1_kb308"]
+[ext_resource type="Script" uid="uid://bkwfrsjsuwoa6" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/AbilityContainer.gd" id="1_kb308"]
 
 [node name="CAbilityContainer" type="HBoxContainer"]
 grow_horizontal = 2

@@ -1,4 +1,4 @@
-@icon("res://addons/rts_entity_controller/assets/icons/keyboard_s_outline.png")
+@icon("res://addons/godot-rts-entity-controller/assets/icons/keyboard_s_outline.png")
 extends Ability
 
 class_name StopAbility

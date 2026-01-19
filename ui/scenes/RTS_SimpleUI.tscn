@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://b315hypbe26lm"]
 
-[ext_resource type="Script" uid="uid://16435c4t1js8" path="res://addons/rts_entity_controller/ui/scenes/SimpleUI.gd" id="1_m3xj6"]
-[ext_resource type="PackedScene" uid="uid://d2jekoxcbur01" path="res://addons/rts_entity_controller/ui/scenes/SelectionUI.tscn" id="2_nscdm"]
-[ext_resource type="PackedScene" uid="uid://dkpsa6sv7tr0i" path="res://addons/rts_entity_controller/ui/scenes/control_groups.tscn" id="2_wn27s"]
-[ext_resource type="Script" uid="uid://dmflp3o7wwquo" path="res://addons/rts_entity_controller/abilities/scripts/ui/CDisplayAbilities.gd" id="10_weo73"]
-[ext_resource type="PackedScene" uid="uid://do0qcnnoooqsm" path="res://addons/rts_entity_controller/ui/scenes/Marker.tscn" id="12_xi6vk"]
+[ext_resource type="Script" uid="uid://16435c4t1js8" path="res://addons/godot-rts-entity-controller/ui/scenes/SimpleUI.gd" id="1_m3xj6"]
+[ext_resource type="PackedScene" uid="uid://d2jekoxcbur01" path="res://addons/godot-rts-entity-controller/ui/scenes/SelectionUI.tscn" id="2_nscdm"]
+[ext_resource type="PackedScene" uid="uid://dkpsa6sv7tr0i" path="res://addons/godot-rts-entity-controller/ui/scenes/control_groups.tscn" id="2_wn27s"]
+[ext_resource type="Script" uid="uid://dmflp3o7wwquo" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/CDisplayAbilities.gd" id="10_weo73"]
+[ext_resource type="PackedScene" uid="uid://do0qcnnoooqsm" path="res://addons/godot-rts-entity-controller/ui/scenes/Marker.tscn" id="12_xi6vk"]
 
 [node name="UI" type="Control" node_paths=PackedStringArray("c_display_abilities")]
 layout_mode = 3

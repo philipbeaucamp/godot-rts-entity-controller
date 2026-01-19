@@ -13,7 +13,7 @@ signal spatial_hash_entity(entity: RTS_Entity, value: bool)
 
 #DEBUG START----
 var is_debugged = false
-var entity_debug_scene = preload("res://addons/rts_entity_controller/entity/scenes/entity_debug.tscn")
+var entity_debug_scene = preload("res://addons/godot-rts-entity-controller/entity/scenes/entity_debug.tscn")
 var entity_debug_instance
 #DEBUG END----
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://yvr01lu8cx37"]
 
-[ext_resource type="Script" uid="uid://svcbhfuqkq2x" path="res://addons/rts_entity_controller/autoloads/scripts/PlayerInput.gd" id="1_ram21"]
+[ext_resource type="Script" uid="uid://svcbhfuqkq2x" path="res://addons/godot-rts-entity-controller/autoloads/scripts/PlayerInput.gd" id="1_ram21"]
 
 [node name="RTSPlayerInput" type="Node"]
 script = ExtResource("1_ram21")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cd4ni13up2pig"]
 
-[ext_resource type="Script" uid="uid://dmflp3o7wwquo" path="res://addons/rts_entity_controller/abilities/scripts/ui/CDisplayAbilities.gd" id="1_eqp6q"]
+[ext_resource type="Script" uid="uid://dmflp3o7wwquo" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/CDisplayAbilities.gd" id="1_eqp6q"]
 
 [node name="CommonAbilities" type="Control"]
 layout_mode = 3

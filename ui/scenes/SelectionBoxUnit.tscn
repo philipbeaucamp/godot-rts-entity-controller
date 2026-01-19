@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dholkrql1qwfk"]
 
-[ext_resource type="Script" uid="uid://ifp7gp10ywdy" path="res://addons/rts_entity_controller/ui/scripts/SelectionBoxUnit.gd" id="1_i6236"]
+[ext_resource type="Script" uid="uid://ifp7gp10ywdy" path="res://addons/godot-rts-entity-controller/ui/scripts/SelectionBoxUnit.gd" id="1_i6236"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6236"]
 draw_center = false

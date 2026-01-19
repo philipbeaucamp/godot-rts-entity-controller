@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AbilityResource" load_steps=2 format=3 uid="uid://bo3522cdawfsf"]
 
-[ext_resource type="Script" uid="uid://nrte0np3cco0" path="res://addons/rts_entity_controller/abilities/scripts/AbilityResource.gd" id="1_6ltol"]
+[ext_resource type="Script" uid="uid://nrte0np3cco0" path="res://addons/godot-rts-entity-controller/abilities/scripts/AbilityResource.gd" id="1_6ltol"]
 
 [resource]
 script = ExtResource("1_6ltol")

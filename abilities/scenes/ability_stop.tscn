@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://r28b2m5njppl"]
 
-[ext_resource type="Script" uid="uid://e1fsylchfnfk" path="res://addons/rts_entity_controller/abilities/scripts/StopAbility.gd" id="1_w70qb"]
-[ext_resource type="Resource" uid="uid://cudlv0gnv2lh6" path="res://addons/rts_entity_controller/abilities/resources/ability_stop.tres" id="2_kwfxe"]
+[ext_resource type="Script" uid="uid://e1fsylchfnfk" path="res://addons/godot-rts-entity-controller/abilities/scripts/StopAbility.gd" id="1_w70qb"]
+[ext_resource type="Resource" uid="uid://cudlv0gnv2lh6" path="res://addons/godot-rts-entity-controller/abilities/resources/ability_stop.tres" id="2_kwfxe"]
 
 [node name="StopAbility" type="Node"]
 script = ExtResource("1_w70qb")

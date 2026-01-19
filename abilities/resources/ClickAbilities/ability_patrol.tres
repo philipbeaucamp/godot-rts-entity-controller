@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ClickAbilityResource" load_steps=4 format=3 uid="uid://cp6owe6ebfxug"]
 
-[ext_resource type="Texture2D" uid="uid://bfobn7rdkwwdk" path="res://addons/rts_entity_controller/assets/icons/keyboard_q_outline.png" id="1_nfmh0"]
-[ext_resource type="Texture2D" uid="uid://b718t1wru8qem" path="res://addons/rts_entity_controller/assets/icons/keyboard_q.png" id="2_pp4nv"]
-[ext_resource type="Script" uid="uid://bay4xcmux4i5l" path="res://addons/rts_entity_controller/abilities/scripts/ClickAbilityResource.gd" id="3_nfmh0"]
+[ext_resource type="Texture2D" uid="uid://bfobn7rdkwwdk" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_q_outline.png" id="1_nfmh0"]
+[ext_resource type="Texture2D" uid="uid://b718t1wru8qem" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_q.png" id="2_pp4nv"]
+[ext_resource type="Script" uid="uid://bay4xcmux4i5l" path="res://addons/godot-rts-entity-controller/abilities/scripts/ClickAbilityResource.gd" id="3_nfmh0"]
 
 [resource]
 script = ExtResource("3_nfmh0")

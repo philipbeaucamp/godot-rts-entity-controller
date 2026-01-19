@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqimhgni25vtk"]
 
-[ext_resource type="Script" uid="uid://j0yy0o0joqt0" path="res://addons/rts_entity_controller/components/scripts/DefenseComponent.gd" id="1_hmyqk"]
+[ext_resource type="Script" uid="uid://j0yy0o0joqt0" path="res://addons/godot-rts-entity-controller/components/scripts/DefenseComponent.gd" id="1_hmyqk"]
 
 [node name="ComponentDefense" type="Node"]
 script = ExtResource("1_hmyqk")

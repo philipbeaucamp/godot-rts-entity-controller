@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjfl1hmhlbtdd"]
 
-[ext_resource type="Script" uid="uid://bc7mti26reh8r" path="res://addons/rts_entity_controller/components/scripts/attack/AttackComponent.gd" id="1_iv5x5"]
+[ext_resource type="Script" uid="uid://bc7mti26reh8r" path="res://addons/godot-rts-entity-controller/components/scripts/attack/AttackComponent.gd" id="1_iv5x5"]
 
 [node name="ComponentAttack" type="Node"]
 script = ExtResource("1_iv5x5")

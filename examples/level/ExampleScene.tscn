@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://e0622m1rbjww"]
 
-[ext_resource type="PackedScene" uid="uid://b308y2ko6ala4" path="res://addons/rts_entity_controller/utility/scenes/physics_catch_layer.tscn" id="1_41sv5"]
-[ext_resource type="PackedScene" uid="uid://c2gxlj25l1xqn" path="res://addons/rts_entity_controller/utility/scenes/spatial_hash_area.tscn" id="2_3l73d"]
-[ext_resource type="PackedScene" uid="uid://blxsvb7lwets2" path="res://addons/rts_entity_controller/core/movement/scenes/navigation.tscn" id="3_3jllc"]
-[ext_resource type="Texture2D" uid="uid://wc770w2rmrsq" path="res://addons/rts_entity_controller/assets/textures/texture_09.svg" id="4_n86od"]
-[ext_resource type="PackedScene" uid="uid://dtt361fqc7l83" path="res://addons/rts_entity_controller/examples/level/ExampleObstacle.tscn" id="5_rsp02"]
-[ext_resource type="PackedScene" uid="uid://bpk1lfouqln1a" path="res://addons/rts_entity_controller/core/camera/camera_boundary_and_position.tscn" id="6_jk7dy"]
-[ext_resource type="PackedScene" uid="uid://cpyrlx8ci2v42" path="res://addons/rts_entity_controller/examples/units/example_unit.tscn" id="7_hkiat"]
+[ext_resource type="PackedScene" uid="uid://b308y2ko6ala4" path="res://addons/godot-rts-entity-controller/utility/scenes/physics_catch_layer.tscn" id="1_41sv5"]
+[ext_resource type="PackedScene" uid="uid://c2gxlj25l1xqn" path="res://addons/godot-rts-entity-controller/utility/scenes/spatial_hash_area.tscn" id="2_3l73d"]
+[ext_resource type="PackedScene" uid="uid://blxsvb7lwets2" path="res://addons/godot-rts-entity-controller/core/movement/scenes/navigation.tscn" id="3_3jllc"]
+[ext_resource type="Texture2D" uid="uid://wc770w2rmrsq" path="res://addons/godot-rts-entity-controller/assets/textures/texture_09.svg" id="4_n86od"]
+[ext_resource type="PackedScene" uid="uid://dtt361fqc7l83" path="res://addons/godot-rts-entity-controller/examples/level/ExampleObstacle.tscn" id="5_rsp02"]
+[ext_resource type="PackedScene" uid="uid://bpk1lfouqln1a" path="res://addons/godot-rts-entity-controller/core/camera/camera_boundary_and_position.tscn" id="6_jk7dy"]
+[ext_resource type="PackedScene" uid="uid://cpyrlx8ci2v42" path="res://addons/godot-rts-entity-controller/examples/units/example_unit.tscn" id="7_hkiat"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4wntj"]
 resource_local_to_scene = true

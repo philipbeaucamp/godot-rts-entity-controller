@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://do0qcnnoooqsm"]
 
-[ext_resource type="Script" uid="uid://74bdy5ijyd5a" path="res://addons/rts_entity_controller/ui/scripts/MarkerManager.gd" id="1_f8xwh"]
-[ext_resource type="Texture2D" uid="uid://b8gfp03ojgpo3" path="res://addons/rts_entity_controller/assets/icons/marker_hover.png" id="2_nnvbg"]
-[ext_resource type="Script" uid="uid://s5nfagi5bwr3" path="res://addons/rts_entity_controller/ui/scripts/Marker.gd" id="3_xfd81"]
-[ext_resource type="Texture2D" uid="uid://8pth6lo1bliq" path="res://addons/rts_entity_controller/assets/icons/marker_action.png" id="4_bj3nj"]
-[ext_resource type="Texture2D" uid="uid://b8dg6o2ifdg4f" path="res://addons/rts_entity_controller/assets/icons/marker_invalid.png" id="5_ef1c1"]
+[ext_resource type="Script" uid="uid://74bdy5ijyd5a" path="res://addons/godot-rts-entity-controller/ui/scripts/MarkerManager.gd" id="1_f8xwh"]
+[ext_resource type="Texture2D" uid="uid://b8gfp03ojgpo3" path="res://addons/godot-rts-entity-controller/assets/icons/marker_hover.png" id="2_nnvbg"]
+[ext_resource type="Script" uid="uid://s5nfagi5bwr3" path="res://addons/godot-rts-entity-controller/ui/scripts/Marker.gd" id="3_xfd81"]
+[ext_resource type="Texture2D" uid="uid://8pth6lo1bliq" path="res://addons/godot-rts-entity-controller/assets/icons/marker_action.png" id="4_bj3nj"]
+[ext_resource type="Texture2D" uid="uid://b8dg6o2ifdg4f" path="res://addons/godot-rts-entity-controller/assets/icons/marker_invalid.png" id="5_ef1c1"]
 
 [node name="Marker" type="Control"]
 layout_mode = 3

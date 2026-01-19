@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpk1lfouqln1a"]
 
-[ext_resource type="Script" uid="uid://b2fp3xm3kipif" path="res://addons/rts_entity_controller/core/camera/scripts/CameraBoundary.gd" id="1_uru1i"]
-[ext_resource type="Script" uid="uid://ji12r2m2icqw" path="res://addons/rts_entity_controller/core/camera/scripts/CameraStartPosition.gd" id="2_8nh7e"]
+[ext_resource type="Script" uid="uid://b2fp3xm3kipif" path="res://addons/godot-rts-entity-controller/core/camera/scripts/CameraBoundary.gd" id="1_uru1i"]
+[ext_resource type="Script" uid="uid://ji12r2m2icqw" path="res://addons/godot-rts-entity-controller/core/camera/scripts/CameraStartPosition.gd" id="2_8nh7e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nojqu"]
 size = Vector3(17, 0, 17)

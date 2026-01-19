@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bqfgp750nvy3a"]
 
-[ext_resource type="Script" uid="uid://ckusqwr6unxlu" path="res://addons/rts_entity_controller/core/movement/scripts/Path.gd" id="1_ue4qf"]
-[ext_resource type="Shader" uid="uid://b2wun8x5jlb5t" path="res://addons/rts_entity_controller/assets/shaders/scrolling_01.gdshader" id="2_efpl0"]
-[ext_resource type="Texture2D" uid="uid://br1ruf46qbhy4" path="res://addons/rts_entity_controller/assets/icons/path.png" id="3_ylda4"]
+[ext_resource type="Script" uid="uid://ckusqwr6unxlu" path="res://addons/godot-rts-entity-controller/core/movement/scripts/Path.gd" id="1_ue4qf"]
+[ext_resource type="Shader" uid="uid://b2wun8x5jlb5t" path="res://addons/godot-rts-entity-controller/assets/shaders/scrolling_01.gdshader" id="2_efpl0"]
+[ext_resource type="Texture2D" uid="uid://br1ruf46qbhy4" path="res://addons/godot-rts-entity-controller/assets/icons/path.png" id="3_ylda4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d4d2x"]
 resource_local_to_scene = true

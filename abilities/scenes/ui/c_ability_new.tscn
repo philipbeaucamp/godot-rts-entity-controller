@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://dqff6mbqa1ojd"]
 
-[ext_resource type="Script" uid="uid://6qqimf4p6edr" path="res://addons/rts_entity_controller/abilities/scripts/ui/CAbility.gd" id="1_qe37x"]
-[ext_resource type="Script" uid="uid://b07osf4g1otal" path="res://addons/rts_entity_controller/ui/scripts/BlockingControl.gd" id="2_btcp2"]
-[ext_resource type="Script" uid="uid://bycxjmfavd4ub" path="res://addons/rts_entity_controller/abilities/scripts/ui/CAbilityDescription.gd" id="3_n6gr1"]
-[ext_resource type="PackedScene" uid="uid://dvuj5mv3kl3fk" path="res://addons/rts_entity_controller/ui/scenes/gameplay_button.tscn" id="4_btcp2"]
+[ext_resource type="Script" uid="uid://6qqimf4p6edr" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/CAbility.gd" id="1_qe37x"]
+[ext_resource type="Script" uid="uid://b07osf4g1otal" path="res://addons/godot-rts-entity-controller/ui/scripts/BlockingControl.gd" id="2_btcp2"]
+[ext_resource type="Script" uid="uid://bycxjmfavd4ub" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/CAbilityDescription.gd" id="3_n6gr1"]
+[ext_resource type="PackedScene" uid="uid://dvuj5mv3kl3fk" path="res://addons/godot-rts-entity-controller/ui/scenes/gameplay_button.tscn" id="4_btcp2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjh2s"]
 resource_local_to_scene = true
