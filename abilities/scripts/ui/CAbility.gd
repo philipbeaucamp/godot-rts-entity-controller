@@ -14,30 +14,26 @@ class_name CAbility
 @export var color_rect_overlay: ColorRect
 @export var description: CAbilityDescription
 
-var abilities : Array[Ability] # All Selected Instances of this AbilityResources
+var abilities : Array[RTS_Ability] # All Selected Instances of this AbilityResources
 
 #todo refactor this: next should not be compute here in the view, but in the abilitymanager each frame,
 #this view should only react to next ability changes
 
-var next: Ability #Next one to be activated
+var next: RTS_Ability #Next one to be activated
 
 var revert_timer : SceneTreeTimer
-var container: CAbilityContainer
 
 func set_up(_abilities: Array):
 	resource = _abilities[0].resource
 	abilities = _abilities
 	next = abilities[0]
 	determine_next()
-	if resource.is_common || next.ability_container || _abilities.size() <= 1:
+	if resource.is_common || _abilities.size() <= 1:
 		user_count.visible = false
 	else:
 		user_count.text = str(_abilities.size())
 		
 	description.set_up(resource)
-
-# func set_ability_container(_container: CAbilityContainer):
-# 	container = _container
 
 func _ready():
 	super._ready()
@@ -66,8 +62,6 @@ func _ready():
 		RTSEventBus.click_abilities_initiated.connect(on_click_abilities_initiated)
 		RTSEventBus.click_abilities_terminated.connect(on_click_abilities_terminated)
 
-	# tree_exiting.connect(on_tree_exiting)
-	
 	
 # Displays the ability with shortest cooldown out of an array of same type abilities
 func determine_next():
@@ -103,11 +97,11 @@ func _process(_delta):
 	else:
 		progress_bar.visible = false
 	
-func on_click_abilities_initiated(_abilities: Array[ClickAbility]):
+func on_click_abilities_initiated(_abilities: Array[RTS_ClickAbility]):
 	if resource == _abilities[0].resource:
 		button.set_pressed(true)
 
-func on_click_abilities_terminated(_abilities: Array[ClickAbility],_cancelled: bool):
+func on_click_abilities_terminated(_abilities: Array[RTS_ClickAbility],_cancelled: bool):
 	if resource == _abilities[0].resource:
 		button.set_pressed(false)
 
@@ -126,7 +120,7 @@ func on_abilities_activated(_abilities: Array):
 		revert_timer.timeout.connect(on_revert_timeout)
 	determine_next()
 	
-func on_click_ability_cast(_click_ability: ClickAbility):
+func on_click_ability_cast(_click_ability: RTS_ClickAbility):
 	pass #todo
 
 func on_revert_timeout():
@@ -145,7 +139,3 @@ func on_pressed():
 		release.action = next.resource.id
 		release.pressed = false
 		Input.parse_input_event(release)
-
-# func on_tree_exiting():
-# 	if container:
-# 		container.remove_ability(self)

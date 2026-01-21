@@ -29,6 +29,6 @@ signal entity_reparented(entity: RTS_Entity)
 signal threat_changed(defense: RTS_Defense)
 
 #Abilities
-signal click_ability_cast(click_ability: ClickAbility)
-signal click_abilities_initiated(abilities: Array[ClickAbility])
-signal click_abilities_terminated(abilities: Array[ClickAbility], cancelled: bool)
+signal click_ability_cast(click_ability: RTS_ClickAbility)
+signal click_abilities_initiated(abilities: Array[RTS_ClickAbility])
+signal click_abilities_terminated(abilities: Array[RTS_ClickAbility], cancelled: bool)

@@ -8,11 +8,11 @@ class_name RTS_AbilityManager extends Node
 @export var movement: RTS_Movement
 @export var selection : RTS_Selection
 var highest_group: Array[RTS_Selectable] 
-var selected_abilities : Dictionary[StringName,Array] = {} #Array[Ability]
+var selected_abilities : Dictionary[StringName,Array] = {} #Array[RTS_Ability]
 var sm: RTS_EnumStateMachine = RTS_EnumStateMachine.new()
 
 var initiated_resource : ClickAbilityResource #can be activated and in cooldown, but representing the "initiated" group of same click ability type
-var initiated_abilities : Array[ClickAbility]
+var initiated_abilities : Array[RTS_ClickAbility]
 var is_shifting_click_ability: bool = false
 
 signal abilities_changed()
@@ -64,7 +64,7 @@ func process_abilities(input: Dictionary):
 			if abilities.is_empty():
 				continue
 
-			if abilities[0] is ClickAbility:
+			if abilities[0] is RTS_ClickAbility:
 				initiated_abilities.clear()
 				for ability in abilities:
 					if ability.can_be_activated():
@@ -79,8 +79,8 @@ func process_abilities(input: Dictionary):
 
 
 func activate(abilities: Array, input: Dictionary) -> Dictionary:
-		var to_activate : Array[Ability] = []
-		var to_activate_delayed: Array[Ability] = []
+		var to_activate : Array[RTS_Ability] = []
+		var to_activate_delayed: Array[RTS_Ability] = []
 		var consumed = false
 		for ability in abilities:
 			if ability.can_be_activated():
@@ -97,7 +97,7 @@ func activate(abilities: Array, input: Dictionary) -> Dictionary:
 					to_activate_delayed.append(ability)
 				else: #activate now
 					to_activate.append(ability)
-					var click_ability = ability as ClickAbility
+					var click_ability = ability as RTS_ClickAbility
 					if click_ability && !click_ability.dont_clear_targets_on_activate && click_ability.entity.movable:
 						#remove any move targets since casting should immediately be prioritized
 						click_ability.entity.movable.stop()
@@ -123,7 +123,7 @@ func process_initiated_click_abilities(input: Dictionary) -> bool:
 		print("INIT RESOURCE NULL")
 		return consumed
 	
-	var all_abilities : Array[ClickAbility] = []
+	var all_abilities : Array[RTS_ClickAbility] = []
 	assert(initiated_resource,"How come this can be null???")
 	all_abilities.assign(selected_abilities[initiated_resource.id]) 
 	#Initiate other abilities that are now initiatable
@@ -133,7 +133,7 @@ func process_initiated_click_abilities(input: Dictionary) -> bool:
 			initiated_abilities.append(ability)
 			RTSEventBus.click_abilities_initiated.emit([ability])
 	
-	var rep : ClickAbility = initiated_abilities[0] #all selected_abilities have to be of same type anyway
+	var rep : RTS_ClickAbility = initiated_abilities[0] #all selected_abilities have to be of same type anyway
 	assert(rep,"Rep is null")
 	assert(is_instance_valid(rep),"Rep is not valid instance")
 	if !rep || !is_instance_valid(rep):
@@ -159,7 +159,7 @@ func process_initiated_click_abilities(input: Dictionary) -> bool:
 
 		var rst = activate(initiated_abilities,input)
 		consumed = rst["consumed"]
-		var to_activate_delayed : Array[Ability] = rst["to_activate_delayed"]
+		var to_activate_delayed : Array[RTS_Ability] = rst["to_activate_delayed"]
 		if !to_activate_delayed.is_empty():
 			#add an additional move target todo should be a new Move Type: ABILITY
 			var group_id = RTS_Movement.generate_session_uid()
@@ -242,7 +242,7 @@ func on_selection_changed(selectables: Array[RTS_Selectable]):
 			var e : RTS_Entity = s.entity
 			if !Controls.settings.allow_enemy_entity_control && e.faction != RTS_Entity.Faction.PLAYER:
 				continue
-			var abilities: Array[Ability] = e.abilities_array
+			var abilities: Array[RTS_Ability] = e.abilities_array
 			var id = s.entity.resource.id
 			for ability in abilities:
 				if !ability.component_is_active:
@@ -254,7 +254,7 @@ func on_selection_changed(selectables: Array[RTS_Selectable]):
 			
 	else:
 	#ALTERNATIVE: ONLY USING HIGHEST SELECTABLES's ABILITIES (or commons ones)
-	#This is similar to how SC2 Ability selection works
+	#This is similar to how SC2 RTS_Ability selection works
 		var highest_entity = Controls.selection.highest
 		if highest_entity != null: #can be null if no player selectables are selected
 			var highest_id : StringName = highest_entity.resource.id
@@ -262,7 +262,7 @@ func on_selection_changed(selectables: Array[RTS_Selectable]):
 				var e : RTS_Entity = s.entity
 				if !settings.allow_enemy_entity_control && e.faction != RTS_Entity.Faction.PLAYER:
 					continue
-				var abilities: Array[Ability] = e.abilities_array
+				var abilities: Array[RTS_Ability] = e.abilities_array
 				var id = s.entity.resource.id
 				for ability in abilities:
 					if !ability.component_is_active:

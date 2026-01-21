@@ -6,8 +6,10 @@ signal tree_node_entered(node: StringName)
 signal tree_node_exited(node: StringName)
 
 @export var activate_on_start : bool = true
-@export var overlay_anim_player : AnimationPlayer #Optional Player to play additional anims with same name as nodes
-@export var overlay_anims: Dictionary[String,String] #NodeName to Overlay Anim Name
+#Optional Player to play additional anims with same name as nodes
+@export var overlay_anim_player : AnimationPlayer 
+#NodeName to Overlay Anim Name
+@export var overlay_anims: Dictionary[String,String]
 ## Names of nodes (not animations) to should randomize the anim seek point when entered
 @export var randomize_start: Array[String] #todo...
 

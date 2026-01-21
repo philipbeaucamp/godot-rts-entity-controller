@@ -1,5 +1,5 @@
 @icon("res://addons/godot-rts-entity-controller/assets/icons/keyboard_m_outline.png")
-extends Ability
+extends RTS_Ability
 
 class_name MoveAbility
 

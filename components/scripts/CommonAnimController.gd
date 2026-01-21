@@ -2,7 +2,7 @@ class_name RTS_CommonAnimController extends AnimationTree
 
 @export var movable: RTS_Movable
 @export var attack: RTS_AttackComponent #optional
-@export var ability: Ability
+@export var ability: RTS_Ability
 
 signal tree_node_entered(node: String)
 signal tree_node_exited(node: String)

@@ -1,10 +1,10 @@
 extends RTS_Component
-class_name Ability
+class_name RTS_Ability
 
 @export var resource: AbilityResource #determins action id, cooldown, ap cost, etc
 
-signal activated(ability: Ability)
-signal recharged(ability: Ability)
+signal activated(ability: RTS_Ability)
+signal recharged(ability: RTS_Ability)
 
 var state_machine: RTS_CallableStateMachine = RTS_CallableStateMachine.new()
 var context: Dictionary = {} #populated by ability manager or RTS_AiComponent before activation
@@ -56,7 +56,7 @@ func activate_group(abilities: Array):
 #if allow_trigger_multiple == false, then only one out of the group will be activated.
 #use this function to determin which ability should be prioritized
 #i.e. closest to a target etc
-func get_preferred_ability_to_activate(abilities: Array) -> Ability:
+func get_preferred_ability_to_activate(abilities: Array) -> RTS_Ability:
 	return abilities[0]
 
 func set_context(value: Dictionary):

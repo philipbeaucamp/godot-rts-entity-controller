@@ -12,11 +12,6 @@ var c_ability_container : PackedScene = preload("res://addons/godot-rts-entity-c
 func _ready():
 	Controls.ability_manager.abilities_changed.connect(on_abilities_changed)
 
-func create_ability_container() -> CAbilityContainer:
-	var instance: CAbilityContainer = c_ability_container.instantiate()
-	self.add_child(instance)
-	return instance
-
 func on_abilities_changed():
 	for c in c_abilities:
 		if is_instance_valid(c): #todo improve these queue free logic with callback ?
@@ -31,13 +26,13 @@ func on_abilities_changed():
 
 		#Instaniate CAbility
 		var instance : CAbility = c_ability.instantiate()
-		var cast : Array[Ability] = []
+		var cast : Array[RTS_Ability] = []
 		cast.assign(abilities)
 		instance.set_up(cast)
 		c_abilities.append(instance)
 
 		#Parent to correct place
-		var rep = abilities[0] as Ability
+		var rep = abilities[0] as RTS_Ability
 		if resource.is_common:
 			common_container.add_child(instance)
 		else:

@@ -1,5 +1,5 @@
 @icon("res://addons/godot-rts-entity-controller/assets/icons/keyboard_a_outline.png")
-extends ClickAbility
+extends RTS_ClickAbility
 
 class_name AttackAbility
 

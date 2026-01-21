@@ -1,12 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://cpyrlx8ci2v42"]
+[gd_scene load_steps=45 format=3 uid="uid://cpyrlx8ci2v42"]
 
 [ext_resource type="Script" uid="uid://durvbu6bay27r" path="res://addons/godot-rts-entity-controller/entity/scripts/RTS_Entity.gd" id="1_57uax"]
-[ext_resource type="Script" uid="uid://bj76leq863ep1" path="res://addons/godot-rts-entity-controller/components/scripts/ComponentArea.gd" id="2_8goqi"]
 [ext_resource type="Resource" uid="uid://cmv4ds38sj2rr" path="res://addons/godot-rts-entity-controller/examples/units/example_unit.tres" id="2_ut82w"]
 [ext_resource type="Script" uid="uid://dl38s1b73lw" path="res://addons/godot-rts-entity-controller/components/scripts/AnimationTreeComponent.gd" id="3_57uax"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cjmbpxskhn0xa" path="res://addons/godot-rts-entity-controller/examples/units/example_unit_sm.tres" id="3_b7hy8"]
 [ext_resource type="Script" uid="uid://dl3fp82jkqrd6" path="res://addons/godot-rts-entity-controller/components/scripts/VisualComponent.gd" id="3_vsfnr"]
-[ext_resource type="Script" uid="uid://b0rocwpysaqei" path="res://addons/godot-rts-entity-controller/components/scripts/ComponentStaticBody.gd" id="4_42vdd"]
+[ext_resource type="Script" uid="uid://b0rocwpysaqei" path="res://addons/godot-rts-entity-controller/components/scripts/ComponentLinker.gd" id="4_42vdd"]
 [ext_resource type="PackedScene" uid="uid://capyeh88m207c" path="res://addons/godot-rts-entity-controller/examples/units/vfx_gun_fire_01.tscn" id="8_5spvw"]
 [ext_resource type="Shader" uid="uid://cuh24sqqeu7aa" path="res://addons/godot-rts-entity-controller/entity/assets/selection_cone_vshader.tres" id="10_1vllx"]
 [ext_resource type="ArrayMesh" uid="uid://cchb2akybrreq" path="res://addons/godot-rts-entity-controller/assets/meshes/unit_selection_cone.obj" id="11_kuvgq"]
@@ -241,7 +240,7 @@ libraries = {
 [node name="Steering" type="Area3D" parent="Areas" node_paths=PackedStringArray("component")]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("2_8goqi")
+script = ExtResource("4_42vdd")
 component = NodePath("../../Movable")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Steering"]
@@ -252,7 +251,7 @@ debug_color = Color(1, 1, 1, 0.42)
 [node name="Defense" type="Area3D" parent="Areas" node_paths=PackedStringArray("component")]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("2_8goqi")
+script = ExtResource("4_42vdd")
 component = NodePath("../../ComponentDefense")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Defense"]
@@ -274,7 +273,7 @@ collision_layer = 0
 collision_mask = 0
 monitoring = false
 monitorable = false
-script = ExtResource("2_8goqi")
+script = ExtResource("4_42vdd")
 component = NodePath("../../Attack")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Scan"]
@@ -285,7 +284,7 @@ collision_layer = 0
 collision_mask = 0
 monitoring = false
 monitorable = false
-script = ExtResource("2_8goqi")
+script = ExtResource("4_42vdd")
 component = NodePath("../../Attack")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Weapon"]

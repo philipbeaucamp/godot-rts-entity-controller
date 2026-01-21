@@ -20,7 +20,7 @@ func _physics_process(_delta):
 		return
 	var result = camera.get_mouse_position_raycast(collision_mask)
 	if result:
-		if result.collider is not RTS_ComponentStaticBody:
+		if result.collider is not RTS_ComponentLinker:
 			return
 		var pickable : RTS_PickablePhysicsComponent = result.collider.component
 		if pickable != null &&  pickable.component_is_active:

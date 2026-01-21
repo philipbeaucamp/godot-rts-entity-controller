@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://e0622m1rbjww"]
+[gd_scene load_steps=12 format=3 uid="uid://e0622m1rbjww"]
 
 [ext_resource type="PackedScene" uid="uid://b308y2ko6ala4" path="res://addons/godot-rts-entity-controller/utility/scenes/physics_catch_layer.tscn" id="1_41sv5"]
 [ext_resource type="PackedScene" uid="uid://c2gxlj25l1xqn" path="res://addons/godot-rts-entity-controller/utility/scenes/spatial_hash_area.tscn" id="2_3l73d"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dtt361fqc7l83" path="res://addons/godot-rts-entity-controller/examples/level/ExampleObstacle.tscn" id="5_rsp02"]
 [ext_resource type="PackedScene" uid="uid://bpk1lfouqln1a" path="res://addons/godot-rts-entity-controller/core/camera/camera_boundary_and_position.tscn" id="6_jk7dy"]
 [ext_resource type="PackedScene" uid="uid://cpyrlx8ci2v42" path="res://addons/godot-rts-entity-controller/examples/units/example_unit.tscn" id="7_hkiat"]
+[ext_resource type="PackedScene" uid="uid://dtkcuve8cqa3s" path="res://units/striker/striker.tscn" id="8_hauoo"]
+[ext_resource type="PackedScene" uid="uid://celk2xfdiuwdj" path="res://units/rusher/rusher.tscn" id="9_wkcax"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4wntj"]
 resource_local_to_scene = true
@@ -72,5 +74,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1.2786286)
 [node name="ExampleUnit3" parent="Units" instance=ExtResource("7_hkiat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1699142, 0, 0.04595256)
 faction = 1
+
+[node name="striker" parent="." instance=ExtResource("8_hauoo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="rusher" parent="." instance=ExtResource("9_wkcax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.966764, 0, 3.128625)
 
 [editable path="CameraBoundaryAndPosition"]

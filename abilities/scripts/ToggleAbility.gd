@@ -1,6 +1,6 @@
-class_name ToggleAbility extends Ability
+class_name RTS_ToggleAbility extends RTS_Ability
 
-#Ability that can have an is_ability_active state, i.e. SC2 Tanks's "Siege Mode"
+#RTS_Ability that can have an is_ability_active state, i.e. SC2 Tanks's "Siege Mode"
 
 signal toggle_activated()
 signal toggle_deactived()

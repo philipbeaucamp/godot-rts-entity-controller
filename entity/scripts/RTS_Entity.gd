@@ -39,8 +39,8 @@ var entity_debug_instance
 
 var passive_components: Array[RTS_Component] = []
 
-var abilities: Dictionary[String,Ability] = {}
-var abilities_array: Array[Ability] = []
+var abilities: Dictionary[String,RTS_Ability] = {}
+var abilities_array: Array[RTS_Ability] = []
 var is_ready : bool = false
 
 #--- Anim Tree Evelations. Avoid getters for perfomance
@@ -165,7 +165,7 @@ func update_and_fetch_components():
 			health = child
 		if child is RTS_AnimationTreeComponent:
 			anim_tree = child
-		if child is Ability:
+		if child is RTS_Ability:
 			abilities_array.append(child)
 			if abilities.has(child.resource.id):
 				printerr("Multiple abilities using same resource is not supported. " + str(child.resource.id) + " RTS_Entity:  " + str(self.name))

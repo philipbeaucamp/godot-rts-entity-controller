@@ -1,5 +1,5 @@
-extends Ability
-class_name ClickAbility
+extends RTS_Ability
+class_name RTS_ClickAbility
 
 enum Type {
 	Position,
@@ -7,7 +7,7 @@ enum Type {
 }
 
 @export var radius_ring: RadiusRing #Optional. If present, will render radius when ability active
-@export var dont_clear_targets_on_activate: bool = false #Only used by Patrol and Attack Ability. Best to keep false otherwise
+@export var dont_clear_targets_on_activate: bool = false #Only used by Patrol and Attack RTS_Ability. Best to keep false otherwise
 
 var click_target: Vector3 #in world space
 var click_target_source: RTS_Entity #optional/alternative click_target source
@@ -17,7 +17,7 @@ var soft_target: RTS_Target #not null when soft activated and moving towards thi
 var is_initiated: bool = false
 
 # Emitted when click ability is "initiated" but not yet cast
-signal soft_activated(click_ability: ClickAbility, value: bool)
+signal soft_activated(click_ability: RTS_ClickAbility, value: bool)
 
 func _ready():
 	super._ready()
