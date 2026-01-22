@@ -6,5 +6,4 @@ class_name EntityResource
 
 @export var display_name: StringName
 @export var id: StringName
-@export var short_id: StringName
 @export var thumbnail: Texture2D
