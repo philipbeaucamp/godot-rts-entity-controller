@@ -7,6 +7,7 @@ class_name RTS_Weapon extends RTS_Component
 @export var attack: RTS_AttackComponent
 @export var is_melee: bool = false #in the future this could become a getter if multiple attack variants exist?
 @export var damage_dealers: Array[RTS_DamageDealer] = []
+@export var modifiers : Array[RTS_WeaponModification] = []
 
 
 @export_group("Times")
@@ -22,7 +23,6 @@ class_name RTS_Weapon extends RTS_Component
 
 var scan_range: float #radius of scan_area
 var weapon_range: float #radius of weapon_area
-var modifiers : Array[RTS_WeaponModification] = []
 var last_weapon_target: RTS_Defense
 
 func set_component_active():

@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://1q71uciq5t7h"]
 
-[ext_resource type="Shader" uid="uid://qu0hevmpfufs" path="res://core/shaders/ring.gdshader" id="1_otsvv"]
+[ext_resource type="Shader" uid="uid://qu0hevmpfufs" path="res://addons/godot-rts-entity-controller/assets/shaders/ring.gdshader" id="1_otsvv"]
 
 [resource]
 resource_local_to_scene = true
