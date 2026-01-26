@@ -11,7 +11,6 @@ class_name RTS_AttackComponent extends RTS_Component
 #reference https://liquipedia.net/starcraft2/Automatic_Targeting
 #reference https://liquipedia.net/starcraft2/Category:Game_Mechanic
 
-@export var always_threat_to_attacker : bool = false
 @export var variant_to_activate_on_ready: RTS_AttackVariant
 @export var weapon_to_activate_on_ready: RTS_Weapon
 @export var use_overlay_anim_for_attack_duration: bool = false
@@ -470,8 +469,7 @@ func on_tree_node_entered(node: StringName):
 			assert(anim_tree.overlay_anim_player.current_animation_length > 0)
 		else:
 			anim_tree.animation_finished.connect(on_attack_anim_finished)
-			var test = anim_tree.playback.get_current_length()
-			assert(test > 0)
+			assert(anim_tree.playback.get_current_length() > 0)
 		start_immobilization_timer(active_weapon.attack_immobilize_duration)
 
 func start_immobilization_timer(immobile_duration: float):

@@ -32,6 +32,8 @@ var entity_debug_instance
 @export var entity_collider : CollisionShape3D #can be nullable
 @export var obstacle: NavigationObstacleComponent
 
+# If false, the entity is not added to the spatial hash grid and therefore not able to be looked up
+# using the spatial hash grid
 @export var space_hash: bool = true:
 	set(value):
 		space_hash = value
@@ -132,14 +134,8 @@ func make_essential_components_passive():
 
 func on_movable_enter_state(new_state: int):
 	si["move_state"] = new_state
-	# if id == "striker":
-	# 	if si["attack_state"] != 1 && si["move_state"] <= 2:
-	# 		print("YES")
 func on_attack_enter_state(new_state: int):
 	si["attack_state"] = new_state
-	# if id == "striker":
-	# 	if si["attack_state"] != 1 && si.has("move_staet") && si["move_state"] <= 2:
-	# 		print("YES")
 func on_active_weapon_changed(new_weapon: RTS_Weapon,weapon_index: int):
 	si["weapon_index"] = weapon_index
 func on_stunned(entering_entity: RTS_Entity,value: bool):
@@ -147,7 +143,6 @@ func on_stunned(entering_entity: RTS_Entity,value: bool):
 
 func enable_unit_collisions(value: bool):
 	set_collision_mask_value(Controls.settings.collision_layer_units,value)
-
 
 func update_and_fetch_components():
 	abilities.clear()

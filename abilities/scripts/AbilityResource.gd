@@ -1,6 +1,4 @@
-extends Resource
-
-class_name AbilityResource
+class_name AbilityResource extends Resource
 
 @export var id: StringName #must be same as action input name
 

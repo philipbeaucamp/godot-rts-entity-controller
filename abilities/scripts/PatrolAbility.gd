@@ -1,7 +1,7 @@
 @icon("res://addons/godot-rts-entity-controller/assets/icons/keyboard_q_outline.png")
 extends RTS_ClickAbility
 
-class_name PatrolAbility
+class_name RTS_PatrolAbility
 
 func is_valid_target(_target: Vector3, _source: RTS_Entity):
 	return true 

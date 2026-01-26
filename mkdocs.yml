@@ -1,7 +1,36 @@
 site_name: Godot RTS Entity Controller Documentation
+
 nav:
   - Home: index.md
-  - About: about.md
+  - Getting Started: getting-started.md
+  - Core Concepts: core-concepts.md
+  
+  - Systems:
+    - Player Input System: systems/player-input.md
+    - Entity System: systems/entity.md
+    - Selection System: systems/selection.md
+    - Movement & Navigation: systems/movement.md
+    - Abilities System: systems/abilities.md
+    - Combat System: systems/combat.md
+    - Autoloads: autoloads.md
+  
+  - Components:
+    - Overview: components/overview.md
+    - Selectable: components/selectable.md
+    - Movable: components/movable.md
+    - Health: components/health.md
+    - Defense: components/defense.md
+    - Attack: components/attack.md
+    - Visual Component: components/visual.md
+  
+  - Advanced:
+    - Spatial Hashing: advanced/spatial-hashing.md
+  
+  - Reference:
+    - Best Practices: reference/best-practices.md
+    - Troubleshooting: reference/troubleshooting.md
+
 theme: 
   name: readthedocs
-color_mode : dark
+
+color_mode: dark

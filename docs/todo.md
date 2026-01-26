@@ -5,4 +5,5 @@
 
 
 
-use mkdocs serve --livereload for auto refresh
+ for auto refresh
+ `mkdocs serve --livereload`

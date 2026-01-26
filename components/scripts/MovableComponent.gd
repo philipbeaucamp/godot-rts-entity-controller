@@ -46,7 +46,6 @@ enum Type {
 @export var nav_agent: NavigationAgent3D
 
 @export_group("Separation")
-# @export var max_force : float = 1
 @export var use_separation :bool = true 
 @export var separation_multiplier : float = 1.0
 @export_group("Avoidance")

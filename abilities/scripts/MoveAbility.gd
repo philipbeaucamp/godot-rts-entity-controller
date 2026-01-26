@@ -1,7 +1,7 @@
 @icon("res://addons/godot-rts-entity-controller/assets/icons/keyboard_m_outline.png")
 extends RTS_Ability
 
-class_name MoveAbility
+class_name RTS_MoveAbility
 
 var last_move_target_source : RTS_Entity
 

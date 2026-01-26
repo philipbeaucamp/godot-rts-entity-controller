@@ -1,7 +1,5 @@
 @icon("res://addons/godot-rts-entity-controller/assets/icons/keyboard_h_outline.png")
-extends RTS_Ability
-
-class_name HoldAbility
+class_name RTS_HoldAbility extends RTS_Ability
 
 
 func activate():

@@ -16,7 +16,6 @@ signal update_control_group(index: int, selectables : Array[RTS_Selectable], sel
 #Camera
 signal set_camera_boundary(area: Area3D, value: bool)
 signal set_camera_start_position(start: Vector3)
-signal pixel_resolution_changed(res: Vector2i)
 
 #RTS_Entity
 signal entity_ready(entity: RTS_Entity) #be careful, only called once, use enter tree to work with reparenting

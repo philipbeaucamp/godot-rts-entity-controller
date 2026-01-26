@@ -1,6 +1,7 @@
 class_name RTS_HealthComponent extends RTS_Component
 
 @export var init_health : float = 100
+@export var instantiate_health_bar: bool = true
 
 var health_bar_scene = preload("res://addons/godot-rts-entity-controller/entity/scenes/health_bar.tscn")
 var health_bar_instance: RTS_HealthBar
@@ -15,7 +16,8 @@ signal health_damaged(health: RTS_HealthComponent)
 func _ready():
 	super._ready()
 	health = init_health
-	instanitate_health_bar()
+	if instantiate_health_bar:
+		instanitate_health_bar()
 		
 func _exit_tree():
 	#Clean up after itself

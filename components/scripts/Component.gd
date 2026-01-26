@@ -9,7 +9,6 @@ class_name RTS_Component extends Node
 
 var component_is_active = false
 var entity: RTS_Entity
-var is_set_up : bool = false
 
 func _ready():
 	entity = fetch_entity()

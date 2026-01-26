@@ -23,7 +23,7 @@ class_name RTS_Weapon extends RTS_Component
 
 var scan_range: float #radius of scan_area
 var weapon_range: float #radius of weapon_area
-var last_weapon_target: RTS_Defense
+var last_weapon_target: RTS_Defense #Set by AttackComponent
 
 func set_component_active():
 	super.set_component_active()

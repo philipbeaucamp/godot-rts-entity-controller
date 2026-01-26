@@ -2,7 +2,6 @@ class_name RTS_Defense extends RTS_Component
 
 @export var armor: int = 0
 @export var atp: int = 20 #RTS_AttackComponent-RTS_Target-Priority. Higher values are considered higher threats. This is different from selection priority.
-@export var hit_animation = ""
 @export var vfxs: Array[RTS_Particles3DContainer]
 @export var area : Area3D
 
