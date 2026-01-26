@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Autoloads Overview - Godot RTS Entity Controller Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Autoloads Overview";
+        var mkdocs_page_input_path = "systems\\autoloads.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Godot RTS Entity Controller Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../core-concepts/">Core Concepts</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Systems</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../player-input/">Player Input System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../entity/">Entity System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../selection/">Selection System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../movement/">Movement & Navigation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../abilities/">Abilities System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../combat/">Combat System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Components</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/selectable/">Selectable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/movable/">Movable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/health/">Health</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/defense/">Defense</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/attack/">Attack</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/visual/">Visual Component</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced/spatial-hashing/">Spatial Hashing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/best-practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Godot RTS Entity Controller Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Autoloads Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="autoloads-overview">Autoloads Overview</h1>
+<p>The Godot RTS Entity Controller uses three main autoloads to manage the entire system. These are automatically initialized when the plugin is enabled.</p>
+<h2 id="rtseventbus">RTSEventBus</h2>
+<p><strong>Purpose</strong>: Central event dispatcher for events to avoid tight component coupling</p>
+<h2 id="rtscontroller">RTSController</h2>
+<p><strong>Purpose</strong>: Loading essential RTS components that glue everything together</p>
+<p>This scene is not mandatory, but it included for ease of use and demonstration purposes. You could customize the scene or split this into separate scenes to your likings, as long as all the essential components, such as the Camera Rig, Movement or Selection sripts are provided.</p>
+<p>Perhaps most likely you would want to change the UI. In that case you could duplicate this scene and simply take out the CanvasLayer.</p>
+<p><strong>Remark</strong>: In case you do decide to change this scene (or use your own) just make sure the scripts found on the RTSController node are still accessible via <code>Controls.</code> for the scripts to work.</p>
+<p><strong>Overview</strong>:</p>
+<ul>
+<li>RTSController: Holds references to the scripts and managers for easy referencing</li>
+<li>Selection: Handles selection of entities</li>
+<li>PhysicsSelection: Handles non-box-selection, i.e. Raycast (click) selection of entities</li>
+<li>Movement: Handles group movement and patrol logic of entities</li>
+<li>Paths: Adds/Removes visible paths and target points for entity movement</li>
+<li>AbilityManager: Interprets player input and activates abilities on selected units</li>
+<li>MainRig: Handles camera movement</li>
+<li>MainCamera: Handles Raycasting/Projection logic</li>
+<li>CanvasLayer: Simple UI Layer</li>
+<li>PoolManager: Simple implementation of pooling logic for paths and waypoints</li>
+<li>Geometry: GeometryUtilies</li>
+<li>Time: Time related functionality</li>
+</ul>
+<h2 id="rtsplayerinput">RTSPlayerInput</h2>
+<p><strong>Purpose</strong>: Handles player input and and distributes it to the respective systems. See <a href="../player-input/">PlayerInputSystem</a></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Best Practices - Godot RTS Entity Controller Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Best Practices";
+        var mkdocs_page_input_path = "reference\\best-practices.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Godot RTS Entity Controller Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../core-concepts/">Core Concepts</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Systems</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/player-input/">Player Input System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/entity/">Entity System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/selection/">Selection System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/movement/">Movement & Navigation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/abilities/">Abilities System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Components</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/selectable/">Selectable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/movable/">Movable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/health/">Health</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/defense/">Defense</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/attack/">Attack</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/visual/">Visual Component</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced/spatial-hashing/">Spatial Hashing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Best Practices</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#general-design">General Design</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#use-components-appropriately">Use Components Appropriately</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#event-driven-communication">Event-Driven Communication</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cache-references">Cache References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#use-appropriate-amount-of-entities">Use appropriate amount of entities</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#optimize-entities">Optimize entities</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#batch-operations">Batch Operations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-process-efficiently">Use Process Efficiently</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#component-integration">Component Integration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#proper-initialization">Proper Initialization</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#graceful-cleanup">Graceful Cleanup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#selection-input">Selection &amp; Input</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#validate-selections">Validate Selections</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-debugging">Testing &amp; Debugging</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#use-debug-tools">Use Debug Tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#validate-assumptions">Validate Assumptions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Godot RTS Entity Controller Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Reference</li>
+      <li class="breadcrumb-item active">Best Practices</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="best-practices">Best Practices</h1>
+<h2 id="general-design">General Design</h2>
+<h3 id="use-components-appropriately">Use Components Appropriately</h3>
+<ul>
+<li>Create small, focused components</li>
+<li>One responsibility per component</li>
+<li>Avoid large monolithic scripts (Movable Component not being a good example...)</li>
+<li>Reuse components across unit types</li>
+</ul>
+<h3 id="event-driven-communication">Event-Driven Communication</h3>
+<pre><code class="language-gdscript"># Good: Decoupled via events
+RTSEventBus.connect(&quot;unit_selected&quot;, Callable(self, &quot;_on_unit_selected&quot;))
+
+# Avoid: Direct coupling
+var player = get_node(&quot;/root/Player&quot;)
+player.select_unit(unit)
+</code></pre>
+<h3 id="cache-references">Cache References</h3>
+<pre><code class="language-gdscript"># Cache component references
+var health_comp: HealthComponent
+var movement_comp: MovableComponent
+
+func _ready() -&gt; void:
+    health_comp = get_node(&quot;HealthComponent&quot;)
+    movement_comp = get_node(&quot;MovableComponent&quot;)
+</code></pre>
+<h2 id="performance">Performance</h2>
+<h3 id="use-appropriate-amount-of-entities">Use appropriate amount of entities</h3>
+<p>This tools works best with tens to low hundreds of units. Think SC2 sized squirmishes, not thousands of units large armies.</p>
+<h3 id="optimize-entities">Optimize entities</h3>
+<p>Perfomance is heavily influence by how complex your single units are. Try</p>
+<ul>
+<li>Removing any unnecessary <code>Node3D</code>s (or turning them into <code>Node</code> if possible)</li>
+<li>Optimize polygon, draw calls and generally try to combine meshes where possible</li>
+<li>Reuse <code>Area3D</code> where possible</li>
+<li>Track component activity using Godots profiler</li>
+</ul>
+<h3 id="batch-operations">Batch Operations</h3>
+<pre><code class="language-gdscript"># Good: Process multiple at once
+var paths = []
+for target in destinations:
+    paths.append(calculate_path(start, target))
+
+# Avoid: Individual queries in loops
+for i in range(100):
+    calculate_path(start, destinations[i])  # Slow!
+</code></pre>
+<p>Also note that Gdscripts function call overhead is (relatively) pretty expensive.</p>
+<h3 id="use-process-efficiently">Use Process Efficiently</h3>
+<pre><code class="language-gdscript"># Only override if needed
+func _process(delta: float) -&gt; void:
+    if active_state:  # Skip if not needed
+        update_position(delta)
+
+# Or use _physics_process for physics
+# Or conditionally call update methods
+</code></pre>
+<h2 id="component-integration">Component Integration</h2>
+<h3 id="proper-initialization">Proper Initialization</h3>
+<p>99% of the time, you <em>do</em> want to call <code>super._ready()</code> when overriding components, so don't forget!</p>
+<pre><code class="language-gdscript">func _ready() -&gt; void:
+    super._ready()  # Call parent _ready
+
+    health_comp = entity.health # Use entity to fetch components if possible!
+
+    # Subscribe to events
+    RTSEventBus.connect(&quot;unit_selected&quot;, Callable(self, &quot;_on_selected&quot;))
+
+    # Validate setup
+    assert(health_comp != null, &quot;Missing HealthComponent&quot;)
+</code></pre>
+<h3 id="graceful-cleanup">Graceful Cleanup</h3>
+<pre><code class="language-gdscript">func _exit_tree() -&gt; void:
+    # Disconnect signals
+    RTSEventBus.disconnect(&quot;unit_selected&quot;, Callable(self, &quot;_on_selected&quot;))
+
+    # Cancel timers
+    if timer:
+        timer.stop()
+
+    # Clean up resources
+    if shader_material:
+        shader_material.free()
+</code></pre>
+<h2 id="selection-input">Selection &amp; Input</h2>
+<h3 id="validate-selections">Validate Selections</h3>
+<pre><code class="language-gdscript"># Ensure units still exist before using
+for unit in selected_units:
+    if not is_instance_valid(unit):
+        continue  # Unit was deleted
+
+    issue_command(unit)
+</code></pre>
+<h2 id="testing-debugging">Testing &amp; Debugging</h2>
+<h3 id="use-debug-tools">Use Debug Tools</h3>
+<p>Especially for drawing paths and geometry, using a debug drawing tools such as  <code>DebugDraw3D</code> is immensely helpful.
+You will actual find commented <code>DebugDraw3D</code> calls throughout the code.</p>
+<pre><code class="language-gdscript"># Add debug visualization
+##DebugDraw3D.draw_aabb(aabb,debug_color)
+</code></pre>
+<h3 id="validate-assumptions">Validate Assumptions</h3>
+<pre><code class="language-gdscript"># Assert expected conditions
+assert(unit != null, &quot;Unit reference is null&quot;)
+assert(unit.has_node(&quot;HealthComponent&quot;), &quot;Unit missing HealthComponent&quot;)
+</code></pre>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../../core-concepts/">Core Concepts</a> - Architecture patterns</li>
+<li><a href="../../components/overview/">Component System</a> - Component design</li>
+<li><a href="../troubleshooting/">Troubleshooting</a> - Common issues</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../advanced/spatial-hashing/" class="btn btn-neutral float-left" title="Spatial Hashing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../troubleshooting/" class="btn btn-neutral float-right" title="Troubleshooting">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../advanced/spatial-hashing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../troubleshooting/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
