@@ -17,4 +17,7 @@ mono_crash.*.json
 
 # Since this is an addon, we don't want to track import settings
 # (they should be tracked in the main project that uses the addon)
-*.import 
+*.import
+
+#exclude built mkdocs
+site/
