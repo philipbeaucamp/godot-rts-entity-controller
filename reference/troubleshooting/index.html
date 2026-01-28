@@ -65,7 +65,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -153,7 +153,7 @@
 <ol>
 <li>Ensure <code>SelectableComponent</code> is added to unit</li>
 <li>Check collision layers/masks for raycast compatibility</li>
-<li>Verify <code>RTSPlayerInput</code> is enabled</li>
+<li>Verify <code>RTS_PlayerInput</code> is enabled</li>
 <li>Check that input event handling isn't blocked elsewhere</li>
 </ol>
 <pre><code class="language-gdscript"># Debug: Check if component exists
@@ -219,7 +219,7 @@ if not unit.has_node(&quot;SelectableComponent&quot;):
 <li></li>
 </ol>
 <h2 id="autoload-not-found">Autoload Not Found</h2>
-<p><strong>Problem</strong>: RTSEventBus, RTSController, or RTSPlayerInput errors.</p>
+<p><strong>Problem</strong>: RTS_EventBus, RTSController, or RTS_PlayerInput errors.</p>
 <p><strong>Solutions</strong>:</p>
 <ol>
 <li>Check plugin is enabled (Project → Settings → Plugins)</li>

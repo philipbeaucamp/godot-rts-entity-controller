@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Autoloads Overview - Godot RTS Entity Controller Documentation</title>
+    <title>Autoloads - Godot RTS Entity Controller Documentation</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Autoloads Overview";
+        var mkdocs_page_name = "Autoloads";
         var mkdocs_page_input_path = "systems\\autoloads.md";
         var mkdocs_page_url = null;
       </script>
@@ -52,7 +52,7 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Systems</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../player-input/">Player Input System</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../entity/">Entity System</a>
@@ -65,7 +65,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Autoloads</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#rts_eventbus">RTS_EventBus</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rtscontroller">RTSController</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rts_playerinput">RTS_PlayerInput</a>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -111,7 +119,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Autoloads Overview</li>
+          <li class="breadcrumb-item">Systems</li>
+      <li class="breadcrumb-item active">Autoloads</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -122,13 +131,13 @@
               
                 <h1 id="autoloads-overview">Autoloads Overview</h1>
 <p>The Godot RTS Entity Controller uses three main autoloads to manage the entire system. These are automatically initialized when the plugin is enabled.</p>
-<h2 id="rtseventbus">RTSEventBus</h2>
+<h2 id="rts_eventbus">RTS_EventBus</h2>
 <p><strong>Purpose</strong>: Central event dispatcher for events to avoid tight component coupling</p>
 <h2 id="rtscontroller">RTSController</h2>
 <p><strong>Purpose</strong>: Loading essential RTS components that glue everything together</p>
 <p>This scene is not mandatory, but it included for ease of use and demonstration purposes. You could customize the scene or split this into separate scenes to your likings, as long as all the essential components, such as the Camera Rig, Movement or Selection sripts are provided.</p>
 <p>Perhaps most likely you would want to change the UI. In that case you could duplicate this scene and simply take out the CanvasLayer.</p>
-<p><strong>Remark</strong>: In case you do decide to change this scene (or use your own) just make sure the scripts found on the RTSController node are still accessible via <code>Controls.</code> for the scripts to work.</p>
+<p><strong>Remark</strong>: In case you do decide to change this scene (or use your own) just make sure the scripts found on the RTSController node are still accessible via <code>RTS_Controls.</code> for the scripts to work (since many scripts access them using the <code>Controls</code> autloaded script)</p>
 <p><strong>Overview</strong>:</p>
 <ul>
 <li>RTSController: Holds references to the scripts and managers for easy referencing</li>
@@ -144,11 +153,15 @@
 <li>Geometry: GeometryUtilies</li>
 <li>Time: Time related functionality</li>
 </ul>
-<h2 id="rtsplayerinput">RTSPlayerInput</h2>
+<h2 id="rts_playerinput">RTS_PlayerInput</h2>
 <p><strong>Purpose</strong>: Handles player input and and distributes it to the respective systems. See <a href="../player-input/">PlayerInputSystem</a></p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../combat/" class="btn btn-neutral float-left" title="Combat System"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../components/overview/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -170,6 +183,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../combat/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../components/overview/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

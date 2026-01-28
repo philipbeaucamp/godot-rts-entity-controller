@@ -65,7 +65,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -161,7 +161,7 @@
 <li><strong>Performance</strong> - Only required components are active</li>
 </ul>
 <h2 id="base-component-class">Base Component Class</h2>
-<p>All components extend from the base class <code>RTS_Component</code>, which always has a reference to its entity (usually the parent)</p>
+<p>All components extend from the base class <code>RTS_Component</code>, which always has a reference to its entity (usually the parent).</p>
 <pre><code class="language-gdscript">func fetch_entity() -&gt; RTS_Entity:
     return get_parent() as RTS_Entity
 </code></pre>
@@ -173,10 +173,10 @@ func set_component_active():
     assert(!component_is_active,&quot;RTS_Component set active twice. You're game logic is probably flawed.&quot;)
     component_is_active = true
 </code></pre>
-<p>If not required otherwise, leaving <code>set_component_active_on_ready</code> set to true is usually the right call.</p>
-<p>RTS_Component is the main building block to build modular and scalable, yet unique entity behaviours. For developers wanting to adopt this framework, it is recommended to come up with your own unique and new components which add features and complexity to entities by extending this base class.</p>
-<p>Here we briefly introduce the most common components that are included in RTS Godot Entity Controller.
-Note that <code>RTS_Ability</code> themselves as well as many other scripts (such as <code>RTS_Weapon</code>) are themselves inheriting from <code>RTS_Component</code>.</p>
+<p>If not required otherwise, leaving <code>set_component_active_on_ready</code> set to true is usually the right choice.</p>
+<p>RTS_Component is the main building block for creating modular and scalable, yet unique entity behaviors. For developers wanting to adopt this framework, it is recommended to create your own unique components which add features and complexity to entities by extending this base class.</p>
+<p>Here we briefly introduce the most common components that are included in the RTS Entity Controller.
+Note that <code>RTS_Ability</code> and many other scripts (such as <code>RTS_Weapon</code>) also inherit from <code>RTS_Component</code>.</p>
 <h2 id="common-components">Common Components</h2>
 <h3 id="selection-interaction">Selection &amp; Interaction</h3>
 <ul>
@@ -197,10 +197,10 @@ Note that <code>RTS_Ability</code> themselves as well as many other scripts (suc
 <h3 id="visuals-animation">Visuals &amp; Animation</h3>
 <ul>
 <li><strong><a href="../visual/">VisualComponent</a></strong> - Rendering and visibility</li>
-<li><strong><a href="../animation-tree/">AnimationTreeComponent</a></strong> - AnimationTree integration. Also see <a href="../attack/">Attack System</a></li>
+<li><strong>[AnimationTreeComponent]</strong> - AnimationTree and AnimationPlayer integration. Also see <a href="../attack/">Attack System</a></li>
 </ul>
 <h3 id="example-exampleunittscn">Example: ExampleUnit.tscn</h3>
-<p>As alluded to in <a href="../../systems/entity/">Entity System</a>, components usually (but no always) sit as direct children underneath the entity:</p>
+<p>As alluded to in <a href="../../systems/entity/">Entity System</a>, components usually (but not always) sit as direct children underneath the entity:</p>
 <pre><code>ExampleUnit (RTS_Entity)
 ├── (...)
 ├── SelectableComponent
@@ -210,7 +210,7 @@ Note that <code>RTS_Ability</code> themselves as well as many other scripts (suc
 ├── AnimationTreeComponent
 </code></pre>
 <h2 id="creating-custom-components">Creating Custom Components</h2>
-<p>Creating custom components is as easy as inherting from <code>RTS_Component</code>. The easiest thing to forget is to properly implement </p>
+<p>Creating custom components is as easy as inheriting from <code>RTS_Component</code>. The easiest thing to forget is to properly implement </p>
 <pre><code class="language-gdscript">func set_component_inactive()
 func set_component_active()
 </code></pre>
@@ -220,14 +220,13 @@ func set_component_active()
 <li>Learn about specific components in the detailed guides</li>
 <li><a href="../selectable/">Selectable Component</a></li>
 <li><a href="../movable/">Movable Component</a></li>
-<li><a href="health-defense.md">Health &amp; Defense</a></li>
-<li><a href="../advanced/abilities.md">Creating custom abilities</a></li>
+<li><a href="../../systems/abilities/">Creating custom abilities</a></li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../systems/combat/" class="btn btn-neutral float-left" title="Combat System"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../systems/autoloads/" class="btn btn-neutral float-left" title="Autoloads"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../selectable/" class="btn btn-neutral float-right" title="Selectable">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -251,7 +250,7 @@ func set_component_active()
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../systems/combat/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../../systems/autoloads/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../selectable/" style="color: #fcfcfc">Next &raquo;</a></span>

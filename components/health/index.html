@@ -65,7 +65,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -134,7 +134,7 @@
 <pre><code class="language-gdscript">func take_damage(dmg : float):
     if !component_is_active:
         return
-    if dmg &lt;= 0 || Controls.settings.invincibility:
+    if dmg &lt;= 0 || RTS_Controls.settings.invincibility:
         return
 
     health -= dmg

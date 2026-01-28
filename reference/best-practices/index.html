@@ -65,7 +65,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -180,7 +180,7 @@
 </ul>
 <h3 id="event-driven-communication">Event-Driven Communication</h3>
 <pre><code class="language-gdscript"># Good: Decoupled via events
-RTSEventBus.connect(&quot;unit_selected&quot;, Callable(self, &quot;_on_unit_selected&quot;))
+RTS_EventBus.connect(&quot;unit_selected&quot;, Callable(self, &quot;_on_unit_selected&quot;))
 
 # Avoid: Direct coupling
 var player = get_node(&quot;/root/Player&quot;)
@@ -235,7 +235,7 @@ func _process(delta: float) -&gt; void:
     health_comp = entity.health # Use entity to fetch components if possible!
 
     # Subscribe to events
-    RTSEventBus.connect(&quot;unit_selected&quot;, Callable(self, &quot;_on_selected&quot;))
+    RTS_EventBus.connect(&quot;unit_selected&quot;, Callable(self, &quot;_on_selected&quot;))
 
     # Validate setup
     assert(health_comp != null, &quot;Missing HealthComponent&quot;)
@@ -243,7 +243,7 @@ func _process(delta: float) -&gt; void:
 <h3 id="graceful-cleanup">Graceful Cleanup</h3>
 <pre><code class="language-gdscript">func _exit_tree() -&gt; void:
     # Disconnect signals
-    RTSEventBus.disconnect(&quot;unit_selected&quot;, Callable(self, &quot;_on_selected&quot;))
+    RTS_EventBus.disconnect(&quot;unit_selected&quot;, Callable(self, &quot;_on_selected&quot;))
 
     # Cancel timers
     if timer:

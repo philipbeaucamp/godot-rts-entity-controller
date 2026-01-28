@@ -101,7 +101,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../systems/combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../systems/autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -160,7 +160,7 @@
 <h2 id="architecture-overview">Architecture Overview</h2>
 <p>The Godot RTS Entity Controller is built on a component-based architecture with an event-driven communication system.</p>
 <h3 id="component-system">Component System</h3>
-<p>Units (also refered to as Entity) are composed of modular components that add specific behaviors:</p>
+<p>Units (also referred to as Entities) are composed of modular components that add specific behaviors:</p>
 <ul>
 <li><strong>Components</strong> extend from a base <code>Component</code> class</li>
 <li>Each component handles a specific aspect of unit behavior (movement, health, selection, etc.)</li>
@@ -168,7 +168,7 @@
 <li>Components can be mixed and matched to create different unit types</li>
 </ul>
 <h3 id="event-bus-pattern">Event Bus Pattern</h3>
-<p>The <code>RTSEventBus</code> provides decoupled communication:</p>
+<p>The <code>RTS_EventBus</code> provides decoupled communication:</p>
 <ul>
 <li>Components emit events when things happen (unit selected, moved, damaged, etc.)</li>
 <li>Other systems listen for events without needing direct references</li>
@@ -177,9 +177,9 @@
 <h3 id="autoload-system">Autoload System</h3>
 <p>Three core autoloads manage the overall system:</p>
 <ol>
-<li><strong>RTSEventBus</strong> - Central event dispatcher</li>
+<li><strong>RTS_EventBus</strong> - Central event dispatcher</li>
 <li><strong>RTSController</strong> - Manages selected units and global state</li>
-<li><strong>RTSPlayerInput</strong> - Handles input commands and translates them to gameplay actions</li>
+<li><strong>RTS_PlayerInput</strong> - Handles input commands and translates them to gameplay actions</li>
 </ol>
 <h2 id="key-design-patterns">Key Design Patterns</h2>
 <h3 id="1-component-pattern">1. Component Pattern</h3>
@@ -198,7 +198,7 @@
 <h2 id="data-flow">Data Flow</h2>
 <pre><code>Player Input
     ↓
-RTSPlayerInput (collects input to distribute)
+RTS_PlayerInput (collects input to distribute)
     ↓
 Selection/AbilityManager (interpret input)
     ↓
@@ -206,7 +206,7 @@ Components (implement logic)
     ↓
 Visual/Audio Updates
 </code></pre>
-<p>Note that if one chooses, PlayerInput can be handled completely differently, for example when integrating with an existing player input system. All thats required is to send the required input data to Selection and AbilityManager to interpret the input.</p>
+<p>Note that if one chooses, player input can be handled completely differently, for example when integrating with an existing player input system. All that's required is to send the required input data to Selection and AbilityManager to interpret the input.</p>
 <h2 id="entity-structure">Entity Structure</h2>
 <p>A typical entity consists of:</p>
 <pre><code>Entity (RTS_Entity)

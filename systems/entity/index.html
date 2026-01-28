@@ -111,7 +111,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -284,7 +284,7 @@ signal end_of_life(entity: RTS_Entity)  # Guaranteed exactly once
 visible_on_screen.screen_exited.connect(on_screen_exited)
 
 func on_screen_entered():
-    RTSEventBus.entity_screen_visible.emit(self, true)
+    RTS_EventBus.entity_screen_visible.emit(self, true)
 </code></pre>
 <p>Use this to:
 - Stop processing off-screen units
@@ -321,10 +321,9 @@ for i in range(100):
 </code></pre>
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="components/overview.md">Component System</a> - Creating components</li>
-<li><a href="getting-started.md">Getting Started</a> - Setting up units</li>
-<li><a href="reference/best-practices.md">Best Practices</a> - Design patterns</li>
-<li><a href="advanced/custom-integration.md">Custom Integration</a> - Extending entities</li>
+<li><a href="../../components/overview/">Component System</a> - Creating components</li>
+<li><a href="../../getting-started/">Getting Started</a> - Setting up units</li>
+<li><a href="../../reference/best-practices/">Best Practices</a> - Design patterns</li>
 </ul>
               
             </div>

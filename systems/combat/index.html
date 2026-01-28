@@ -89,7 +89,7 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -151,7 +151,7 @@
 <p>The main components needed to implement attack and damage dealing logic are:</p>
 <ul>
 <li><strong>RTS_AttackComponent</strong> : Holds the common, shared logic of tracking targets within scan/weapon range and manages state (IDLE, COOLDOWN, ATTACKING). </li>
-<li><strong>RTS_AnimationTreeComponent</strong>: <strong>Required</strong> component by RTS_AttackComponent to handle animation and attack durations.</li>
+<li><strong>RTS_AnimationTreeComponent</strong>: <strong>Required</strong> component for RTS_AttackComponent to handle animation and attack durations.</li>
 <li><strong>RTS_AttackVariant</strong> (default implementation: RTS_DefaultAttackVariant) : Implements RTS_AttackComponent's states explicitly, i.e. how to behave (mainly movement) during each state.</li>
 <li><strong>RTS_Weapon</strong>: Holds weapon specific logic and data, such as cooldown duration, modifiers, damage dealing logic etc</li>
 <li><strong>RTS_DamageDealer</strong>: Used (not exclusively) by weapon to deal damage to a RTS_Defense</li>
@@ -165,10 +165,10 @@
         └── Damage (RTS_DamageDealer)
     └── Variant (RTS_AttackVariant)
 </code></pre>
-<p>althought the amount of weapons, damage dealer and variants might vary. Lets look at each component in more detail and use the minimalistic ExampleUnit.tscn as an example.</p>
+<p>although the amount of weapons, damage dealer and variants might vary. Let's look at each component in more detail and use the minimalistic ExampleUnit.tscn as an example.</p>
 <h2 id="components">Components</h2>
 <h3 id="rts_attackcomponent">RTS_AttackComponent</h3>
-<p>The main component of the combat system. Whilst a single entity can hold and switch between multiple weapons or attack variants, there should only be on RTS_AttackComponent acting as the orchestrator for the system.</p>
+<p>The main component of the combat system. While a single entity can hold and switch between multiple weapons or attack variants, there should only be one RTS_AttackComponent acting as the orchestrator for the system.</p>
 <p>The component emits useful signals,</p>
 <pre><code class="language-gdscript">signal target_changed(attack: RTS_AttackComponent, old_target: RTS_Defense, new_target: RTS_Defense)
 signal target_became_not_null(attack: RTS_AttackComponent, new_target: RTS_Defense)
@@ -260,16 +260,15 @@ func state_attacking():
 <p>Whilst optional, publisher and from should always bet set if possible. Without a <code>publisher</code>, a damage receiving entity won't know from which other entity the damage came from, for example in order to pursue and counter attack it. Similarly, <code>from</code> is used to determin the exact position where the damage has come from, for example to do spatial calculations useful for vfx and shaders.</p>
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="../components/health-defense.md">Health Component</a> - Health management</li>
-<li><a href="../advanced/abilities.md">Abilities System</a> - Ability details</li>
-<li><a href="../advanced/weapons.md">Weapons</a> - Weapon systems</li>
+<li><a href="../../components/defense/">Defense Component</a> - Health management</li>
+<li><a href="../abilities/">Abilities System</a> - Ability details</li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../abilities/" class="btn btn-neutral float-left" title="Abilities System"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../components/overview/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../autoloads/" class="btn btn-neutral float-right" title="Autoloads">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -295,7 +294,7 @@ func state_attacking():
       <span><a href="../abilities/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../components/overview/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../autoloads/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

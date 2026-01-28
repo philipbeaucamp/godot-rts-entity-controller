@@ -83,7 +83,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../systems/combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../systems/autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -151,8 +151,8 @@
 <p>The addon requires several autoloads to function. These should be automatically added during plugin initialization:</p>
 <ul>
 <li><strong>RTSController</strong> - Main scene handling camera &amp; unit controls</li>
-<li><strong>RTSPlayerInput</strong> - Handles player input and commands</li>
-<li><strong>RTSEventBus</strong> - Central event system</li>
+<li><strong>RTS_PlayerInput</strong> - Handles player input and commands</li>
+<li><strong>RTS_EventBus</strong> - Central event system</li>
 </ul>
 <p>Check <strong>Project &gt; Project Settings &gt; Autoload</strong> to verify they're present.</p>
 <h3 id="2-verify-rts-settings">2. Verify RTS Settings</h3>
@@ -166,7 +166,7 @@
 ├── HealthComponent
 └── (other components as needed)
 </code></pre>
-<p>Check <strong>ExampleUnit.tscn</strong> for a minimally, but fully setup up unit. For more details on the unit &amp; component setup check the <a href="../components/overview/">Component</a> section.</p>
+<p>Check <strong>ExampleUnit.tscn</strong> for a minimal but fully set up unit. For more details on the unit &amp; component setup check the <a href="../components/overview/">Component</a> section.</p>
 <h3 id="4-set-up-a-basic-level">4. Set Up a Basic Level</h3>
 <p>Create a level scene with:</p>
 <pre><code>Level (Node3D)
@@ -182,7 +182,7 @@
 <ul>
 <li>Read <a href="../core-concepts/">Core Concepts</a> to understand the architecture</li>
 <li>Explore <a href="../components/overview/">Components</a> to build your units</li>
-<li>Check out the <a href="../examples/">examples</a> folder in the addon for reference implementations</li>
+<li>Check out the <code>examples</code> folder in the addon for reference implementations</li>
 </ul>
               
             </div>

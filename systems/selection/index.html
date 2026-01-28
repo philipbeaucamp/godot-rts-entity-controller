@@ -99,7 +99,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../combat/">Combat System</a>
                   </li>
-                  <li class="toctree-l1"><a class="" href="../../autoloads.md">Autoloads</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../autoloads/">Autoloads</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Components</span></p>
@@ -161,8 +161,8 @@
 <h2 id="how-selection-works">How Selection Works</h2>
 <h3 id="single-unit-selection">Single Unit Selection</h3>
 <ol>
-<li>RTS_PhysicsSelection uses RTS_PickablePhysicsComponent to determin hovered entities</li>
-<li>Player clicks on a entity.</li>
+<li>RTS_PhysicsSelection uses RTS_PickablePhysicsComponent to determine hovered entities</li>
+<li>Player clicks on an entity.</li>
 <li>If the entity is hovered, RTS_Selection selects the entity</li>
 <li>Necessary events are emitted</li>
 </ol>
@@ -170,7 +170,7 @@
 <h3 id="multiple-unit-selection">Multiple Unit Selection</h3>
 <h4 id="shiftclick">Shift+Click</h4>
 <ul>
-<li>Adds enitity to current selection</li>
+<li>Adds entity to current selection</li>
 <li>Previous units remain selected</li>
 </ul>
 <h4 id="box-select-drag">Box Select (Drag)</h4>
@@ -182,12 +182,12 @@
 <h4 id="deselecting-units">Deselecting Units</h4>
 <p>By defaults unit can not be deselected. Only when selecting another entity does the previous selected entity get deselected.</p>
 <h2 id="rts_selectable">RTS_Selectable</h2>
-<p>The <code>RTS_Selectable</code> component enables a unit to be selected. Use the <code>priority</code> integer to determin which entity has the highest priority, for example when selecting entities of different types. This might be useful for casting abilities, or displaying the entity UI of only the highest priority entity.</p>
+<p>The <code>RTS_Selectable</code> component enables a unit to be selected. Use the <code>priority</code> integer to determine which entity has the highest priority, for example when selecting entities of different types. This might be useful for casting abilities, or displaying the entity UI of only the highest priority entity.</p>
 <p>Populate RTS_Selectable's <code>pickable</code> (ideally as a child component) to make the entity pickable (selection via mouse click), populate the <code>boxable</code> component to make it selectable via click and drag.</p>
 <h2 id="rts_boxable">RTS_Boxable</h2>
 <p>Requires a collision_shape <code>CollisionShape3D</code> to determine the bounds for the box selection. This collision_shape has to be of type <code>CapsuleShape3D</code> or <code>BoxShape3D</code>.</p>
 <h2 id="rts_pickablephysicscomponent">RTS_PickablePhysicsComponent</h2>
-<p>Requires a static_body <code>StaticBody3D</code> used for raycasting to determine wether a unit can be selected (when hovered)</p>
+<p>Requires a static_body <code>StaticBody3D</code> used for raycasting to determine whether a unit can be selected (when hovered)</p>
 <h2 id="selection-feedback">Selection Feedback</h2>
 <p>RTS_Selectable toggles the visibilty of the following meshes to visually show hover/selection state.</p>
 <pre><code class="language-gdscript">@export var selection_cone: MeshInstance3D
@@ -205,7 +205,7 @@ selection.remove_from_selection_bulk(...)
 <p>For spatial selections (finding units within a certain radius of a point) see <a href="../../advanced/spatial-hashing/">Spatial Hashing</a></p>
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="../player-input.md">Player Input System</a> - How input triggers selection</li>
+<li><a href="../player-input/">Player Input System</a> - How input triggers selection</li>
 <li><a href="../../components/selectable/">Selectable Component</a> - Component details</li>
 <li><a href="../../core-concepts/">Core Concepts</a> - Architecture overview</li>
 </ul>
