@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://di085764lodbx"]
 
-[ext_resource type="Script" uid="uid://dfc872kbypaws" path="res://addons/godot-rts-entity-controller/entity/scripts/EntityDebug.gd" id="1_dcn7r"]
+[ext_resource type="Script" uid="uid://dfc872kbypaws" path="res://addons/godot-rts-entity-controller/entity/scripts/RTS_EntityDebug.gd" id="1_dcn7r"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r81k6"]
 bg_color = Color(0.427451, 0.4, 0.380392, 0.411765)

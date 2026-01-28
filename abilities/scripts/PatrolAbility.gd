@@ -9,7 +9,7 @@ func is_valid_target(_target: Vector3, _source: RTS_Entity):
 func activate():
 	var movables : Array[RTS_Movable] = []
 	movables.append(entity.movable)
-	Controls.movement.group_patrol(
+	RTS_Controls.movement.group_patrol(
 		click_target,
 		click_target_source,
 		movables,
@@ -23,7 +23,7 @@ func activate_group(abilities: Array):
 		movables.append(ability.entity.movable)
 		ability.activated.emit(ability)
 
-	Controls.movement.group_patrol(
+	RTS_Controls.movement.group_patrol(
 		click_target,
 		click_target_source,
 		movables,

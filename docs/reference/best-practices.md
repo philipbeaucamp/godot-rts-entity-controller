@@ -13,7 +13,7 @@
 
 ```gdscript
 # Good: Decoupled via events
-RTSEventBus.connect("unit_selected", Callable(self, "_on_unit_selected"))
+RTS_EventBus.connect("unit_selected", Callable(self, "_on_unit_selected"))
 
 # Avoid: Direct coupling
 var player = get_node("/root/Player")
@@ -89,7 +89,7 @@ func _ready() -> void:
     health_comp = entity.health # Use entity to fetch components if possible!
     
     # Subscribe to events
-    RTSEventBus.connect("unit_selected", Callable(self, "_on_selected"))
+    RTS_EventBus.connect("unit_selected", Callable(self, "_on_selected"))
     
     # Validate setup
     assert(health_comp != null, "Missing HealthComponent")
@@ -100,7 +100,7 @@ func _ready() -> void:
 ```gdscript
 func _exit_tree() -> void:
     # Disconnect signals
-    RTSEventBus.disconnect("unit_selected", Callable(self, "_on_selected"))
+    RTS_EventBus.disconnect("unit_selected", Callable(self, "_on_selected"))
     
     # Cancel timers
     if timer:

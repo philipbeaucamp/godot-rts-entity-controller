@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpigv5idcoykm"]
 
-[ext_resource type="Script" uid="uid://dmflp3o7wwquo" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/CDisplayAbilities.gd" id="1_8taf1"]
+[ext_resource type="Script" uid="uid://dmflp3o7wwquo" path="res://addons/godot-rts-entity-controller/abilities/scripts/ui/RTS_CDisplayAbilities.gd" id="1_8taf1"]
+
 
 [node name="UniqueAbilities" type="Control" node_paths=PackedStringArray("container")]
 layout_mode = 3

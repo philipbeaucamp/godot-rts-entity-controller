@@ -14,8 +14,8 @@
 The addon requires several autoloads to function. These should be automatically added during plugin initialization:
 
 - **RTSController** - Main scene handling camera & unit controls
-- **RTSPlayerInput** - Handles player input and commands
-- **RTSEventBus** - Central event system
+- **RTS_PlayerInput** - Handles player input and commands
+- **RTS_EventBus** - Central event system
 
 Check **Project > Project Settings > Autoload** to verify they're present.
 

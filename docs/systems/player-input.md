@@ -4,7 +4,7 @@ The Player Input System translates raw player input into game commands like unit
 
 ## Overview
 
-The `RTSPlayerInput` autoload collects input pertaining to:
+The `RTS_PlayerInput` autoload collects input pertaining to:
 
 - **Unit Selection** - Click to select, drag to box select
 - **Movement Commands** - Right-click to move selected units

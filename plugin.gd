@@ -3,16 +3,16 @@ extends EditorPlugin
 
 const AUTOLOADS := [
 	{
-		"name": "Controls",
-		"path": "res://addons/godot-rts-entity-controller/autoloads/scenes/RTSController.tscn"
+		"name": "RTS_Controls",
+		"path": "res://addons/godot-rts-entity-controller/autoloads/scenes/RTS_Controls.tscn"
 	},
 	{
-		"name": "RTSPlayerInput",
-		"path": "res://addons/godot-rts-entity-controller/autoloads/scenes/RTSPlayerInput.tscn"
+		"name": "RTS_PlayerInput",
+		"path": "res://addons/godot-rts-entity-controller/autoloads/scenes/RTS_PlayerInput.tscn"
 	},
 	{
-		"name": "RTSEventBus",
-		"path": "res://addons/godot-rts-entity-controller/autoloads/scenes/RTSEventBus.tscn"
+		"name": "RTS_EventBus",
+		"path": "res://addons/godot-rts-entity-controller/autoloads/scenes/RTS_EventBus.tscn"
 	}
 ]
 

@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://cmv4ds38sj2rr"]
 
-[ext_resource type="Script" uid="uid://bifpcfuxjcw6y" path="res://addons/godot-rts-entity-controller/entity/scripts/EntityResource.gd" id="1_lv0k2"]
-[ext_resource type="Texture2D" uid="uid://btqssevghx5vm" path="res://icon.svg" id="2_b1kse"]
+[ext_resource type="Script" uid="uid://bifpcfuxjcw6y" path="res://addons/godot-rts-entity-controller/entity/scripts/RTS_EntityResource.gd" id="1_lv0k2"]
+[ext_resource type="Texture2D" uid="uid://cfv3jvujskmff" path="res://icon.svg" id="2_b1kse"]
+
 
 [resource]
 script = ExtResource("1_lv0k2")

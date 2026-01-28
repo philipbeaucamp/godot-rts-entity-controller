@@ -15,7 +15,7 @@ Units (also referred to as Entities) are composed of modular components that add
 
 ### Event Bus Pattern
 
-The `RTSEventBus` provides decoupled communication:
+The `RTS_EventBus` provides decoupled communication:
 
 - Components emit events when things happen (unit selected, moved, damaged, etc.)
 - Other systems listen for events without needing direct references
@@ -25,9 +25,9 @@ The `RTSEventBus` provides decoupled communication:
 
 Three core autoloads manage the overall system:
 
-1. **RTSEventBus** - Central event dispatcher
+1. **RTS_EventBus** - Central event dispatcher
 2. **RTSController** - Manages selected units and global state
-3. **RTSPlayerInput** - Handles input commands and translates them to gameplay actions
+3. **RTS_PlayerInput** - Handles input commands and translates them to gameplay actions
 
 ## Key Design Patterns
 
@@ -51,7 +51,7 @@ Everything is a Godot scene or node, making it familiar to Godot developers.
 ```
 Player Input
     ↓
-RTSPlayerInput (collects input to distribute)
+RTS_PlayerInput (collects input to distribute)
     ↓
 Selection/AbilityManager (interpret input)
     ↓

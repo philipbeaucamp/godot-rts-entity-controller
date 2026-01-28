@@ -1,7 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://capyeh88m207c"]
 
-[ext_resource type="Script" uid="uid://l0ttp86gs4ft" path="res://addons/godot-rts-entity-controller/core/vfx/Particles3DContainer.gd" id="1_baar0"]
-[ext_resource type="Texture2D" uid="uid://dda1ei0mpryn4" path="res://addons/godot-rts-entity-controller/assets/textures/muzzle_03_rotated.png" id="1_qoe55"]
+[ext_resource type="Script" uid="uid://l0ttp86gs4ft" path="res://addons/godot-rts-entity-controller/core/vfx/RTS_Particles3DContainer.gd" id="1_baar0"]
+[ext_resource type="Texture2D" uid="uid://cbft3lif4p1wu" path="res://addons/godot-rts-entity-controller/assets/textures/muzzle_03_rotated.png" id="1_qoe55"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wx8vb"]
 transparency = 1

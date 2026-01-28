@@ -151,7 +151,7 @@ func _ready():
 	state_machine.add_states(State.ATTACKING,state_attacking,enter_state_attacking,exit_state_attacking)
 	state_machine.set_initial_state(State.IDLE)
 
-	RTSEventBus.threat_changed.connect(on_threat_changed)
+	RTS_EventBus.threat_changed.connect(on_threat_changed)
 
 	if entity.selectable != null:
 		entity.selectable.on_stop.connect(stop)

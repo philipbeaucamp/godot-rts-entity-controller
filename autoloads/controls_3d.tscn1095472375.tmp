@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://clueh0xugrfl2"]
 
-[ext_resource type="Script" uid="uid://dcpjftre7xhqk" path="res://addons/godot-rts-entity-controller/scripts/core/Controls.gd" id="1_lrepm"]
+[ext_resource type="Script" uid="uid://dcpjftre7xhqk" path="res://addons/godot-rts-entity-controller/scripts/core/RTS_Controls.gd" id="1_lrepm"]
 [ext_resource type="Script" uid="uid://eybmoayhh3b3" path="res://addons/godot-rts-entity-controller/scripts/selection/Selection.gd" id="2_udbl5"]
 [ext_resource type="Script" uid="uid://ddw8td10ki01v" path="res://addons/godot-rts-entity-controller/scripts/selection/PhysicsSelection.gd" id="3_b201u"]
 [ext_resource type="Script" uid="uid://b18thi34ypfe3" path="res://addons/godot-rts-entity-controller/scripts/movement/Movement.gd" id="4_virvx"]

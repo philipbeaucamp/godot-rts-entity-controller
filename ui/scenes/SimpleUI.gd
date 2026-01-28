@@ -1,6 +1,6 @@
 class_name RTS_SimpleUI extends Control
 
-@export var c_display_abilities: CDisplayAbilities
+@export var c_display_abilities: RTS_CDisplayAbilities
 
 var blocks: Dictionary[RTS_BlockingControl,bool] = {}
 

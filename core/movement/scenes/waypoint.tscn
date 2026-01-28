@@ -1,9 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://utsf55tmd15a"]
 
-[ext_resource type="Script" uid="uid://cn056cx8u26fp" path="res://addons/godot-rts-entity-controller/core/movement/scripts/WaypointPoolItem.gd" id="1_1sjqu"]
+[ext_resource type="Script" uid="uid://cn056cx8u26fp" path="res://addons/godot-rts-entity-controller/core/movement/scripts/RTS_WaypointPoolItem.gd" id="1_1sjqu"]
 [ext_resource type="Shader" uid="uid://wb8rxfp08ssx" path="res://addons/godot-rts-entity-controller/assets/shaders/waypoint_column_vshader.tres" id="2_0cwtx"]
-[ext_resource type="ArrayMesh" uid="uid://bmxx4cwgtflcw" path="res://addons/godot-rts-entity-controller/assets/meshes/marker_column_short_uv.obj" id="3_vgjqx"]
-[ext_resource type="Texture2D" uid="uid://ywyxd8mebrwo" path="res://addons/godot-rts-entity-controller/assets/icons/waypoint_marker.png" id="4_n121k"]
+[ext_resource type="ArrayMesh" uid="uid://bbwj6uc2qu6uh" path="res://addons/godot-rts-entity-controller/assets/meshes/marker_column_short_uv.obj" id="3_vgjqx"]
+[ext_resource type="Texture2D" uid="uid://7hamapj6e8bs" path="res://addons/godot-rts-entity-controller/assets/icons/waypoint_marker.png" id="4_n121k"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8nyay"]
 resource_local_to_scene = true

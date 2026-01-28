@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://7tbxyu3motsj"]
 
-[ext_resource type="Script" uid="uid://cd68fnp5a4rnd" path="res://addons/godot-rts-entity-controller/components/weapons/scripts/InstantDamageWeapon.gd" id="1_1k665"]
+[ext_resource type="Script" uid="uid://cd68fnp5a4rnd" path="res://addons/godot-rts-entity-controller/components/weapons/scripts/RTS_InstantDamageWeapon.gd" id="1_1k665"]
+
 
 [node name="InstantDamageWeapon" type="Node" node_paths=PackedStringArray("damage_dealers")]
 script = ExtResource("1_1k665")

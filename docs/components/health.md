@@ -11,7 +11,7 @@ Apart from a few usual functions (`heal`, `heal_percentage`), it contains the `t
 func take_damage(dmg : float):
 	if !component_is_active:
 		return
-	if dmg <= 0 || Controls.settings.invincibility:
+	if dmg <= 0 || RTS_Controls.settings.invincibility:
 		return
 		
 	health -= dmg

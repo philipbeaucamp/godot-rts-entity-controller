@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2jekoxcbur01"]
 
-[ext_resource type="Script" uid="uid://cm2u3ugmfueqn" path="res://addons/godot-rts-entity-controller/ui/scripts/SelectionUI.gd" id="1_bofke"]
+[ext_resource type="Script" uid="uid://cm2u3ugmfueqn" path="res://addons/godot-rts-entity-controller/ui/scripts/RTS_SelectionUI.gd" id="1_bofke"]
 [ext_resource type="PackedScene" uid="uid://dholkrql1qwfk" path="res://addons/godot-rts-entity-controller/ui/scenes/SelectionBoxUnit.tscn" id="3_p3ee4"]
+
 
 [node name="Selection" type="Control"]
 layout_mode = 3

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpdegl77xxyyt"]
-
-[ext_resource type="Script" uid="uid://dtid3i2na7j4t" path="res://addons/godot-rts-entity-controller/autoloads/scripts/RTSEventBus.gd" id="1_f60lm"]
-
-
-[node name="RTSEventBus" type="Node"]
-script = ExtResource("1_f60lm")

@@ -1,12 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://hrcpd2cqplaf"]
 
-[ext_resource type="Script" uid="uid://byslv15175k1n" path="res://addons/godot-rts-entity-controller/components/scripts/SelectableComponent.gd" id="1_juhoo"]
+[ext_resource type="Script" uid="uid://byslv15175k1n" path="res://addons/godot-rts-entity-controller/components/scripts/RTS_Selectable.gd" id="1_juhoo"]
 [ext_resource type="Shader" uid="uid://cuh24sqqeu7aa" path="res://addons/godot-rts-entity-controller/entity/assets/selection_cone_vshader.tres" id="2_y03qj"]
-[ext_resource type="ArrayMesh" uid="uid://b1ljhq2qvt17" path="res://addons/godot-rts-entity-controller/assets/meshes/unit_selection_cone.obj" id="3_kaxmp"]
+[ext_resource type="ArrayMesh" uid="uid://cchb2akybrreq" path="res://addons/godot-rts-entity-controller/assets/meshes/unit_selection_cone.obj" id="3_kaxmp"]
 [ext_resource type="Shader" uid="uid://0odapityobaa" path="res://addons/godot-rts-entity-controller/entity/assets/hover_rotation_shader.gdshader" id="4_3mm2q"]
-[ext_resource type="Texture2D" uid="uid://dy05g3u37828l" path="res://addons/godot-rts-entity-controller/assets/icons/selection_hover_short.png" id="5_144lx"]
-[ext_resource type="Script" uid="uid://5wom5o3rrufj" path="res://addons/godot-rts-entity-controller/components/scripts/PickablePhysics.gd" id="6_88teh"]
-[ext_resource type="Script" uid="uid://cpvy2dvm2ae5m" path="res://addons/godot-rts-entity-controller/components/scripts/BoxableComponent.gd" id="7_47ltl"]
+[ext_resource type="Texture2D" uid="uid://b7gdt24ljcgty" path="res://addons/godot-rts-entity-controller/assets/icons/selection_hover_short.png" id="5_144lx"]
+[ext_resource type="Script" uid="uid://5wom5o3rrufj" path="res://addons/godot-rts-entity-controller/components/scripts/RTS_PickablePhysics.gd" id="6_88teh"]
+[ext_resource type="Script" uid="uid://cpvy2dvm2ae5m" path="res://addons/godot-rts-entity-controller/components/scripts/RTS_BoxableComponent.gd" id="7_47ltl"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e0qff"]
 render_priority = 0

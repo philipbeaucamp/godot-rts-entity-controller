@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://yrritvh1e4db"]
 
-[ext_resource type="Script" uid="uid://b2p4r13yyfekm" path="res://addons/godot-rts-entity-controller/components/scripts/NavigationObstacleComponent.gd" id="1_t1nlk"]
+[ext_resource type="Script" uid="uid://b2p4r13yyfekm" path="res://addons/godot-rts-entity-controller/components/scripts/RTS_NavigationObstacleComponent.gd" id="1_t1nlk"]
+
 
 [node name="ComponentNavigationObstacle" type="Node3D"]
 script = ExtResource("1_t1nlk")

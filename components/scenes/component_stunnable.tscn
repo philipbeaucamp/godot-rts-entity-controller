@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://cditepxxaud1s"]
 
-[ext_resource type="Script" uid="uid://cqplkp3v3xxwm" path="res://addons/godot-rts-entity-controller/components/scripts/Stunnable.gd" id="1_ys4td"]
-[ext_resource type="Texture2D" uid="uid://bdruuibwo3nvy" path="res://addons/godot-rts-entity-controller/components/assets/stoned-skull.png" id="2_63cow"]
+[ext_resource type="Script" uid="uid://cqplkp3v3xxwm" path="res://addons/godot-rts-entity-controller/components/scripts/RTS_StunnableComponent.gd" id="1_ys4td"]
+[ext_resource type="Texture2D" uid="uid://c5qmxjiw58pff" path="res://addons/godot-rts-entity-controller/components/assets/stoned-skull.png" id="2_63cow"]
+
 
 [node name="Stunnable" type="Node3D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_ys4td")

@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2gxlj25l1xqn"]
 
-[ext_resource type="Script" uid="uid://bej4ppglfam5d" path="res://addons/godot-rts-entity-controller/core/spatial_hash/SpatialHashArea.gd" id="1_g62b1"]
+[ext_resource type="Script" uid="uid://bej4ppglfam5d" path="res://addons/godot-rts-entity-controller/core/spatial_hash/RTS_SpatialHashArea.gd" id="1_g62b1"]
+
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4wk1p"]
 resource_local_to_scene = true

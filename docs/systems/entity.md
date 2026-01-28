@@ -173,7 +173,7 @@ visible_on_screen.screen_entered.connect(on_screen_entered)
 visible_on_screen.screen_exited.connect(on_screen_exited)
 
 func on_screen_entered():
-    RTSEventBus.entity_screen_visible.emit(self, true)
+    RTS_EventBus.entity_screen_visible.emit(self, true)
 ```
 
 Use this to:

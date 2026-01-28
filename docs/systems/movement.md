@@ -25,7 +25,7 @@ RTS_MoveAbility, RTS_AttackAbility, RTS_PatrolAbility or RTS_HoldAbility. An exa
 func activate():
 	var movables : Array[RTS_Movable] = []
 	movables.append(entity.movable)
-	Controls.movement.group_patrol(
+	RTS_Controls.movement.group_patrol(
 		click_target,
 		click_target_source,
 		movables,

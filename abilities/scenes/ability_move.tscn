@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://cpn6048wr4bwe"]
 
-[ext_resource type="Script" uid="uid://d0xr21t7l0w74" path="res://addons/godot-rts-entity-controller/abilities/scripts/MoveAbility.gd" id="1_x2uc3"]
+[ext_resource type="Script" uid="uid://d0xr21t7l0w74" path="res://addons/godot-rts-entity-controller/abilities/scripts/RTS_MoveAbility.gd" id="1_x2uc3"]
 [ext_resource type="Resource" uid="uid://bo3522cdawfsf" path="res://addons/godot-rts-entity-controller/abilities/resources/ability_move.tres" id="2_qk8d0"]
+
 
 [node name="MoveAbility" type="Node"]
 script = ExtResource("1_x2uc3")

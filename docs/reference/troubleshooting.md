@@ -10,7 +10,7 @@ Common issues and how to resolve them.
 
 1. Ensure `SelectableComponent` is added to unit
 2. Check collision layers/masks for raycast compatibility
-3. Verify `RTSPlayerInput` is enabled
+3. Verify `RTS_PlayerInput` is enabled
 4. Check that input event handling isn't blocked elsewhere
 
 ```gdscript
@@ -93,7 +93,7 @@ On modern hardware, the game should run well with up to 100 units. Consider simp
 5. 
 ## Autoload Not Found
 
-**Problem**: RTSEventBus, RTSController, or RTSPlayerInput errors.
+**Problem**: RTS_EventBus, RTSController, or RTS_PlayerInput errors.
 
 **Solutions**:
 

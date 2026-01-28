@@ -30,7 +30,7 @@ var entity_debug_instance
 @export var visible_on_screen: VisibleOnScreenNotifier3D
 @export var visuals: RTS_VisualComponent
 @export var entity_collider : CollisionShape3D #can be nullable
-@export var obstacle: NavigationObstacleComponent
+@export var obstacle: RTS_NavigationObstacleComponent
 
 # If false, the entity is not added to the spatial hash grid and therefore not able to be looked up
 # using the spatial hash grid
@@ -76,7 +76,7 @@ func _enter_tree():
 	update_and_fetch_components()
 	if Engine.is_editor_hint():
 		return
-	RTSEventBus.entity_entered_tree.emit(self)
+	RTS_EventBus.entity_entered_tree.emit(self)
 
 func _exit_tree():
 	if Engine.is_editor_hint():
@@ -84,7 +84,7 @@ func _exit_tree():
 	before_tree_exit.emit(self)
 	if !health || !health.is_dead:
 		end_of_life.emit(self)
-	RTSEventBus.entity_exiting_tree.emit(self)
+	RTS_EventBus.entity_exiting_tree.emit(self)
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -110,16 +110,16 @@ func _ready():
 		stunnable.stunned.connect(on_stunned)
 	
 	#Set collision layers and masks
-	set_collision_layer_value(Controls.settings.collision_layer_units,true)
-	set_collision_mask_value(Controls.settings.collision_layer_units,true)
-	set_collision_mask_value(Controls.settings.collision_layer_buildings_and_rocks,true)
-	set_collision_mask_value(Controls.settings.collision_layer_force,true)
+	set_collision_layer_value(RTS_Controls.settings.collision_layer_units,true)
+	set_collision_mask_value(RTS_Controls.settings.collision_layer_units,true)
+	set_collision_mask_value(RTS_Controls.settings.collision_layer_buildings_and_rocks,true)
+	set_collision_mask_value(RTS_Controls.settings.collision_layer_force,true)
 
 	visible_on_screen.screen_entered.connect(on_screen_entered)
 	visible_on_screen.screen_exited.connect(on_screen_exited)
 
 	is_ready = true
-	RTSEventBus.entity_ready.emit(self)
+	RTS_EventBus.entity_ready.emit(self)
 	
 func make_essential_components_passive():
 	if attack && attack.component_is_active:
@@ -142,7 +142,7 @@ func on_stunned(entering_entity: RTS_Entity,value: bool):
 	sb["is_stunned"] = value
 
 func enable_unit_collisions(value: bool):
-	set_collision_mask_value(Controls.settings.collision_layer_units,value)
+	set_collision_mask_value(RTS_Controls.settings.collision_layer_units,value)
 
 func update_and_fetch_components():
 	abilities.clear()
@@ -201,10 +201,9 @@ func on_tree_node_entered(node: StringName):
 
 func toggle_entity_debug():
 	is_debugged = !is_debugged
-	var controls = Controls
 	if is_debugged:
-		var canvas = controls.canvas_layer
-		controls.selection.removed_from_selection.connect(on_removed_from_selection)
+		var canvas = RTS_Controls.canvas_layer
+		RTS_Controls.selection.removed_from_selection.connect(on_removed_from_selection)
 		if canvas != null:
 			entity_debug_instance = entity_debug_scene.instantiate()
 			entity_debug_instance.set_up_entity_debug(self)
@@ -212,7 +211,7 @@ func toggle_entity_debug():
 		else:
 			printerr("Scene is missing CanvasLayer")
 	else:
-		controls.selection.removed_from_selection.disconnect(on_removed_from_selection)
+		RTS_Controls.selection.removed_from_selection.disconnect(on_removed_from_selection)
 		entity_debug_instance.queue_free()
 	debug_entity.emit(self,is_debugged)
 		
@@ -221,6 +220,6 @@ func on_removed_from_selection(selection: Array[RTS_Selectable]):
 		toggle_entity_debug()
 
 func on_screen_entered():
-	RTSEventBus.entity_screen_visible.emit(self,true)
+	RTS_EventBus.entity_screen_visible.emit(self,true)
 func on_screen_exited():
-	RTSEventBus.entity_screen_visible.emit(self,false)
+	RTS_EventBus.entity_screen_visible.emit(self,false)

@@ -14,7 +14,7 @@ to find nearby entities.
 
 ## Overview
 
-Apart from `RTS_SpatialHashArea`, the spatial hash scripts (RTS_HashClient, RTS_SpatialHashFast, SpatialHashUtils) can be used as an independent library, as they are self containing.
+Apart from `RTS_SpatialHashArea`, the remaining spatial hash scripts (RTS_HashClient, RTS_SpatialHashFast, RTS_SpatialHashUtils, RTS_HashNode) can be used as an independent library, as they are self containing.
 
 Spatial hashing divides the map into a grid for faster spatial queries.
 

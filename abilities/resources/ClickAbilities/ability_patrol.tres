@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bm2m4ne77sry7" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_q_outline.png" id="1_nfmh0"]
 [ext_resource type="Texture2D" uid="uid://b8uyalk8jc5ip" path="res://addons/godot-rts-entity-controller/assets/icons/keyboard_q.png" id="2_pp4nv"]
-[ext_resource type="Script" uid="uid://bay4xcmux4i5l" path="res://addons/godot-rts-entity-controller/abilities/scripts/ClickAbilityResource.gd" id="3_nfmh0"]
+[ext_resource type="Script" uid="uid://bay4xcmux4i5l" path="res://addons/godot-rts-entity-controller/abilities/scripts/RTS_ClickAbilityResource.gd" id="3_nfmh0"]
 
 [resource]
 script = ExtResource("3_nfmh0")
