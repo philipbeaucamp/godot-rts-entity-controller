@@ -61,7 +61,7 @@ func set_component_inactive():
 		pickable.set_component_inactive()
 
 func is_same_type_and_faction(other: RTS_Selectable) -> bool:
-	return entity.faction == other.entity.faction  && entity.id == other.entity.id
+	return entity.faction == other.entity.faction  && entity.resource.id == other.entity.resource.id
 
 func on_screen_entered():
 	selection.add_to_selectables_on_screen(self)
