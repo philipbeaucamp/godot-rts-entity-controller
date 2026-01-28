@@ -5,7 +5,6 @@ class_name RTS_CDisplayAbilities extends Control
 
 var c_abilities: Array[RTS_CAbility] = []
 var c_ability : PackedScene = preload("res://addons/godot-rts-entity-controller/abilities/scenes/ui/c_ability.tscn")
-var c_ability_container : PackedScene = preload("res://addons/godot-rts-entity-controller/abilities/scenes/ui/c_ability_container.tscn")
 
 func _ready():
 	RTS_Controls.ability_manager.abilities_changed.connect(on_abilities_changed)
