@@ -33,6 +33,7 @@ radius = 0.25
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_5spvw"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8n1uj"]
+graph_offset = Vector2(-452, 35.2)
 nodes/StateMachine/node = ExtResource("3_b7hy8")
 nodes/StateMachine/position = Vector2(-266.66666, 146.66667)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_5spvw")
@@ -44,7 +45,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot:scale")
+tracks/0/path = NodePath("VisualComponent:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -56,7 +57,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/MeshInstance3D:position")
+tracks/1/path = NodePath("VisualComponent/MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -68,7 +69,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Gun:position")
+tracks/2/path = NodePath("VisualComponent/Gun:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -98,7 +99,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/vfx_gun_fire01")
+tracks/1/path = NodePath("VisualComponent/vfx_gun_fire01")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -112,7 +113,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/MeshInstance3D:position")
+tracks/2/path = NodePath("VisualComponent/MeshInstance3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -124,7 +125,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Gun:position")
+tracks/3/path = NodePath("VisualComponent/Gun:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -140,7 +141,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot:scale")
+tracks/0/path = NodePath("VisualComponent:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -210,7 +211,7 @@ attack = NodePath("Attack")
 health = NodePath("Health")
 anim_tree = NodePath("AnimationTreeComponent")
 visible_on_screen = NodePath("VisibleOnScreenNotifier3D")
-visuals = NodePath("Pivot")
+visuals = NodePath("VisualComponent")
 entity_collider = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -291,19 +292,19 @@ component = NodePath("../../Attack")
 shape = SubResource("SphereShape3D_42vdd")
 debug_color = Color(0.982163, 0, 0.364657, 0.42)
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="VisualComponent" type="Node3D" parent="."]
 script = ExtResource("3_vsfnr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VisualComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CapsuleMesh_7lgnc")
 
-[node name="Gun" type="MeshInstance3D" parent="Pivot"]
+[node name="Gun" type="MeshInstance3D" parent="VisualComponent"]
 transform = Transform3D(0.4162137, 0, 0, 0, -1.8193276e-08, -0.41621366, 0, 0.41621366, -1.8193276e-08, 0.20150667, 0.56035054, -0.17629018)
 material_override = SubResource("StandardMaterial3D_yih4e")
 mesh = SubResource("CapsuleMesh_ypkxw")
 
-[node name="vfx_gun_fire01" parent="Pivot" instance=ExtResource("8_5spvw")]
+[node name="vfx_gun_fire01" parent="VisualComponent" instance=ExtResource("8_5spvw")]
 transform = Transform3D(-4.3711378e-08, 0, 0.99999976, 0, 1.0213871, 0, -0.99999976, 0, -4.3711378e-08, 0.20287308, 0.58209187, -0.43981653)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -346,7 +347,7 @@ collision_shape = NodePath("../../Areas/Pickable/CollisionShape3D")
 [node name="Movable" type="Node" parent="." node_paths=PackedStringArray("pivot", "steering", "nav_agent")]
 script = ExtResource("18_p8tjt")
 speed = 3.5
-pivot = NodePath("../Pivot")
+pivot = NodePath("../VisualComponent")
 steering = NodePath("../Areas/Steering")
 nav_agent = NodePath("../NavigationAgent3D")
 separation_multiplier = 10.0

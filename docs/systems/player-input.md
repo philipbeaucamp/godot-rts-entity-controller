@@ -71,6 +71,6 @@ Configure layers and masks in your rst_settings.tres and project settings for pr
 
 ## See Also
 
-- [Core Concepts](core-concepts.md) - System overview
-- [Selection System](systems/selection.md) - Detailed selection logic
-- [Movement & Navigation](systems/movement.md) - How units move
+- [Core Concepts](../core-concepts.md) - System overview
+- [Selection System](selection.md) - Detailed selection logic
+- [Movement & Navigation](movement.md) - How units move

@@ -5,5 +5,4 @@ For details on the Attack Component and its interplay with the `RTS_AttackVarian
 ## See Also
 
 - [Combat System](../systems/combat.md) - Complete combat overview
-- [Abilities System](../advanced/abilities.md) - Special attacks and abilities
-- [Weapons & Projectiles](../advanced/weapons.md) - Advanced weapon systems
+- [Abilities System](../systems/abilities.md) - Special attacks and abilities

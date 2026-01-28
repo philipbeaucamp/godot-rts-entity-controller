@@ -74,6 +74,6 @@ For spatial selections (finding units within a certain radius of a point) see [S
 
 ## See Also
 
-- [Player Input System](../player-input.md) - How input triggers selection
+- [Player Input System](player-input.md) - How input triggers selection
 - [Selectable Component](../components/selectable.md) - Component details
 - [Core Concepts](../core-concepts.md) - Architecture overview

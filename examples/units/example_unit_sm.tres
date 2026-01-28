@@ -20,8 +20,8 @@ advance_expression = "si[\"attack_state\"] != 1"
 [resource]
 states/Start/position = Vector2(221.33333, 113.99999)
 states/attack/node = SubResource("AnimationNodeAnimation_fs07p")
-states/attack/position = Vector2(670, 126)
+states/attack/position = Vector2(652.4, 113.67999)
 states/idle/node = SubResource("AnimationNodeAnimation_6j86q")
 states/idle/position = Vector2(407.33334, 115.33333)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8ajug"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_a3hch"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ftrxj")]
-graph_offset = Vector2(-23, -27)
+graph_offset = Vector2(62, -32)

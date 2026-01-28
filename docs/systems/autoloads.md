@@ -14,7 +14,7 @@ This scene is not mandatory, but it included for ease of use and demonstration p
 
 Perhaps most likely you would want to change the UI. In that case you could duplicate this scene and simply take out the CanvasLayer.
 
-**Remark**: In case you do decide to change this scene (or use your own) just make sure the scripts found on the RTSController node are still accessible via ``Controls.`` for the scripts to work.
+**Remark**: In case you do decide to change this scene (or use your own) just make sure the scripts found on the RTSController node are still accessible via ``Controls.`` for the scripts to work (since many scripts access them using the `Controls` autloaded script)
 
 **Overview**:
 

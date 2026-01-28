@@ -229,7 +229,6 @@ for i in range(100):
 
 ## See Also
 
-- [Component System](components/overview.md) - Creating components
-- [Getting Started](getting-started.md) - Setting up units
-- [Best Practices](reference/best-practices.md) - Design patterns
-- [Custom Integration](advanced/custom-integration.md) - Extending entities
+- [Component System](../components/overview.md) - Creating components
+- [Getting Started](../getting-started.md) - Setting up units
+- [Best Practices](../reference/best-practices.md) - Design patterns

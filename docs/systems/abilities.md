@@ -94,4 +94,3 @@ The default implementation of RTS_AbilityManager supports two "modes", depending
 
 - [Combat System](../systems/combat.md) - Damage and health
 - [Attack System](../components/attack.md) - Basic attacks
-- [Custom Integration](custom-integration.md) - Extending systems

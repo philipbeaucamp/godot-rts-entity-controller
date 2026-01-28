@@ -60,7 +60,7 @@ Components (implement logic)
 Visual/Audio Updates
 ```
 
-Note that if one chooses, PlayerInput can be handled completely differently, for example when integrating with an existing player input system. All thats required is to send the required input data to Selection and AbilityManager to interpret the input.
+Note that if one chooses, player input can be handled completely differently, for example when integrating with an existing player input system. All thats required is to send the required input data to Selection and AbilityManager to interpret the input.
 
 ## Entity Structure
 

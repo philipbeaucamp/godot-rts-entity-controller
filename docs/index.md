@@ -1,6 +1,11 @@
 # Godot RTS Entity Controller Documentation
 
-Welcome to the Godot RTS Entity Controller addon documentation. This addon provides a comprehensive toolkit for building Real-Time Strategy (RTS) games in Godot, with systems for unit selection, movement, combat, and more.
+Welcome to the Godot RTS Entity Controller addon documentation. This addon is a comprehensive toolkit for building Real-Time Strategy (RTS) games in Godot and includes ready to use components for **selecting, moving, attack units or buildings and casting abilities**.
+
+The play and feel of these components (especially the movement and combat system) is **heavily inspired by Starcraft 2**, which should make people familiar with it feel right at home. This means you will find all the basic controlling blocks, such as moving, patrolling, move-attacking or casting abilities for units (or buildings) that you are used from Starcraft 2.
+
+As a result one of the highlights of this addon is the responsive control over units, best suited for RTS or RTT games with unit counts in the tens or low hundreds. The systems in this addon were not developed for armies of thousands of units, but rather **optimized for a high degree of control, modularity and customization** over the behaviours of units.
+
 
 ## Quick Start
 
@@ -12,13 +17,13 @@ New to the addon? Start here:
 ## Documentation Structure
 
 ### Systems & Features
-- [Player Input System](player-input.md) - Selection, movement commands, and camera control
+- [Player Input System](systems/player-input.md) - Selection, movement commands, and camera control
 - [Entities](systems/entity.md) - Creating entities using building blocks
 - [Selection System](systems/selection.md) - Unit selection and group management
 - [Movement & Navigation](systems/movement.md) - Unit pathfinding and movement
-- [Abilities System](advanced/abilities.md) - Creating custom abilities
-- [Combat System](systems/combat.md) - Targeting, abilities, and attacks
-- [Autoloads](systems/autoloads.md) - Event bus, controller, and utilities
+- [Abilities System](systems/abilities.md) - Creating and using custom abilities
+- [Combat System](systems/combat.md) - Auto targeting, weapon and combat systems
+- [Autoloads](systems/autoloads.md) - Controller and utility logic
 
 ### Components Deep Dive
 - [Component Overview](components/overview.md) - Component system overview

@@ -174,6 +174,5 @@ Whilst optional, publisher and from should always bet set if possible. Without a
 
 ## See Also
 
-- [Health Component](../components/health-defense.md) - Health management
-- [Abilities System](../advanced/abilities.md) - Ability details
-- [Weapons](../advanced/weapons.md) - Weapon systems
+- [Defense Component](../components/defense.md) - Health management
+- [Abilities System](../systems/abilities.md) - Ability details

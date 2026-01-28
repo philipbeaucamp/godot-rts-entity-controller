@@ -61,7 +61,7 @@ Note that `RTS_Ability` themselves as well as many other scripts (such as `RTS_W
 ### Visuals & Animation
 
 - **[VisualComponent](visual.md)** - Rendering and visibility
-- **[AnimationTreeComponent](animation-tree.md)** - AnimationTree integration. Also see [Attack System](attack.md)
+- **[AnimationTreeComponent]** - AnimationTree and AnimationPlayer integration. Also see [Attack System](attack.md)
 
 ### Example: ExampleUnit.tscn
 
@@ -93,5 +93,4 @@ so that components can be turned off which should disable any heavy computation 
 - Learn about specific components in the detailed guides
 - [Selectable Component](selectable.md)
 - [Movable Component](movable.md)
-- [Health & Defense](health-defense.md)
-- [Creating custom abilities](../advanced/abilities.md)
+- [Creating custom abilities](../systems/abilities.md)

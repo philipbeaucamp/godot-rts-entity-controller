@@ -58,4 +58,4 @@ Check **ExampleScene.tscn** for a demonstration of a ready to play scene!
 
 - Read [Core Concepts](core-concepts.md) to understand the architecture
 - Explore [Components](components/overview.md) to build your units
-- Check out the [examples](../examples/) folder in the addon for reference implementations
+- Check out the `examples` folder in the addon for reference implementations

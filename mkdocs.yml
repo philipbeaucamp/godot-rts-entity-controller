@@ -12,7 +12,7 @@ nav:
     - Movement & Navigation: systems/movement.md
     - Abilities System: systems/abilities.md
     - Combat System: systems/combat.md
-    - Autoloads: autoloads.md
+    - Autoloads: systems/autoloads.md
   
   - Components:
     - Overview: components/overview.md
