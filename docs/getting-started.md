@@ -36,7 +36,7 @@ Unit (Node3D)
 └── (other components as needed)
 ```
 
-Check **ExampleUnit.tscn** for a minimally, but fully setup up unit. For more details on the unit & component setup check the [Component](components/overview.md) section.
+Check **ExampleUnit.tscn** for a minimal but fully set up unit. For more details on the unit & component setup check the [Component](components/overview.md) section.
 
 ### 4. Set Up a Basic Level
 

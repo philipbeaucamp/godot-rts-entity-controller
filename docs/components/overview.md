@@ -14,7 +14,7 @@ Components are modular pieces of functionality that can be attached to units to 
 
 ## Base Component Class
 
-All components extend from the base class `RTS_Component`, which always has a reference to its entity (usually the parent)
+All components extend from the base class `RTS_Component`, which always has a reference to its entity (usually the parent).
 
 ```gdscript
 func fetch_entity() -> RTS_Entity:
@@ -32,12 +32,12 @@ func set_component_active():
 	component_is_active = true
 ```
 
-If not required otherwise, leaving `set_component_active_on_ready` set to true is usually the right call.
+If not required otherwise, leaving `set_component_active_on_ready` set to true is usually the right choice.
 
-RTS_Component is the main building block to build modular and scalable, yet unique entity behaviours. For developers wanting to adopt this framework, it is recommended to come up with your own unique and new components which add features and complexity to entities by extending this base class.
+RTS_Component is the main building block for creating modular and scalable, yet unique entity behaviors. For developers wanting to adopt this framework, it is recommended to create your own unique components which add features and complexity to entities by extending this base class.
 
-Here we briefly introduce the most common components that are included in RTS Godot Entity Controller.
-Note that `RTS_Ability` themselves as well as many other scripts (such as `RTS_Weapon`) are themselves inheriting from `RTS_Component`.
+Here we briefly introduce the most common components that are included in the RTS Entity Controller.
+Note that `RTS_Ability` and many other scripts (such as `RTS_Weapon`) also inherit from `RTS_Component`.
 
 
 ## Common Components
@@ -65,7 +65,7 @@ Note that `RTS_Ability` themselves as well as many other scripts (such as `RTS_W
 
 ### Example: ExampleUnit.tscn
 
-As alluded to in [Entity System](../systems/entity.md), components usually (but no always) sit as direct children underneath the entity:
+As alluded to in [Entity System](../systems/entity.md), components usually (but not always) sit as direct children underneath the entity:
 
 ```
 ExampleUnit (RTS_Entity)
@@ -79,7 +79,7 @@ ExampleUnit (RTS_Entity)
 
 ## Creating Custom Components
 
-Creating custom components is as easy as inherting from `RTS_Component`. The easiest thing to forget is to properly implement 
+Creating custom components is as easy as inheriting from `RTS_Component`. The easiest thing to forget is to properly implement 
 
 ```gdscript
 func set_component_inactive()

@@ -6,7 +6,7 @@ The Godot RTS Entity Controller is built on a component-based architecture with 
 
 ### Component System
 
-Units (also refered to as Entity) are composed of modular components that add specific behaviors:
+Units (also referred to as Entities) are composed of modular components that add specific behaviors:
 
 - **Components** extend from a base `Component` class
 - Each component handles a specific aspect of unit behavior (movement, health, selection, etc.)
@@ -60,7 +60,7 @@ Components (implement logic)
 Visual/Audio Updates
 ```
 
-Note that if one chooses, player input can be handled completely differently, for example when integrating with an existing player input system. All thats required is to send the required input data to Selection and AbilityManager to interpret the input.
+Note that if one chooses, player input can be handled completely differently, for example when integrating with an existing player input system. All that's required is to send the required input data to Selection and AbilityManager to interpret the input.
 
 ## Entity Structure
 

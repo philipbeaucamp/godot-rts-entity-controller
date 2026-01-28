@@ -8,8 +8,8 @@ The Selection System manages which units are currently selected and provides fee
 
 ### Single Unit Selection
 
-1. RTS_PhysicsSelection uses RTS_PickablePhysicsComponent to determin hovered entities
-2. Player clicks on a entity.
+1. RTS_PhysicsSelection uses RTS_PickablePhysicsComponent to determine hovered entities
+2. Player clicks on an entity.
 3. If the entity is hovered, RTS_Selection selects the entity
 4. Necessary events are emitted
 
@@ -18,7 +18,7 @@ Note that Selection keeps track of the RTS_Selectable component, not RTS_Entity 
 ### Multiple Unit Selection
 
 #### Shift+Click
-- Adds enitity to current selection
+- Adds entity to current selection
 - Previous units remain selected
 
 #### Box Select (Drag)
@@ -32,7 +32,7 @@ By defaults unit can not be deselected. Only when selecting another entity does 
 
 ## RTS_Selectable
 
-The `RTS_Selectable` component enables a unit to be selected. Use the `priority` integer to determin which entity has the highest priority, for example when selecting entities of different types. This might be useful for casting abilities, or displaying the entity UI of only the highest priority entity.
+The `RTS_Selectable` component enables a unit to be selected. Use the `priority` integer to determine which entity has the highest priority, for example when selecting entities of different types. This might be useful for casting abilities, or displaying the entity UI of only the highest priority entity.
 
 Populate RTS_Selectable's `pickable` (ideally as a child component) to make the entity pickable (selection via mouse click), populate the `boxable` component to make it selectable via click and drag.
 
@@ -44,7 +44,7 @@ Requires a collision_shape `CollisionShape3D` to determine the bounds for the bo
 
 ## RTS_PickablePhysicsComponent
 
-Requires a static_body `StaticBody3D` used for raycasting to determine wether a unit can be selected (when hovered)
+Requires a static_body `StaticBody3D` used for raycasting to determine whether a unit can be selected (when hovered)
 
 ## Selection Feedback
 

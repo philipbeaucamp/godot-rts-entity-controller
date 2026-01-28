@@ -54,8 +54,8 @@ New to the addon? Start here:
 ## Downloadable Content
 
 - **Godot Addon**: All scripts, basic unit templates, and essential assets are included free in the open source project on [Github](https://github.com/philipbeaucamp/godot-rts-entity-controller)
-- **Free Demo**: A free Executable demonstrating more advanced units and abilities can be found on [itcho.io](https://philipbeaucamp.itch.io/godot-rts-entity-controller)
-- **Example Project** (Paid): A example project containing more advanced units and abilities, as well as assets, can be found on  [itcho.io](https://philipbeaucamp.itch.io/godot-rts-entity-controller)
+- **Free Demo**: A free executable demonstrating more advanced units and abilities can be found on [itch.io](https://philipbeaucamp.itch.io/godot-rts-entity-controller)
+- **Example Project** (Paid): An example project containing more advanced units and abilities, as well as assets, can be found on [itch.io](https://philipbeaucamp.itch.io/godot-rts-entity-controller)
 
 ## Support
 

@@ -7,7 +7,7 @@ Godot RTS Entity Controller provides a modular set of Attack and Weapon logic th
 The main components needed to implement attack and damage dealing logic are:
 
 - **RTS_AttackComponent** : Holds the common, shared logic of tracking targets within scan/weapon range and manages state (IDLE, COOLDOWN, ATTACKING). 
-- **RTS_AnimationTreeComponent**: **Required** component by RTS_AttackComponent to handle animation and attack durations.
+- **RTS_AnimationTreeComponent**: **Required** component for RTS_AttackComponent to handle animation and attack durations.
 - **RTS_AttackVariant** (default implementation: RTS_DefaultAttackVariant) : Implements RTS_AttackComponent's states explicitly, i.e. how to behave (mainly movement) during each state.
 - **RTS_Weapon**: Holds weapon specific logic and data, such as cooldown duration, modifiers, damage dealing logic etc
 - **RTS_DamageDealer**: Used (not exclusively) by weapon to deal damage to a RTS_Defense
@@ -24,13 +24,13 @@ Entity (RTS_Entity)
 	└── Variant (RTS_AttackVariant)
 ```
 
-althought the amount of weapons, damage dealer and variants might vary. Lets look at each component in more detail and use the minimalistic ExampleUnit.tscn as an example.
+although the amount of weapons, damage dealer and variants might vary. Let's look at each component in more detail and use the minimalistic ExampleUnit.tscn as an example.
 
 ## Components
 
 ### RTS_AttackComponent
 
-The main component of the combat system. Whilst a single entity can hold and switch between multiple weapons or attack variants, there should only be on RTS_AttackComponent acting as the orchestrator for the system.
+The main component of the combat system. While a single entity can hold and switch between multiple weapons or attack variants, there should only be one RTS_AttackComponent acting as the orchestrator for the system.
 
 The component emits useful signals,
 
