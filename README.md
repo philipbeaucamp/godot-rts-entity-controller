@@ -1,6 +1,8 @@
 # Godot RTS Entity Controller
 
-A Godot addon containing building blocks for creating RTS games by providing entity (i.e. units, buildings etc) controlling logic, such as selecting, moving and attacking (other) entities.
+This addon is a comprehensive toolkit for creating RTS games in Godot, using a modular entity-component composition approach to select, move and attack other entities and provide the same basic functionalities as in games such as StarCraft 2 or Warcraft 3.
+
+Extend or add components to customize your units and provide additional behavior, or simply use the components as they are to jumpstart your RTS/RTT game development and learn about RTS implementations in Godot.
 
 Includes a sample unit and ready to play scene.
 
