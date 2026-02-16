@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Abilities System - Godot RTS Entity Controller Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Abilities System";
+        var mkdocs_page_input_path = "systems\\abilities.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Godot RTS Entity Controller Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../core-concepts/">Core Concepts</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Systems</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../player-input/">Player Input System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../entity/">Entity System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../selection/">Selection System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../movement/">Movement & Navigation</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Abilities System</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-an-ability">Creating an Ability</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#abilityresource">AbilityResource</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rts_ability">RTS_Ability</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ability-types">Ability Types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rts_abilitymanager">RTS_AbilityManager</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../combat/">Combat System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../autoloads/">Autoloads</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Components</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/selectable/">Selectable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/movable/">Movable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/health/">Health</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/defense/">Defense</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/attack/">Attack</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/visual/">Visual Component</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced/spatial-hashing/">Spatial Hashing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/best-practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Godot RTS Entity Controller Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Systems</li>
+      <li class="breadcrumb-item active">Abilities System</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="abilities-system">Abilities System</h1>
+<h2 id="overview">Overview</h2>
+<p>Abilities are special actions that units can perform, such as spells, skills, or special attacks. They support cooldowns, costs, effects, and animations.</p>
+<h2 id="creating-an-ability">Creating an Ability</h2>
+<p>Similar to <code>RTS_Entity</code>, in order to separate data from the execution logic, static data pertaining to an ability, such as its id, cooldown duration or action points is defined in the <code>AbilityResource</code> resource.</p>
+<h3 id="abilityresource">AbilityResource</h3>
+<p>Start by creating an ability resource:</p>
+<pre><code class="language-gdscript">class_name AbilityResource extends Resource
+
+@export var id: StringName #must be same as action input name
+
+@export var is_common: bool = false # if is_common, always executable if entity is selected
+@export var allow_trigger_multiple = false #can trigger multiple abilities with single button press
+@export var activate_as_group = false # calls activate_group once instead of activate individually for reach ability
+@export var cooldown_duration : float = 0.0 #cooldown in seconds
+@export var is_chainable: bool = true #if false, ability will immediately be activated, even when shift pressed
+@export var display: bool =  true #if false, ui will not display this icon (remove RTS_SImpleUI scene if unwanted)
+
+@export var display_ap: bool = true 
+@export var init_ap: int = 1
+@export var max_ap: int = 1
+@export var ap_cost: int = 1
+
+@export var icon_normal: Texture2D
+@export var icon_hover: Texture2D
+@export var icon_pressed: Texture2D
+
+@export var description: String #optional description for ability tooltip
+</code></pre>
+<p>A quick explanation of the above properties follows.</p>
+<ul>
+<li><strong>is_common</strong>: Used to differentiate between common abilities (such as moving, patrolling, stopping) and unit unique abilities (such as a special attack of a certain unit). In the default implementation, this will for instance determine whether the UI displays the ability in the bottom left (common), or bottom right (special) corner. If <code>use_highest_entity_for_ability_selection</code> in the rts_settings.tres is set to true, this will also result in non-common abilities of only the highest selected unit to be displayed. This is for instance the behaviour in the RTS Starcraft2, where (apart from certain standard abilities), only the unit in the selected units with the highest priority can cast its spells.</li>
+<li><strong>allow_trigger_multiple</strong>: If true, ALL selected entities with the same ability will activate their ability. If false, only one will do so.</li>
+<li><strong>activate_as_group</strong>: If true, <code>func activate_group(abilities: Array):</code> instead of <code>func activate():</code> on the ability will be called. Useful if special group behaviour is required, for instance for formation walking (see RTS_MoveAbility)</li>
+<li><strong>cooldown_duration</strong>: If positive, requires the time in seconds to elapse before ability can be cast again</li>
+<li><strong>is_chainable</strong>: If false, abilities are immediately activated. If true, the ability will only activate or cast when the next movement target is reach. Imagine a "Sniping ability" that will only start casting once you've reached the next movement point. (This requires you to have chain the ability by pressing Ctrl + <ABILITY_INPUT>)</li>
+<li><strong>display</strong>: If false, default UI does not display the action</li>
+<li><strong>display_ap</strong>: If false, default UI does not display action points.</li>
+<li><strong>init_ap</strong>: How many action points the entity initial has, for this ability.</li>
+<li><strong>max_ap</strong>: How many action points the entity can maximally have, for this ability.</li>
+<li><strong>ap_cost</strong>: How many action points it costs to activate this ability</li>
+<li><strong>description</strong>: Optional description of the ability, used by the default UI.</li>
+</ul>
+<p>Icon normal/hover/pressed are the textures displayed by the default UI in the left/right corner, when a ability is enabled/hovered/activated. If you're using a custom UI you can ignore these fields.</p>
+<h3 id="rts_ability">RTS_Ability</h3>
+<p>After creating the resource, you can inherit from <code>RTS_Ability</code> to implement your custom ability logic. For a simple reference, check out <code>RTS_MoveAbility</code> or <code>RTS_HoldAbility</code></p>
+<h2 id="ability-types">Ability Types</h2>
+<p>There are three basic Ability Component types, which you can extend, </p>
+<ul>
+<li><code>RTS_Ability</code>: Base class, providing functions such as <code>activate()</code>, <code>activate_group()</code>.</li>
+<li>
+<p><code>RTS_ClickAbility</code>: Inherting base class and adding functionality to <strong>cast</strong> abilities that require a target. Adds additional functionality, such as <code>is_valid_target()</code> or <code>can_cast()</code>. Note that activating this ability can potentially not immediately call <code>cast()</code>, for instance when the casting target is out of range. Additional casting properties, such as <code>auto_move_to_cast</code>, <code>cast_min_range</code> or <code>cast_max_range</code> can be set in the corresponding <code>ClickAbilityResource</code>. ClickAbilities can be cancelled by right clicking after activating them (before casting). To cast, left click the target.</p>
+</li>
+<li>
+<p><code>RTS_ToggleAbility</code>: Extending the base class by adding a toggle on/off state to the ability. </p>
+</li>
+</ul>
+<pre><code class="language-gdscript"># RTS_ToggleAbility
+enum State {
+    DEACTIVATED,
+    ACTIVATED
+}
+</code></pre>
+<h2 id="rts_abilitymanager">RTS_AbilityManager</h2>
+<p>The managing script that parses and interprets input (coming from PlayerInput), and activates the respective abilities on one or more entities, either separately or as group. 
+It handles complex behaviour such as chaining abilities (which adds a callback to activate certain abilities when the next move target is reached), and auto moving towards cast targets for <code>RTS_ClickAbility</code>.</p>
+<p>The default implementation of RTS_AbilityManager supports two "modes", depending on whether <code>use_highest_entity_for_ability_selection</code> in rts_settings.tres is enabled or not.</p>
+<p><strong>Standard</strong> (not enabled). Any ability of any selected entity (that doesn't have an active cooldown and enough AP) can be activated.</p>
+<p><strong>SC2-Style</strong> (activated). Only the <strong>special</strong> abilties of the "highest" selected entity (this is determined viat the <code>@export var priority: int</code> property on RTS_Selectable) can be activated. Common abilities (of all units) can always be activated.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../combat/">Combat System</a> - Damage and health</li>
+<li><a href="../../components/attack/">Attack System</a> - Basic attacks</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../movement/" class="btn btn-neutral float-left" title="Movement & Navigation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../combat/" class="btn btn-neutral float-right" title="Combat System">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../movement/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../combat/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Movable - Godot RTS Entity Controller Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Movable";
+        var mkdocs_page_input_path = "components\\movable.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Godot RTS Entity Controller Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../core-concepts/">Core Concepts</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Systems</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/player-input/">Player Input System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/entity/">Entity System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/selection/">Selection System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/movement/">Movement & Navigation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/abilities/">Abilities System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/autoloads/">Autoloads</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Components</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../selectable/">Selectable</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Movable</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#state-and-targets">State and Targets</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#controller-overrides">Controller overrides</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#events">Events</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../health/">Health</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../defense/">Defense</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../attack/">Attack</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../visual/">Visual Component</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced/spatial-hashing/">Spatial Hashing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/best-practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Godot RTS Entity Controller Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Components</li>
+      <li class="breadcrumb-item active">Movable</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="movable-component">Movable Component</h1>
+<p>The main logic of entity movement. It is modelled after common <a href="https://gdcvault.com/play/1018262/The-Next-Vector-Improvements-in">steering</a> and <a href="https://en.wikipedia.org/wiki/Boids">boid</a> logic and closely tuned to achieve a similar play and feel as Starcraft2.</p>
+<p>This is by far to most complex component and probably deserves a future refactor. For now, we will go over the different states and explain the exposed properties in more detail. </p>
+<h4 id="state-and-targets">State and Targets</h4>
+<p>RTS_Movable holds a list of <code>RTS_Target</code>, which describe the target position and meta data (for instance whether the target is another RTS_Entity itself, or if there are any callbacks to invoke when reaching a target etc).</p>
+<p>Most notably, each target is associated with a type </p>
+<pre><code class="language-gdscript">enum Type {
+    NULL = 0, #NULL only used for signal emitting since can't emit null variable and for null checks
+    PATROL = 1, #Patrol back and forth between multiple targets
+    MOVE = 2, 
+    ATTACK = 3, # Will move to attack a specific target, ignoring anything else.
+    MOVEATTACK = 4 #Moves towards target, but will auto attack enemy entities inbetween when possible.
+    } 
+</code></pre>
+<p>signifying the type of movement towards this target. The types should be self explanatory to anyone who has played another RTS such as Warcraft or Starcraft.</p>
+<p>At the same time, a RTS_Movable entity is always in one of the following states at a given time.</p>
+<pre><code class="language-gdscript">enum State {
+    IDLE = 0,
+     #if we don't need to follow targets, we don't need this state. This makes things much simpler.
+     #However, I'm keeping it in for now since it might be useful to readd &quot;entity following&quot; logic later
+    REACHED_SOURCE_TARGET = 1,
+    HOLD = 2,
+    PATROL = 3,
+    WALK = 4,
+    RETURN_TO_IDLE = 5, #Unit automatically returns to idle position
+    PUSHED = 6 # Unit is pushed by external forces
+    } # &lt;= 2 means unit is stationary, &gt; 2 is moving, &gt; 3 is moving without patrol
+</code></pre>
+<p>Types and States are not necessarily the same, as the state describes what current state the movable component is in, whereas the target type gives information on how the next target should be treated.</p>
+<h4 id="properties">Properties</h4>
+<pre><code class="language-gdscript">@export_group(&quot;General&quot;)
+@export var speed: float = 5
+@export var stop_distance : float = 0.25
+@export var pivot: Node3D #Node which gets rotated. Note: RTS_Entity node is never rotated to keep things simple
+@export var steering : Area3D
+</code></pre>
+<p>The steering area is used for local avoidance and separation. As can be seen in the ExampleUnit, it is a sphere shape with a fairly small radius around the units, slightly larger thant the entities collision shape itself, used to find immediate neighbors. These neighbors are used for "separation" and "avoidance" explained further below</p>
+<pre><code class="language-gdscript">@export_group(&quot;Components&quot;)
+@export var nav_agent: NavigationAgent3D
+</code></pre>
+<p>A NavigationAgent3D is required for the seeking component of the movement logic.</p>
+<pre><code class="language-gdscript">@export_group(&quot;Separation&quot;)
+@export var use_separation :bool = true 
+@export var separation_multiplier : float = 1.0
+@export_group(&quot;Avoidance&quot;)
+@export var use_avoidance :bool = true 
+@export var avoidance_multiplier : int = 10
+@export_group(&quot;Push&quot;)
+@export var allow_being_pushed : bool = true
+</code></pre>
+<p>Separation, avoidance and pushing behaviour is what sets RTS_Movable entities apart from Godots standard implementation of NavigationAgents.</p>
+<p><strong>Separation</strong> enabled: If two moving entities are about to walk into each other, they a force will be applied (in opposite directions) which separates the entities, allowing them to smoothly pass each other.</p>
+<p><strong>Avoidance</strong> enabled: Avoidance is used to avoid, or walk around, immovable objects or immovable entities. Entities can be immovable, even when having a RTS_Movable component themselves, for example when the ability "RTS_HoldAbility" is activated. This default behaviour is implemented here,</p>
+<pre><code class="language-gdscript">func is_externally_immovable(_movable: RTS_Movable) -&gt; bool:
+    return sm.current_state == State.HOLD
+</code></pre>
+<p>and can often be overriden by other scripts, using the <code>active_controller</code> override.
+To test avoidance behaviour, try "holding" an entity (making it immovable) and then walk into it with another entity.</p>
+<p><strong>Allow Being Pushed</strong> enabled: There are numerous occasions when entities want to push each other (this does not count as separation). For instance an <strong>Idling</strong> entity (meaning the movement state is IDLE) will always be pushed away from a moving entity that is walking and colliding with it. Enabling this will make it easy and smooth to walk through your own entities. Certain abilities could also make use of this and push other entities out of the way.</p>
+<h4 id="controller-overrides">Controller overrides</h4>
+<p>Movement being the most complex logic in RTS, there are many times when you want to override the behaviour temporarily, for instance because you enable a certain ability. To accomodate this, RTS_Movable holds a list of controllers,</p>
+<pre><code class="language-gdscript">#A list of (priority, controller) tuples that can overwrite this scripts physics process
+var active_controller: Object #Either this or a class that overrides movement, i.e. RTS_AttackVariant
+var controller_overrides: Array = []
+</code></pre>
+<p>of which only the highest priority controller is considered active and determins the exact movement logic.</p>
+<pre><code class="language-gdscript"># RTS_Movable:
+
+func add_controller_override(controller: Object, priority: int) -&gt; void:
+    controller_overrides.append({ &quot;priority&quot;: priority, &quot;controller&quot;: controller })
+    controller_overrides.sort_custom(func(a, b): return b[&quot;priority&quot;] - a[&quot;priority&quot;])
+    active_controller = controller_overrides[0].controller
+
+func remove_controller_override(controller: Object) -&gt; void:
+    controller_overrides = controller_overrides.filter(func(entry): return entry[&quot;controller&quot;] != controller)
+    controller_overrides.sort_custom(func(a, b): return b[&quot;priority&quot;] - a[&quot;priority&quot;])
+    if controller_overrides.is_empty():
+        active_controller = null
+    else:
+        active_controller = controller_overrides[0].controller
+</code></pre>
+<p>For instance, the most common use is <code>RTS_DefaultAttackVariant</code>, which automatically overrides the default implementation of <code>RTS_Movable</code> when it is active:</p>
+<pre><code class="language-gdscript"># RTS_DefaultAttackVariant:
+
+func set_component_active():
+    super.set_component_active()
+    if entity.movable != null:
+        entity.movable.add_controller_override(self,1)
+
+func set_component_inactive():
+    super.set_component_inactive()
+    if entity.movable != null:
+        entity.movable.remove_controller_override(self)
+</code></pre>
+<p>Such a controller has to implement exactly two functions:</p>
+<p><code>func physics_process_override_movable(delta: float, movable: RTS_Movable)</code>
+and</p>
+<p><code>func is_externally_immovable(movable: RTS_Movable) -&gt; bool:</code></p>
+<p>of which we have already discussed the latter further above. This way, <code>RTS_DefaultAttackVariant</code> can implement (override) its own custom movement logic, which is needed because we might not won't to continue to move when we are attacking.</p>
+<p>Note all the complex boid behaviours and state transitions are taken care of in <code>RTS_Movable</code>. Therefore the overriding controller doesn't have to implement custom movement logic itself, rather, it can run extra condition checks and determin which functions in the <code>RTS_Movable</code> should be execute. In most cases these controller still call</p>
+<pre><code class="language-gdscript">movable.sm.updatev([delta])
+</code></pre>
+<p>at some point, which runs the default movement logic in <code>RTS_Movable</code>. To clarify this point, imagine you only want the default movement logic to happen when the current time in seconds in divisible by two. You could add a controller, which checks the time modulo 2, and only calls <code>updatev([delta])</code> when this condition is true.</p>
+<h2 id="events">Events</h2>
+<pre><code class="language-gdscript">signal after_targets_added(movable: RTS_Movable, targets: Array[RTS_Target])
+signal next_target_changed(movable: RTS_Movable) #onyl called for acute target change
+signal before_all_targets_cleared(movable: RTS_Movable)
+signal all_targets_cleared(movable: RTS_Movable)
+signal next_target_just_reached(movable: RTS_Movable, target: RTS_Target) # called just before removal of index
+signal final_target_reached(movable: RTS_Movable)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../selectable/" class="btn btn-neutral float-left" title="Selectable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../health/" class="btn btn-neutral float-right" title="Health">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../selectable/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../health/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

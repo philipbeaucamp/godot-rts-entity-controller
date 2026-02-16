@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Spatial Hashing - Godot RTS Entity Controller Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Spatial Hashing";
+        var mkdocs_page_input_path = "advanced\\spatial-hashing.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Godot RTS Entity Controller Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../core-concepts/">Core Concepts</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Systems</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/player-input/">Player Input System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/entity/">Entity System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/selection/">Selection System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/movement/">Movement & Navigation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/abilities/">Abilities System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/combat/">Combat System</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../systems/autoloads/">Autoloads</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Components</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/selectable/">Selectable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/movable/">Movable</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/health/">Health</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/defense/">Defense</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/attack/">Attack</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../components/visual/">Visual Component</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Spatial Hashing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#benefits">Benefits</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#basic-implementation">Basic Implementation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rts_spatialhasharea-component">RTS_SpatialHashArea Component</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#properties">Properties</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#static-main-grid">Static Main Grid</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#common-methods">Common Methods</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#faction-filtering">Faction Filtering</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#cell-size-tuning">Cell Size Tuning</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#example-usage">Example Usage</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#manual-updates">Manual Updates</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#visual-debugging">Visual Debugging</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/best-practices/">Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Godot RTS Entity Controller Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Advanced</li>
+      <li class="breadcrumb-item active">Spatial Hashing</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="spatial-hashing">Spatial Hashing</h1>
+<p>Godots native collisios checks are usually very fast and well integrated. Therefore this tool uses Area3D and CharacterBody4D's built in collision checks and events on many occasions.</p>
+<p>However, for more flexibility and in order to perform custom qeueries, a spatial hashing system implemented in gdscript is provided.</p>
+<p>A good example to check its use is <code>RTS_DamageDealerAoE</code> which uses </p>
+<pre><code class="language-gdscript">RTS_SpatialHashArea.main_grid.find_entities(...)
+</code></pre>
+<p>to find nearby entities.</p>
+<h2 id="overview">Overview</h2>
+<p>Apart from <code>RTS_SpatialHashArea</code>, the remaining spatial hash scripts (RTS_HashClient, RTS_SpatialHashFast, RTS_SpatialHashUtils, RTS_HashNode) can be used as an independent library, as they are self containing.</p>
+<p>Spatial hashing divides the map into a grid for faster spatial queries.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li><strong>Fast spatial queries</strong> - O(1) instead of O(n)</li>
+<li><strong>Better performance</strong> - Especially with many units</li>
+<li><strong>Efficient updates</strong> - Only rebuild affected cells</li>
+<li><strong>Scalable</strong> - Works with large maps and unit counts</li>
+</ul>
+<h2 id="basic-implementation">Basic Implementation</h2>
+<p>While the internal spatial hashing algorithms are complex, the <code>RTS_SpatialHashArea</code> component provides a simple interface for querying entities efficiently.</p>
+<h3 id="rts_spatialhasharea-component">RTS_SpatialHashArea Component</h3>
+<p><code>RTS_SpatialHashArea</code> is an <code>Area3D</code> that automatically manages a spatial hash grid for fast entity lookups.</p>
+<h4 id="setup">Setup</h4>
+<p>Create a scene with an <code>RTS_SpatialHashArea</code> node and a <code>CollisionShape3D</code> child:</p>
+<pre><code>Level (Node3D)
+├── RTS_SpatialHashArea (Area3D)
+│   └── CollisionShape3D (BoxShape3D)
+└── Units...
+</code></pre>
+<h4 id="properties">Properties</h4>
+<pre><code class="language-gdscript">@export var id: String = &quot;1&quot;  # Unique identifier for the grid
+@export var INIT_CELL_SIZE = 1.0  # Size of each grid cell (larger = fewer cells)
+@export var visual_debug: bool = false  # Visualize grid (requires DebugDraw3D addon)
+@export var auto_update_clients: bool = false  # Auto-update entity positions each frame
+</code></pre>
+<h4 id="how-it-works">How It Works</h4>
+<ol>
+<li><strong>Automatic Registration</strong> - When an <code>RTS_Entity</code> with <code>space_hash = true</code> enters the scene, it's automatically added to the grid</li>
+<li><strong>Grid Cells</strong> - The collision shape defines the grid bounds; cell size determines query speed vs accuracy</li>
+<li><strong>Position Tracking</strong> - Entity positions update in the grid (manually or automatically)</li>
+<li><strong>Fast Queries</strong> - Find entities by position/radius in O(1) time instead of O(n)</li>
+</ol>
+<h4 id="static-main-grid">Static Main Grid</h4>
+<p>The last <code>RTS_SpatialHashArea</code> running in the scene becomes the main grid:</p>
+<pre><code class="language-gdscript"># (in _ready)
+#set main_grid
+main_grid = self
+</code></pre>
+<pre><code class="language-gdscript"># Access globally
+var nearby = RTS_SpatialHashArea.main_grid.find_entities(position, radius, exact=false)
+</code></pre>
+<p>Overwrite this functionality if you want to assign main_grid in a different fashion. It is important that this main_grid is set, as most queries will use the main_grid to query by default. Ofcourse it is possible use multiple SpatialHashAreas and query them independently as well.</p>
+<h4 id="common-methods">Common Methods</h4>
+<p>Query entities by position:</p>
+<pre><code class="language-gdscript"># Find by radius
+var entities = spatial_hash.find_entities(position, radius, exact=false)
+
+# Find by bounds (Vector2 x/z size)
+var entities = spatial_hash.find_entities_bounds(position, bounds, exact=false)
+
+# Find by AABB (3D bounding box)
+var entities = spatial_hash.find_entities_using_aabb(aabb, exact=true)
+
+# exact=true: Precise distance checks
+# exact=false: Faster, grid-based checks
+</code></pre>
+<h4 id="faction-filtering">Faction Filtering</h4>
+<p>Find only enemies or allies:</p>
+<pre><code class="language-gdscript"># Group parameter: -1 = all, 0 = PLAYER faction, 1 = ENEMY faction, 2 = NEUTRAL
+var enemies = spatial_hash.find_entities(position, radius, exact=false, group=1)
+</code></pre>
+<h4 id="cell-size-tuning">Cell Size Tuning</h4>
+<p><strong>Larger cells</strong> = Fewer cells to check, but more false positives</p>
+<pre><code class="language-gdscript">INIT_CELL_SIZE = 5.0  # Each cell is 5x5 units
+</code></pre>
+<p><strong>Smaller cells</strong> = More accurate but slower</p>
+<pre><code class="language-gdscript">INIT_CELL_SIZE = 1.0  # Each cell is 1x1 units
+</code></pre>
+<p><strong>Rule of thumb</strong>: Set cell size roughly equal to average entity search radius</p>
+<h4 id="example-usage">Example Usage</h4>
+<pre><code class="language-gdscript"># Find nearby enemies to attack
+func find_targets(attack_range: float) -&gt; Array[RTS_Entity]:
+    var nearby = RTS_SpatialHashArea.main_grid.find_entities(
+        global_position,
+        attack_range,
+        exact=false,
+        group=RTS_Entity.Faction.ENEMY
+    )
+    return nearby
+
+# Check if area is clear of enemies
+func is_area_clear(center: Vector3, radius: float) -&gt; bool:
+    var enemies = RTS_SpatialHashArea.main_grid.find_entities(
+        center,
+        radius,
+        exact=true,
+        group=RTS_Entity.Faction.ENEMY
+    )
+    return enemies.is_empty()
+</code></pre>
+<h4 id="manual-updates">Manual Updates</h4>
+<p>If <code>auto_update_clients = false</code>, manually update positions:</p>
+<pre><code class="language-gdscript"># Call when entities move significantly
+RTS_SpatialHashArea.main_grid.update_clients()
+</code></pre>
+<p>If false, make sure to call this before doing any queries.</p>
+<h4 id="visual-debugging">Visual Debugging</h4>
+<p>Consider adding the DebugDraw3D addon to debug the grid.
+This draws grid cells and entity positions for troubleshooting.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../../reference/best-practices/">Best Practices</a> - Performance tips</li>
+<li><a href="../../core-concepts/">Core Concepts</a> - System architecture</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../components/visual/" class="btn btn-neutral float-left" title="Visual Component"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../reference/best-practices/" class="btn btn-neutral float-right" title="Best Practices">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../components/visual/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../reference/best-practices/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
