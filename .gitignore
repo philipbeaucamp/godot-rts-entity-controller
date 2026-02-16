@@ -20,4 +20,4 @@ mono_crash.*.json
 *.import
 
 #exclude built mkdocs
-site/
+addons/godot-rts-entity-controller/site/
