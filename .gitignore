@@ -1,0 +1,23 @@
+# Godot 4+ specific ignores
+.godot/
+.nomedia
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_credentials.cfg
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# Since this is an addon, we don't want to track import settings
+# (they should be tracked in the main project that uses the addon)
+*.import
+
+#exclude built mkdocs
+site/
